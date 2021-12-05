@@ -4,12 +4,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Marketplace.Models;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<MarketplaceContext>(options =>
-	options.UseSqlServer(ConfigurationExtensions.GetConnectionString(builder.Configuration, "DefaultConnection")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
 		opts.Password.RequireNonAlphanumeric = false;
@@ -44,7 +45,8 @@ builder.Services.AddAuthorization(options => {
 		.Build();
 });
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+	.AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
 var app = builder.Build();
 
