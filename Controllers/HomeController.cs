@@ -1,16 +1,19 @@
-﻿using Marketplace.Models;
+﻿using System.Diagnostics;
+using Marketplace.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Marketplace.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private UserManager<User> userManager;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
 		{
 			_logger = logger;
+			this.userManager = userManager;
 		}
 
 		public IActionResult Index()
@@ -18,8 +21,18 @@ namespace Marketplace.Controllers
 			return View();
 		}
 
-		public IActionResult Privacy()
+		public async Task<IActionResult> Privacy()
 		{
+			await userManager.CreateAsync(
+				new User() {
+					UserName = "a@a",
+					Email = "a@a",
+					PhoneNumber = "555555",
+					Name = "max",
+					Created = DateTime.UtcNow
+				},
+				"123456"
+			);
 			return View();
 		}
 

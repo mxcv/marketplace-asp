@@ -10,5 +10,7 @@ namespace Marketplace.Models
 		{
 			Database.EnsureCreated();
 		}
+
+		public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 	}
 }

@@ -1,10 +1,9 @@
+using Marketplace.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Marketplace.Models;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +12,11 @@ builder.Services.AddDbContext<MarketplaceContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
-		opts.Password.RequireNonAlphanumeric = false;
-		opts.Password.RequireLowercase = false;
-		opts.Password.RequireUppercase = false;
-		opts.Password.RequireDigit = false;
-	})
+	opts.Password.RequireNonAlphanumeric = false;
+	opts.Password.RequireLowercase = false;
+	opts.Password.RequireUppercase = false;
+	opts.Password.RequireDigit = false;
+})
 	.AddEntityFrameworkStores<MarketplaceContext>();
 
 var jwtConfigSection = builder.Configuration.GetSection(nameof(JwtConfiguration));
@@ -35,7 +34,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			ValidateIssuerSigningKey = true,
 			ValidIssuer = jwtConfig.Issuer,
 			ValidAudience = jwtConfig.Audience,
-			IssuerSigningKey = jwtConfig.GetSymmetricSecurityKey(),
+			IssuerSigningKey = jwtConfig.SymmetricSecurityKey,
 			ClockSkew = TimeSpan.Zero
 		};
 	});
@@ -45,8 +44,8 @@ builder.Services.AddAuthorization(options => {
 		.Build();
 });
 
-builder.Services.AddControllersWithViews()
-	.AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
+builder.Services.AddControllersWithViews();
+//.AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
 var app = builder.Build();
 

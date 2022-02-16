@@ -5,5 +5,8 @@ namespace Marketplace.Models
 	public class User : IdentityUser<int>
 	{
 		public string? Name { get; set; }
+		public DateTime Created { get; set; }
+
+		public virtual RefreshToken? RefreshToken { get; set; }
 	}
 }

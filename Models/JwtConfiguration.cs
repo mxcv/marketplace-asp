@@ -7,16 +7,20 @@ namespace Marketplace.Models
 	{
 		public string? Issuer { get; set; }
 		public string? Audience { get; set; }
-		public string? Lifetime { get; set; }
+		public string? AccessLifetime { get; set; }
+		public string? RefreshLifetime { get; set; }
 		public string? Key { get; set; }
 
-		public SymmetricSecurityKey GetSymmetricSecurityKey()
+		public TimeSpan AccessTimeSpan =>
+			LifetimeToTimeSpan(AccessLifetime ?? throw new NullReferenceException());
+		public TimeSpan RefreshTimeSpan =>
+			LifetimeToTimeSpan(RefreshLifetime ?? throw new NullReferenceException());
+		public SymmetricSecurityKey SymmetricSecurityKey =>
+			new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key ?? throw new NullReferenceException()));
+
+		private TimeSpan LifetimeToTimeSpan(string lifetime)
 		{
-			return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Key ?? throw new NullReferenceException()));
-		}
-		public TimeSpan GetTimeSpanLifetime()
-		{
-			return TimeSpan.FromMinutes(double.Parse(Lifetime ?? throw new NullReferenceException()));
+			return TimeSpan.FromSeconds(double.Parse(lifetime));
 		}
 	}
 }
