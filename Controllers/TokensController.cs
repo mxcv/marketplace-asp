@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using Marketplace.Models;
+using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,9 +26,9 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Access(UserLoginInfo userLoginInfo)
+		public async Task<IActionResult> Access(UserLoginModel userLogin)
 		{
-			var identity = await GetIdentity(userLoginInfo.Email, userLoginInfo.Password);
+			var identity = await GetIdentity(userLogin.Email, userLogin.Password);
 			if (identity == null)
 				return BadRequest();
 
@@ -36,7 +37,7 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Refresh(AccessRefreshJwt jwt)
+		public async Task<IActionResult> Refresh(JwtModel jwt)
 		{
 			var principal = GetPrincipalFromExpiredToken(jwt.AccessToken);
 			if (principal == null || principal.Identity == null)
@@ -52,13 +53,13 @@ namespace Marketplace.Controllers
 			return Ok(await Refresh(user, principal.Claims));
 		}
 
-		private async Task<AccessRefreshJwt> Refresh(User user, IEnumerable<Claim> claims)
+		private async Task<JwtModel> Refresh(User user, IEnumerable<Claim> claims)
 		{
 			var oldRefreshToken = db.RefreshTokens.Where(x => x.UserId == user.Id).FirstOrDefault();
 			if (oldRefreshToken != null)
 				db.RefreshTokens.Remove(oldRefreshToken);
 
-			var jwt = new AccessRefreshJwt {
+			var jwt = new JwtModel {
 				AccessToken = GenerateAccessToken(claims),
 				RefreshToken = GenerateRefreshToken()
 			};

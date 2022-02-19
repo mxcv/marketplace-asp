@@ -1,4 +1,5 @@
 ﻿using Marketplace.Models;
+using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,7 @@ namespace Marketplace.Controllers
 		public async Task<IActionResult> Get()
 		{
 			User user = await userManager.GetUserAsync(User);
-			return Ok(new UserViewModel() {
+			return Ok(new UserModel() {
 				Email = user.Email,
 				PhoneNumber = user.PhoneNumber,
 				Name = user.Name
@@ -29,7 +30,7 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPut]
-		public async Task<IActionResult> Put(UserViewModel user)
+		public async Task<IActionResult> Put(UserModel user)
 		{
 			var result = await userManager.CreateAsync(
 				new User() {
