@@ -19,7 +19,7 @@ namespace Marketplace.Controllers
 		}
 
 		[Authorize]
-		[HttpGet("my")]
+		[HttpPost("my")]
 		public async Task<IActionResult> Get(PageInputModel pageInputModel)
 		{
 			int userId = GetUserId();
@@ -79,7 +79,7 @@ namespace Marketplace.Controllers
 			int userId = GetUserId();
 			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
 			if (item == null || item.UserId != userId)
-				return NotFound();
+				return BadRequest();
 
 			db.Items.Remove(item);
 			await db.SaveChangesAsync();

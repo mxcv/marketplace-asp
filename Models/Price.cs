@@ -8,7 +8,7 @@ namespace Marketplace.Models
 		public int? CurrencyId { get; set; }
 		public int ItemId { get; set; }
 
-		[Column(TypeName = "DECIMAL(18,2)")]
+		[Column(TypeName = "DECIMAL(11,2)")]
 		public decimal Value { get; set; }
 
 		public virtual Currency? Currency { get; set; } = null!;
