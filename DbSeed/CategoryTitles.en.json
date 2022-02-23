@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1,
+		"categoryId": 1,
+		"languageId": 1,
+		"value": "Child's world"
+	},
+	{
+		"id": 2,
+		"categoryId": 2,
+		"languageId": 1,
+		"value": "Real estate"
+	},
+	{
+		"id": 3,
+		"categoryId": 3,
+		"languageId": 1,
+		"value": "Auto"
+	},
+	{
+		"id": 4,
+		"categoryId": 4,
+		"languageId": 1,
+		"value": "Work"
+	},
+	{
+		"id": 5,
+		"categoryId": 5,
+		"languageId": 1,
+		"value": "Animals"
+	},
+	{
+		"id": 6,
+		"categoryId": 6,
+		"languageId": 1,
+		"value": "House and garden"
+	},
+	{
+		"id": 7,
+		"categoryId": 7,
+		"languageId": 1,
+		"value": "Electronics"
+	},
+	{
+		"id": 8,
+		"categoryId": 8,
+		"languageId": 1,
+		"value": "Business and Services"
+	},
+	{
+		"id": 9,
+		"categoryId": 9,
+		"languageId": 1,
+		"value": "Fashion & Style"
+	},
+	{
+		"id": 10,
+		"categoryId": 10,
+		"languageId": 1,
+		"value": "Hobbies, recreation and sports"
+	}
+]

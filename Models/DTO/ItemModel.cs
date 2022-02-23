@@ -20,6 +20,8 @@ namespace Marketplace.Models.DTO
 
 		public CurrencyModel? Currency { get; set; }
 
+		public CategoryModel? Category { get; set; }
+
 		public UserModel? User { get; set; }
 	}
 }

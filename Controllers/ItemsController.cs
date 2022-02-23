@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Globalization;
+using System.Security.Claims;
 using Marketplace.Models;
 using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -22,11 +23,22 @@ namespace Marketplace.Controllers
 		[HttpPost("my")]
 		public async Task<IActionResult> Get(PageInputModel pageInputModel)
 		{
+			int? languageId = (await db.Languages
+				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
+				.FirstOrDefaultAsync()
+				)?.Id;
+			if (languageId == null)
+				languageId = 1;
+
 			int userId = GetUserId();
+
 			var items = db.Items
 				.Where(x => x.UserId == userId)
+				.Include(x => x.Category)
+					.ThenInclude(x => x == null ? null : x.Titles)
 				.Include(x => x.Price)
-				.ThenInclude(x => x == null ? null : x.Currency);
+					.ThenInclude(x => x == null ? null : x.Currency);
+
 			int leftCount = await items.CountAsync() - pageInputModel.SkipCount - pageInputModel.TakeCount;
 			if (leftCount < 0)
 				leftCount = 0;
@@ -38,11 +50,15 @@ namespace Marketplace.Controllers
 						Title = x.Title,
 						Description = x.Description,
 						Created = x.Created,
+						Category = x.Category == null ? null : new CategoryModel() {
+							Id = x.Category.Id,
+							Title = x.Category.Titles.Where(x => x.LanguageId == languageId).First().Value
+						},
 						Price = x.Price == null ? null : x.Price.Value,
 						Currency = x.Price == null || x.Price.Currency == null ? null
 							: new CurrencyModel() {
 								Id = x.Price.Currency.Id,
-								CountryCode = x.Price.Currency.CountryCode
+								LanguageTag = x.Price.Currency.LanguageTag
 							}
 					})
 					.Skip(pageInputModel.SkipCount)
@@ -61,6 +77,7 @@ namespace Marketplace.Controllers
 				Description = itemModel.Description,
 				Created = DateTime.UtcNow,
 				UserId = GetUserId(),
+				CategoryId = itemModel.Category?.Id,
 				Price = itemModel.Price == null ? null : new Price() {
 					Value = itemModel.Price.Value,
 					CurrencyId = itemModel.Price.Value == 0 || itemModel.Currency == null

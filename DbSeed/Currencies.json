@@ -1,0 +1,14 @@
+[
+	{
+		"id": 1,
+		"languageTag": "en-US"
+	},
+	{
+		"id": 2,
+		"languageTag": "de-DE"
+	},
+	{
+		"id": 3,
+		"languageTag": "uk-UA"
+	}
+]

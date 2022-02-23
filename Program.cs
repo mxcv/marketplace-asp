@@ -1,7 +1,9 @@
+using System.Globalization;
 using Marketplace.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<MarketplaceContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DebugConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
 	opts.Password.RequireNonAlphanumeric = false;
@@ -56,6 +58,16 @@ if (!app.Environment.IsDevelopment())
 	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 	app.UseHsts();
 }
+
+var supportedCultures = new[] {
+	new CultureInfo("en"),
+	new CultureInfo("ru")
+};
+app.UseRequestLocalization(new RequestLocalizationOptions {
+	DefaultRequestCulture = new RequestCulture("en", "en"),
+	SupportedCultures = supportedCultures,
+	SupportedUICultures = supportedCultures
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

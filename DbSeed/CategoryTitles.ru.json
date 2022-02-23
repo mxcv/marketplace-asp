@@ -1,0 +1,62 @@
+﻿[
+	{
+		"id": 11,
+		"categoryId": 1,
+		"languageId": 2,
+		"value": "Детский мир"
+	},
+	{
+		"id": 12,
+		"categoryId": 2,
+		"languageId": 2,
+		"value": "Недвижимость"
+	},
+	{
+		"id": 13,
+		"categoryId": 3,
+		"languageId": 2,
+		"value": "Авто"
+	},
+	{
+		"id": 14,
+		"categoryId": 4,
+		"languageId": 2,
+		"value": "Работа"
+	},
+	{
+		"id": 15,
+		"categoryId": 5,
+		"languageId": 2,
+		"value": "Животные"
+	},
+	{
+		"id": 16,
+		"categoryId": 6,
+		"languageId": 2,
+		"value": "Дом и сад"
+	},
+	{
+		"id": 17,
+		"categoryId": 7,
+		"languageId": 2,
+		"value": "Электроника"
+	},
+	{
+		"id": 18,
+		"categoryId": 8,
+		"languageId": 2,
+		"value": "Бизнес и услуги"
+	},
+	{
+		"id": 19,
+		"categoryId": 9,
+		"languageId": 2,
+		"value": "Мода и стиль"
+	},
+	{
+		"id": 20,
+		"categoryId": 10,
+		"languageId": 2,
+		"value": "Хобби, отдых и спорт"
+	}
+]

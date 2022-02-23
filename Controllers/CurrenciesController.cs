@@ -22,7 +22,7 @@ namespace Marketplace.Controllers
 			return Ok(await db.Currencies
 				.Select(x => new CurrencyModel() {
 					Id = x.Id,
-					CountryCode = x.CountryCode
+					LanguageTag = x.LanguageTag
 				})
 				.OrderBy(x => x.Id)
 				.ToListAsync()
