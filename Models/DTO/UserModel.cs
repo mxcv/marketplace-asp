@@ -13,5 +13,7 @@ namespace Marketplace.Models.DTO
 		public string? PhoneNumber { get; set; }
 
 		public string? Name { get; set; }
+
+		public CityModel? City { get; set; }
 	}
 }

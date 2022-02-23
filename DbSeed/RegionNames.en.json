@@ -1,0 +1,152 @@
+[
+	{
+		"id": 1,
+		"regionId": 1,
+		"languageId": 1,
+		"value": "Autonomous Republic of Crimea"
+	},
+	{
+		"id": 2,
+		"regionId": 2,
+		"languageId": 1,
+		"value": "Vinnytsia region"
+	},
+	{
+		"id": 3,
+		"regionId": 3,
+		"languageId": 1,
+		"value": "Volyn region"
+	},
+	{
+		"id": 4,
+		"regionId": 4,
+		"languageId": 1,
+		"value": "Dnepropetrovsk region"
+	},
+	{
+		"id": 5,
+		"regionId": 5,
+		"languageId": 1,
+		"value": "Donetsk region"
+	},
+	{
+		"id": 6,
+		"regionId": 6,
+		"languageId": 1,
+		"value": "Zhytomyr region"
+	},
+	{
+		"id": 7,
+		"regionId": 7,
+		"languageId": 1,
+		"value": "Transcarpathian region"
+	},
+	{
+		"id": 8,
+		"regionId": 8,
+		"languageId": 1,
+		"value": "Zaporozhye region"
+	},
+	{
+		"id": 9,
+		"regionId": 9,
+		"languageId": 1,
+		"value": "Ivano-Frankivsk region"
+	},
+	{
+		"id": 10,
+		"regionId": 10,
+		"languageId": 1,
+		"value": "Kiev region"
+	},
+	{
+		"id": 11,
+		"regionId": 11,
+		"languageId": 1,
+		"value": "Kirovograd region"
+	},
+	{
+		"id": 12,
+		"regionId": 12,
+		"languageId": 1,
+		"value": "Luhansk region"
+	},
+	{
+		"id": 13,
+		"regionId": 13,
+		"languageId": 1,
+		"value": "Lviv region"
+	},
+	{
+		"id": 14,
+		"regionId": 14,
+		"languageId": 1,
+		"value": "Mykolaiv region"
+	},
+	{
+		"id": 15,
+		"regionId": 15,
+		"languageId": 1,
+		"value": "Odessa region"
+	},
+	{
+		"id": 16,
+		"regionId": 16,
+		"languageId": 1,
+		"value": "Poltava region"
+	},
+	{
+		"id": 17,
+		"regionId": 17,
+		"languageId": 1,
+		"value": "Rivne region"
+	},
+	{
+		"id": 18,
+		"regionId": 18,
+		"languageId": 1,
+		"value": "Sumy region"
+	},
+	{
+		"id": 19,
+		"regionId": 19,
+		"languageId": 1,
+		"value": "Ternopil region"
+	},
+	{
+		"id": 20,
+		"regionId": 20,
+		"languageId": 1,
+		"value": "Kharkiv region"
+	},
+	{
+		"id": 21,
+		"regionId": 21,
+		"languageId": 1,
+		"value": "Kherson region"
+	},
+	{
+		"id": 22,
+		"regionId": 22,
+		"languageId": 1,
+		"value": "Khmelnitsky region"
+	},
+	{
+		"id": 23,
+		"regionId": 23,
+		"languageId": 1,
+		"value": "Cherkasy region"
+	},
+	{
+		"id": 24,
+		"regionId": 24,
+		"languageId": 1,
+		"value": "Chernihiv region"
+	},
+	{
+		"id": 25,
+		"regionId": 25,
+		"languageId": 1,
+		"value": "Chernivtsi region"
+	}
+]

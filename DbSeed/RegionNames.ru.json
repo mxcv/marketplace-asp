@@ -1,0 +1,152 @@
+﻿[
+	{
+		"id": 26,
+		"regionId": 1,
+		"languageId": 2,
+		"value": "Автономная Республика Крым"
+	},
+	{
+		"id": 27,
+		"regionId": 2,
+		"languageId": 2,
+		"value": "Винницкая область"
+	},
+	{
+		"id": 28,
+		"regionId": 3,
+		"languageId": 2,
+		"value": "Волынская область"
+	},
+	{
+		"id": 29,
+		"regionId": 4,
+		"languageId": 2,
+		"value": "Днепропетровская область"
+	},
+	{
+		"id": 30,
+		"regionId": 5,
+		"languageId": 2,
+		"value": "Донецкая область"
+	},
+	{
+		"id": 31,
+		"regionId": 6,
+		"languageId": 2,
+		"value": "Житомирская область"
+	},
+	{
+		"id": 32,
+		"regionId": 7,
+		"languageId": 2,
+		"value": "Закарпатская область"
+	},
+	{
+		"id": 33,
+		"regionId": 8,
+		"languageId": 2,
+		"value": "Запорожская область"
+	},
+	{
+		"id": 34,
+		"regionId": 9,
+		"languageId": 2,
+		"value": "Ивано-Франковская область"
+	},
+	{
+		"id": 35,
+		"regionId": 10,
+		"languageId": 2,
+		"value": "Киевская область"
+	},
+	{
+		"id": 36,
+		"regionId": 11,
+		"languageId": 2,
+		"value": "Кировоградская область"
+	},
+	{
+		"id": 37,
+		"regionId": 12,
+		"languageId": 2,
+		"value": "Луганская область"
+	},
+	{
+		"id": 38,
+		"regionId": 13,
+		"languageId": 2,
+		"value": "Львовская область"
+	},
+	{
+		"id": 39,
+		"regionId": 14,
+		"languageId": 2,
+		"value": "Николаевская область"
+	},
+	{
+		"id": 40,
+		"regionId": 15,
+		"languageId": 2,
+		"value": "Одесская область"
+	},
+	{
+		"id": 41,
+		"regionId": 16,
+		"languageId": 2,
+		"value": "Полтавская область"
+	},
+	{
+		"id": 42,
+		"regionId": 17,
+		"languageId": 2,
+		"value": "Ровненская область"
+	},
+	{
+		"id": 43,
+		"regionId": 18,
+		"languageId": 2,
+		"value": "Сумская область"
+	},
+	{
+		"id": 44,
+		"regionId": 19,
+		"languageId": 2,
+		"value": "Тернопольская область"
+	},
+	{
+		"id": 45,
+		"regionId": 20,
+		"languageId": 2,
+		"value": "Харьковская область"
+	},
+	{
+		"id": 46,
+		"regionId": 21,
+		"languageId": 2,
+		"value": "Херсонская область"
+	},
+	{
+		"id": 47,
+		"regionId": 22,
+		"languageId": 2,
+		"value": "Хмельницкая область"
+	},
+	{
+		"id": 48,
+		"regionId": 23,
+		"languageId": 2,
+		"value": "Черкасская область"
+	},
+	{
+		"id": 49,
+		"regionId": 24,
+		"languageId": 2,
+		"value": "Черниговская область"
+	},
+	{
+		"id": 50,
+		"regionId": 25,
+		"languageId": 2,
+		"value": "Черновицкая область"
+	}
+]

@@ -1,0 +1,2762 @@
+﻿[
+	{
+		"id": 461,
+		"cityId": 1,
+		"languageId": 2,
+		"value": "Авдеевка"
+	},
+	{
+		"id": 462,
+		"cityId": 2,
+		"languageId": 2,
+		"value": "Александрия"
+	},
+	{
+		"id": 463,
+		"cityId": 3,
+		"languageId": 2,
+		"value": "Александровск"
+	},
+	{
+		"id": 464,
+		"cityId": 4,
+		"languageId": 2,
+		"value": "Алёшки"
+	},
+	{
+		"id": 465,
+		"cityId": 5,
+		"languageId": 2,
+		"value": "Алмазная"
+	},
+	{
+		"id": 466,
+		"cityId": 6,
+		"languageId": 2,
+		"value": "Алупка"
+	},
+	{
+		"id": 467,
+		"cityId": 7,
+		"languageId": 2,
+		"value": "Алушта"
+	},
+	{
+		"id": 468,
+		"cityId": 8,
+		"languageId": 2,
+		"value": "Алчевск"
+	},
+	{
+		"id": 469,
+		"cityId": 9,
+		"languageId": 2,
+		"value": "Амвросиевка"
+	},
+	{
+		"id": 470,
+		"cityId": 10,
+		"languageId": 2,
+		"value": "Ананьев"
+	},
+	{
+		"id": 471,
+		"cityId": 11,
+		"languageId": 2,
+		"value": "Андрушёвка"
+	},
+	{
+		"id": 472,
+		"cityId": 12,
+		"languageId": 2,
+		"value": "Антрацит"
+	},
+	{
+		"id": 473,
+		"cityId": 13,
+		"languageId": 2,
+		"value": "Апостолово"
+	},
+	{
+		"id": 474,
+		"cityId": 14,
+		"languageId": 2,
+		"value": "Армянск"
+	},
+	{
+		"id": 475,
+		"cityId": 15,
+		"languageId": 2,
+		"value": "Арциз"
+	},
+	{
+		"id": 476,
+		"cityId": 16,
+		"languageId": 2,
+		"value": "Ахтырка"
+	},
+	{
+		"id": 477,
+		"cityId": 17,
+		"languageId": 2,
+		"value": "Балаклея"
+	},
+	{
+		"id": 478,
+		"cityId": 18,
+		"languageId": 2,
+		"value": "Балта"
+	},
+	{
+		"id": 479,
+		"cityId": 19,
+		"languageId": 2,
+		"value": "Бар"
+	},
+	{
+		"id": 480,
+		"cityId": 20,
+		"languageId": 2,
+		"value": "Барановка"
+	},
+	{
+		"id": 481,
+		"cityId": 21,
+		"languageId": 2,
+		"value": "Барвенково"
+	},
+	{
+		"id": 482,
+		"cityId": 22,
+		"languageId": 2,
+		"value": "Батурин"
+	},
+	{
+		"id": 483,
+		"cityId": 23,
+		"languageId": 2,
+		"value": "Бахмач"
+	},
+	{
+		"id": 484,
+		"cityId": 24,
+		"languageId": 2,
+		"value": "Бахмут"
+	},
+	{
+		"id": 485,
+		"cityId": 25,
+		"languageId": 2,
+		"value": "Бахчисарай"
+	},
+	{
+		"id": 486,
+		"cityId": 26,
+		"languageId": 2,
+		"value": "Баштанка"
+	},
+	{
+		"id": 487,
+		"cityId": 27,
+		"languageId": 2,
+		"value": "Белая Церковь"
+	},
+	{
+		"id": 488,
+		"cityId": 28,
+		"languageId": 2,
+		"value": "Белгород-Днестровский"
+	},
+	{
+		"id": 489,
+		"cityId": 29,
+		"languageId": 2,
+		"value": "Белз"
+	},
+	{
+		"id": 490,
+		"cityId": 30,
+		"languageId": 2,
+		"value": "Белицкое"
+	},
+	{
+		"id": 491,
+		"cityId": 31,
+		"languageId": 2,
+		"value": "Белогорск"
+	},
+	{
+		"id": 492,
+		"cityId": 32,
+		"languageId": 2,
+		"value": "Белозёрское"
+	},
+	{
+		"id": 493,
+		"cityId": 33,
+		"languageId": 2,
+		"value": "Белополье"
+	},
+	{
+		"id": 494,
+		"cityId": 34,
+		"languageId": 2,
+		"value": "Беляевка"
+	},
+	{
+		"id": 495,
+		"cityId": 35,
+		"languageId": 2,
+		"value": "Бердичев"
+	},
+	{
+		"id": 496,
+		"cityId": 36,
+		"languageId": 2,
+		"value": "Бердянск"
+	},
+	{
+		"id": 497,
+		"cityId": 37,
+		"languageId": 2,
+		"value": "Берегово"
+	},
+	{
+		"id": 498,
+		"cityId": 38,
+		"languageId": 2,
+		"value": "Бережаны"
+	},
+	{
+		"id": 499,
+		"cityId": 39,
+		"languageId": 2,
+		"value": "Березань"
+	},
+	{
+		"id": 500,
+		"cityId": 40,
+		"languageId": 2,
+		"value": "Березно"
+	},
+	{
+		"id": 501,
+		"cityId": 41,
+		"languageId": 2,
+		"value": "Березовка"
+	},
+	{
+		"id": 502,
+		"cityId": 42,
+		"languageId": 2,
+		"value": "Берестечко"
+	},
+	{
+		"id": 503,
+		"cityId": 43,
+		"languageId": 2,
+		"value": "Берислав"
+	},
+	{
+		"id": 504,
+		"cityId": 44,
+		"languageId": 2,
+		"value": "Бершадь"
+	},
+	{
+		"id": 505,
+		"cityId": 45,
+		"languageId": 2,
+		"value": "Благовещенское"
+	},
+	{
+		"id": 506,
+		"cityId": 46,
+		"languageId": 2,
+		"value": "Бобринец"
+	},
+	{
+		"id": 507,
+		"cityId": 47,
+		"languageId": 2,
+		"value": "Бобрка"
+	},
+	{
+		"id": 508,
+		"cityId": 48,
+		"languageId": 2,
+		"value": "Бобровица"
+	},
+	{
+		"id": 509,
+		"cityId": 49,
+		"languageId": 2,
+		"value": "Богодухов"
+	},
+	{
+		"id": 510,
+		"cityId": 50,
+		"languageId": 2,
+		"value": "Богуслав"
+	},
+	{
+		"id": 511,
+		"cityId": 51,
+		"languageId": 2,
+		"value": "Боково-Хрустальное"
+	},
+	{
+		"id": 512,
+		"cityId": 52,
+		"languageId": 2,
+		"value": "Болград"
+	},
+	{
+		"id": 513,
+		"cityId": 53,
+		"languageId": 2,
+		"value": "Болехов"
+	},
+	{
+		"id": 514,
+		"cityId": 54,
+		"languageId": 2,
+		"value": "Борзна"
+	},
+	{
+		"id": 515,
+		"cityId": 55,
+		"languageId": 2,
+		"value": "Борислав"
+	},
+	{
+		"id": 516,
+		"cityId": 56,
+		"languageId": 2,
+		"value": "Борисполь"
+	},
+	{
+		"id": 517,
+		"cityId": 57,
+		"languageId": 2,
+		"value": "Борщёв"
+	},
+	{
+		"id": 518,
+		"cityId": 58,
+		"languageId": 2,
+		"value": "Боярка"
+	},
+	{
+		"id": 519,
+		"cityId": 59,
+		"languageId": 2,
+		"value": "Бровары"
+	},
+	{
+		"id": 520,
+		"cityId": 60,
+		"languageId": 2,
+		"value": "Броды"
+	},
+	{
+		"id": 521,
+		"cityId": 61,
+		"languageId": 2,
+		"value": "Брянка"
+	},
+	{
+		"id": 522,
+		"cityId": 62,
+		"languageId": 2,
+		"value": "Бунге"
+	},
+	{
+		"id": 523,
+		"cityId": 63,
+		"languageId": 2,
+		"value": "Бурштын"
+	},
+	{
+		"id": 524,
+		"cityId": 64,
+		"languageId": 2,
+		"value": "Бурынь"
+	},
+	{
+		"id": 525,
+		"cityId": 65,
+		"languageId": 2,
+		"value": "Буск"
+	},
+	{
+		"id": 526,
+		"cityId": 66,
+		"languageId": 2,
+		"value": "Буча"
+	},
+	{
+		"id": 527,
+		"cityId": 67,
+		"languageId": 2,
+		"value": "Бучач"
+	},
+	{
+		"id": 528,
+		"cityId": 68,
+		"languageId": 2,
+		"value": "Валки"
+	},
+	{
+		"id": 529,
+		"cityId": 69,
+		"languageId": 2,
+		"value": "Вараш"
+	},
+	{
+		"id": 530,
+		"cityId": 70,
+		"languageId": 2,
+		"value": "Васильевка"
+	},
+	{
+		"id": 531,
+		"cityId": 71,
+		"languageId": 2,
+		"value": "Васильков"
+	},
+	{
+		"id": 532,
+		"cityId": 72,
+		"languageId": 2,
+		"value": "Ватутино"
+	},
+	{
+		"id": 533,
+		"cityId": 73,
+		"languageId": 2,
+		"value": "Вашковцы"
+	},
+	{
+		"id": 534,
+		"cityId": 74,
+		"languageId": 2,
+		"value": "Великие Мосты"
+	},
+	{
+		"id": 535,
+		"cityId": 75,
+		"languageId": 2,
+		"value": "Верхнеднепровск"
+	},
+	{
+		"id": 536,
+		"cityId": 76,
+		"languageId": 2,
+		"value": "Верховцево"
+	},
+	{
+		"id": 537,
+		"cityId": 77,
+		"languageId": 2,
+		"value": "Вижница"
+	},
+	{
+		"id": 538,
+		"cityId": 78,
+		"languageId": 2,
+		"value": "Вилково"
+	},
+	{
+		"id": 539,
+		"cityId": 79,
+		"languageId": 2,
+		"value": "Винники"
+	},
+	{
+		"id": 540,
+		"cityId": 80,
+		"languageId": 2,
+		"value": "Винница"
+	},
+	{
+		"id": 541,
+		"cityId": 81,
+		"languageId": 2,
+		"value": "Виноградов"
+	},
+	{
+		"id": 542,
+		"cityId": 82,
+		"languageId": 2,
+		"value": "Вишнёвое"
+	},
+	{
+		"id": 543,
+		"cityId": 83,
+		"languageId": 2,
+		"value": "Владимир-Волынский"
+	},
+	{
+		"id": 544,
+		"cityId": 84,
+		"languageId": 2,
+		"value": "Вознесеновка"
+	},
+	{
+		"id": 545,
+		"cityId": 85,
+		"languageId": 2,
+		"value": "Вознесенск"
+	},
+	{
+		"id": 546,
+		"cityId": 86,
+		"languageId": 2,
+		"value": "Волноваха"
+	},
+	{
+		"id": 547,
+		"cityId": 87,
+		"languageId": 2,
+		"value": "Волочиск"
+	},
+	{
+		"id": 548,
+		"cityId": 88,
+		"languageId": 2,
+		"value": "Волчанск"
+	},
+	{
+		"id": 549,
+		"cityId": 89,
+		"languageId": 2,
+		"value": "Вольногорск"
+	},
+	{
+		"id": 550,
+		"cityId": 90,
+		"languageId": 2,
+		"value": "Вольнянск"
+	},
+	{
+		"id": 551,
+		"cityId": 91,
+		"languageId": 2,
+		"value": "Ворожба"
+	},
+	{
+		"id": 552,
+		"cityId": 92,
+		"languageId": 2,
+		"value": "Вышгород"
+	},
+	{
+		"id": 553,
+		"cityId": 93,
+		"languageId": 2,
+		"value": "Гадяч"
+	},
+	{
+		"id": 554,
+		"cityId": 94,
+		"languageId": 2,
+		"value": "Гайворон"
+	},
+	{
+		"id": 555,
+		"cityId": 95,
+		"languageId": 2,
+		"value": "Гайсин"
+	},
+	{
+		"id": 556,
+		"cityId": 96,
+		"languageId": 2,
+		"value": "Галич"
+	},
+	{
+		"id": 557,
+		"cityId": 97,
+		"languageId": 2,
+		"value": "Геническ"
+	},
+	{
+		"id": 558,
+		"cityId": 98,
+		"languageId": 2,
+		"value": "Герца"
+	},
+	{
+		"id": 559,
+		"cityId": 99,
+		"languageId": 2,
+		"value": "Глиняны"
+	},
+	{
+		"id": 560,
+		"cityId": 100,
+		"languageId": 2,
+		"value": "Глобино"
+	},
+	{
+		"id": 561,
+		"cityId": 101,
+		"languageId": 2,
+		"value": "Глухов"
+	},
+	{
+		"id": 562,
+		"cityId": 102,
+		"languageId": 2,
+		"value": "Гнивань"
+	},
+	{
+		"id": 563,
+		"cityId": 103,
+		"languageId": 2,
+		"value": "Голая Пристань"
+	},
+	{
+		"id": 564,
+		"cityId": 104,
+		"languageId": 2,
+		"value": "Голубовка"
+	},
+	{
+		"id": 565,
+		"cityId": 105,
+		"languageId": 2,
+		"value": "Горишние Плавни"
+	},
+	{
+		"id": 566,
+		"cityId": 106,
+		"languageId": 2,
+		"value": "Горловка"
+	},
+	{
+		"id": 567,
+		"cityId": 107,
+		"languageId": 2,
+		"value": "Горняк"
+	},
+	{
+		"id": 568,
+		"cityId": 108,
+		"languageId": 2,
+		"value": "Городенка"
+	},
+	{
+		"id": 569,
+		"cityId": 109,
+		"languageId": 2,
+		"value": "Городище"
+	},
+	{
+		"id": 570,
+		"cityId": 110,
+		"languageId": 2,
+		"value": "Городня"
+	},
+	{
+		"id": 571,
+		"cityId": 111,
+		"languageId": 2,
+		"value": "Городок"
+	},
+	{
+		"id": 572,
+		"cityId": 112,
+		"languageId": 2,
+		"value": "Городок"
+	},
+	{
+		"id": 573,
+		"cityId": 113,
+		"languageId": 2,
+		"value": "Горохов"
+	},
+	{
+		"id": 574,
+		"cityId": 114,
+		"languageId": 2,
+		"value": "Горское"
+	},
+	{
+		"id": 575,
+		"cityId": 115,
+		"languageId": 2,
+		"value": "Гребёнка"
+	},
+	{
+		"id": 576,
+		"cityId": 116,
+		"languageId": 2,
+		"value": "Гуляйполе"
+	},
+	{
+		"id": 577,
+		"cityId": 117,
+		"languageId": 2,
+		"value": "Дебальцево"
+	},
+	{
+		"id": 578,
+		"cityId": 118,
+		"languageId": 2,
+		"value": "Деражня"
+	},
+	{
+		"id": 579,
+		"cityId": 119,
+		"languageId": 2,
+		"value": "Дергачи"
+	},
+	{
+		"id": 580,
+		"cityId": 120,
+		"languageId": 2,
+		"value": "Джанкой"
+	},
+	{
+		"id": 581,
+		"cityId": 121,
+		"languageId": 2,
+		"value": "Днепр"
+	},
+	{
+		"id": 582,
+		"cityId": 122,
+		"languageId": 2,
+		"value": "Днепрорудное"
+	},
+	{
+		"id": 583,
+		"cityId": 123,
+		"languageId": 2,
+		"value": "Добромиль"
+	},
+	{
+		"id": 584,
+		"cityId": 124,
+		"languageId": 2,
+		"value": "Доброполье"
+	},
+	{
+		"id": 585,
+		"cityId": 125,
+		"languageId": 2,
+		"value": "Докучаевск"
+	},
+	{
+		"id": 586,
+		"cityId": 126,
+		"languageId": 2,
+		"value": "Должанск"
+	},
+	{
+		"id": 587,
+		"cityId": 127,
+		"languageId": 2,
+		"value": "Долина"
+	},
+	{
+		"id": 588,
+		"cityId": 128,
+		"languageId": 2,
+		"value": "Долинская"
+	},
+	{
+		"id": 589,
+		"cityId": 129,
+		"languageId": 2,
+		"value": "Донецк"
+	},
+	{
+		"id": 590,
+		"cityId": 130,
+		"languageId": 2,
+		"value": "Дрогобыч"
+	},
+	{
+		"id": 591,
+		"cityId": 131,
+		"languageId": 2,
+		"value": "Дружба"
+	},
+	{
+		"id": 592,
+		"cityId": 132,
+		"languageId": 2,
+		"value": "Дружковка"
+	},
+	{
+		"id": 593,
+		"cityId": 133,
+		"languageId": 2,
+		"value": "Дубляны"
+	},
+	{
+		"id": 594,
+		"cityId": 134,
+		"languageId": 2,
+		"value": "Дубно"
+	},
+	{
+		"id": 595,
+		"cityId": 135,
+		"languageId": 2,
+		"value": "Дубровица"
+	},
+	{
+		"id": 596,
+		"cityId": 136,
+		"languageId": 2,
+		"value": "Дунаевцы"
+	},
+	{
+		"id": 597,
+		"cityId": 137,
+		"languageId": 2,
+		"value": "Евпатория"
+	},
+	{
+		"id": 598,
+		"cityId": 138,
+		"languageId": 2,
+		"value": "Енакиево"
+	},
+	{
+		"id": 599,
+		"cityId": 139,
+		"languageId": 2,
+		"value": "Жашков"
+	},
+	{
+		"id": 600,
+		"cityId": 140,
+		"languageId": 2,
+		"value": "Ждановка"
+	},
+	{
+		"id": 601,
+		"cityId": 141,
+		"languageId": 2,
+		"value": "Железное"
+	},
+	{
+		"id": 602,
+		"cityId": 142,
+		"languageId": 2,
+		"value": "Жёлтые Воды"
+	},
+	{
+		"id": 603,
+		"cityId": 143,
+		"languageId": 2,
+		"value": "Жидачов"
+	},
+	{
+		"id": 604,
+		"cityId": 144,
+		"languageId": 2,
+		"value": "Житомир"
+	},
+	{
+		"id": 605,
+		"cityId": 145,
+		"languageId": 2,
+		"value": "Жмеринка"
+	},
+	{
+		"id": 606,
+		"cityId": 146,
+		"languageId": 2,
+		"value": "Жолква"
+	},
+	{
+		"id": 607,
+		"cityId": 147,
+		"languageId": 2,
+		"value": "Заводское"
+	},
+	{
+		"id": 608,
+		"cityId": 148,
+		"languageId": 2,
+		"value": "Залещики"
+	},
+	{
+		"id": 609,
+		"cityId": 149,
+		"languageId": 2,
+		"value": "Запорожье"
+	},
+	{
+		"id": 610,
+		"cityId": 150,
+		"languageId": 2,
+		"value": "Заставна"
+	},
+	{
+		"id": 611,
+		"cityId": 151,
+		"languageId": 2,
+		"value": "Збараж"
+	},
+	{
+		"id": 612,
+		"cityId": 152,
+		"languageId": 2,
+		"value": "Зборов"
+	},
+	{
+		"id": 613,
+		"cityId": 153,
+		"languageId": 2,
+		"value": "Звенигородка"
+	},
+	{
+		"id": 614,
+		"cityId": 154,
+		"languageId": 2,
+		"value": "Здолбунов"
+	},
+	{
+		"id": 615,
+		"cityId": 155,
+		"languageId": 2,
+		"value": "Зеленодольск"
+	},
+	{
+		"id": 616,
+		"cityId": 156,
+		"languageId": 2,
+		"value": "Зеньков"
+	},
+	{
+		"id": 617,
+		"cityId": 157,
+		"languageId": 2,
+		"value": "Зимогорье"
+	},
+	{
+		"id": 618,
+		"cityId": 158,
+		"languageId": 2,
+		"value": "Змиёв"
+	},
+	{
+		"id": 619,
+		"cityId": 159,
+		"languageId": 2,
+		"value": "Знаменка"
+	},
+	{
+		"id": 620,
+		"cityId": 160,
+		"languageId": 2,
+		"value": "Золотое"
+	},
+	{
+		"id": 621,
+		"cityId": 161,
+		"languageId": 2,
+		"value": "Золотоноша"
+	},
+	{
+		"id": 622,
+		"cityId": 162,
+		"languageId": 2,
+		"value": "Золочев"
+	},
+	{
+		"id": 623,
+		"cityId": 163,
+		"languageId": 2,
+		"value": "Зоринск"
+	},
+	{
+		"id": 624,
+		"cityId": 164,
+		"languageId": 2,
+		"value": "Зугрэс"
+	},
+	{
+		"id": 625,
+		"cityId": 165,
+		"languageId": 2,
+		"value": "Ивано-Франковск"
+	},
+	{
+		"id": 626,
+		"cityId": 166,
+		"languageId": 2,
+		"value": "Измаил"
+	},
+	{
+		"id": 627,
+		"cityId": 167,
+		"languageId": 2,
+		"value": "Изюм"
+	},
+	{
+		"id": 628,
+		"cityId": 168,
+		"languageId": 2,
+		"value": "Изяслав"
+	},
+	{
+		"id": 629,
+		"cityId": 169,
+		"languageId": 2,
+		"value": "Иловайск"
+	},
+	{
+		"id": 630,
+		"cityId": 170,
+		"languageId": 2,
+		"value": "Ильинцы"
+	},
+	{
+		"id": 631,
+		"cityId": 171,
+		"languageId": 2,
+		"value": "Инкерман"
+	},
+	{
+		"id": 632,
+		"cityId": 172,
+		"languageId": 2,
+		"value": "Ирмино"
+	},
+	{
+		"id": 633,
+		"cityId": 173,
+		"languageId": 2,
+		"value": "Ирпень"
+	},
+	{
+		"id": 634,
+		"cityId": 174,
+		"languageId": 2,
+		"value": "Иршава"
+	},
+	{
+		"id": 635,
+		"cityId": 175,
+		"languageId": 2,
+		"value": "Ичня"
+	},
+	{
+		"id": 636,
+		"cityId": 176,
+		"languageId": 2,
+		"value": "Кагарлык"
+	},
+	{
+		"id": 637,
+		"cityId": 177,
+		"languageId": 2,
+		"value": "Кадиевка"
+	},
+	{
+		"id": 638,
+		"cityId": 178,
+		"languageId": 2,
+		"value": "Казатин"
+	},
+	{
+		"id": 639,
+		"cityId": 179,
+		"languageId": 2,
+		"value": "Калиновка"
+	},
+	{
+		"id": 640,
+		"cityId": 180,
+		"languageId": 2,
+		"value": "Калуш"
+	},
+	{
+		"id": 641,
+		"cityId": 181,
+		"languageId": 2,
+		"value": "Кальмиусское"
+	},
+	{
+		"id": 642,
+		"cityId": 182,
+		"languageId": 2,
+		"value": "Каменец-Подольский"
+	},
+	{
+		"id": 643,
+		"cityId": 183,
+		"languageId": 2,
+		"value": "Каменка"
+	},
+	{
+		"id": 644,
+		"cityId": 184,
+		"languageId": 2,
+		"value": "Каменка-Бугская"
+	},
+	{
+		"id": 645,
+		"cityId": 185,
+		"languageId": 2,
+		"value": "Каменка-Днепровская"
+	},
+	{
+		"id": 646,
+		"cityId": 186,
+		"languageId": 2,
+		"value": "Каменское"
+	},
+	{
+		"id": 647,
+		"cityId": 187,
+		"languageId": 2,
+		"value": "Камень-Каширский"
+	},
+	{
+		"id": 648,
+		"cityId": 188,
+		"languageId": 2,
+		"value": "Канев"
+	},
+	{
+		"id": 649,
+		"cityId": 189,
+		"languageId": 2,
+		"value": "Карловка"
+	},
+	{
+		"id": 650,
+		"cityId": 190,
+		"languageId": 2,
+		"value": "Каховка"
+	},
+	{
+		"id": 651,
+		"cityId": 191,
+		"languageId": 2,
+		"value": "Керчь"
+	},
+	{
+		"id": 652,
+		"cityId": 192,
+		"languageId": 2,
+		"value": "Киверцы"
+	},
+	{
+		"id": 653,
+		"cityId": 193,
+		"languageId": 2,
+		"value": "Киев"
+	},
+	{
+		"id": 654,
+		"cityId": 194,
+		"languageId": 2,
+		"value": "Килия"
+	},
+	{
+		"id": 655,
+		"cityId": 195,
+		"languageId": 2,
+		"value": "Кипучее"
+	},
+	{
+		"id": 656,
+		"cityId": 196,
+		"languageId": 2,
+		"value": "Кицмань"
+	},
+	{
+		"id": 657,
+		"cityId": 197,
+		"languageId": 2,
+		"value": "Кобеляки"
+	},
+	{
+		"id": 658,
+		"cityId": 198,
+		"languageId": 2,
+		"value": "Ковель"
+	},
+	{
+		"id": 659,
+		"cityId": 199,
+		"languageId": 2,
+		"value": "Кодыма"
+	},
+	{
+		"id": 660,
+		"cityId": 200,
+		"languageId": 2,
+		"value": "Коломыя"
+	},
+	{
+		"id": 661,
+		"cityId": 201,
+		"languageId": 2,
+		"value": "Комарно"
+	},
+	{
+		"id": 662,
+		"cityId": 202,
+		"languageId": 2,
+		"value": "Конотоп"
+	},
+	{
+		"id": 663,
+		"cityId": 203,
+		"languageId": 2,
+		"value": "Константиновка"
+	},
+	{
+		"id": 664,
+		"cityId": 204,
+		"languageId": 2,
+		"value": "Копычинцы"
+	},
+	{
+		"id": 665,
+		"cityId": 205,
+		"languageId": 2,
+		"value": "Корец"
+	},
+	{
+		"id": 666,
+		"cityId": 206,
+		"languageId": 2,
+		"value": "Коростень"
+	},
+	{
+		"id": 667,
+		"cityId": 207,
+		"languageId": 2,
+		"value": "Коростышев"
+	},
+	{
+		"id": 668,
+		"cityId": 208,
+		"languageId": 2,
+		"value": "Корсунь-Шевченковский"
+	},
+	{
+		"id": 669,
+		"cityId": 209,
+		"languageId": 2,
+		"value": "Корюковка"
+	},
+	{
+		"id": 670,
+		"cityId": 210,
+		"languageId": 2,
+		"value": "Косов"
+	},
+	{
+		"id": 671,
+		"cityId": 211,
+		"languageId": 2,
+		"value": "Костополь"
+	},
+	{
+		"id": 672,
+		"cityId": 212,
+		"languageId": 2,
+		"value": "Краматорск"
+	},
+	{
+		"id": 673,
+		"cityId": 213,
+		"languageId": 2,
+		"value": "Красилов"
+	},
+	{
+		"id": 674,
+		"cityId": 214,
+		"languageId": 2,
+		"value": "Красногоровка"
+	},
+	{
+		"id": 675,
+		"cityId": 215,
+		"languageId": 2,
+		"value": "Красноград"
+	},
+	{
+		"id": 676,
+		"cityId": 216,
+		"languageId": 2,
+		"value": "Красноперекопск"
+	},
+	{
+		"id": 677,
+		"cityId": 217,
+		"languageId": 2,
+		"value": "Кременец"
+	},
+	{
+		"id": 678,
+		"cityId": 218,
+		"languageId": 2,
+		"value": "Кременная"
+	},
+	{
+		"id": 679,
+		"cityId": 219,
+		"languageId": 2,
+		"value": "Кременчуг"
+	},
+	{
+		"id": 680,
+		"cityId": 220,
+		"languageId": 2,
+		"value": "Крестовка"
+	},
+	{
+		"id": 681,
+		"cityId": 221,
+		"languageId": 2,
+		"value": "Кривой Рог"
+	},
+	{
+		"id": 682,
+		"cityId": 222,
+		"languageId": 2,
+		"value": "Кролевец"
+	},
+	{
+		"id": 683,
+		"cityId": 223,
+		"languageId": 2,
+		"value": "Кропивницкий"
+	},
+	{
+		"id": 684,
+		"cityId": 224,
+		"languageId": 2,
+		"value": "Купянск"
+	},
+	{
+		"id": 685,
+		"cityId": 225,
+		"languageId": 2,
+		"value": "Курахово"
+	},
+	{
+		"id": 686,
+		"cityId": 226,
+		"languageId": 2,
+		"value": "Ладыжин"
+	},
+	{
+		"id": 687,
+		"cityId": 227,
+		"languageId": 2,
+		"value": "Лановцы"
+	},
+	{
+		"id": 688,
+		"cityId": 228,
+		"languageId": 2,
+		"value": "Лебедин"
+	},
+	{
+		"id": 689,
+		"cityId": 229,
+		"languageId": 2,
+		"value": "Лиман"
+	},
+	{
+		"id": 690,
+		"cityId": 230,
+		"languageId": 2,
+		"value": "Липовец"
+	},
+	{
+		"id": 691,
+		"cityId": 231,
+		"languageId": 2,
+		"value": "Лисичанск"
+	},
+	{
+		"id": 692,
+		"cityId": 232,
+		"languageId": 2,
+		"value": "Лозовая"
+	},
+	{
+		"id": 693,
+		"cityId": 233,
+		"languageId": 2,
+		"value": "Лохвица"
+	},
+	{
+		"id": 694,
+		"cityId": 234,
+		"languageId": 2,
+		"value": "Лубны"
+	},
+	{
+		"id": 695,
+		"cityId": 235,
+		"languageId": 2,
+		"value": "Луганск"
+	},
+	{
+		"id": 696,
+		"cityId": 236,
+		"languageId": 2,
+		"value": "Лутугино"
+	},
+	{
+		"id": 697,
+		"cityId": 237,
+		"languageId": 2,
+		"value": "Луцк"
+	},
+	{
+		"id": 698,
+		"cityId": 238,
+		"languageId": 2,
+		"value": "Львов"
+	},
+	{
+		"id": 699,
+		"cityId": 239,
+		"languageId": 2,
+		"value": "Любомль"
+	},
+	{
+		"id": 700,
+		"cityId": 240,
+		"languageId": 2,
+		"value": "Люботин"
+	},
+	{
+		"id": 701,
+		"cityId": 241,
+		"languageId": 2,
+		"value": "Макеевка"
+	},
+	{
+		"id": 702,
+		"cityId": 242,
+		"languageId": 2,
+		"value": "Малая Виска"
+	},
+	{
+		"id": 703,
+		"cityId": 243,
+		"languageId": 2,
+		"value": "Малин"
+	},
+	{
+		"id": 704,
+		"cityId": 244,
+		"languageId": 2,
+		"value": "Марганец"
+	},
+	{
+		"id": 705,
+		"cityId": 245,
+		"languageId": 2,
+		"value": "Мариуполь"
+	},
+	{
+		"id": 706,
+		"cityId": 246,
+		"languageId": 2,
+		"value": "Марьинка"
+	},
+	{
+		"id": 707,
+		"cityId": 247,
+		"languageId": 2,
+		"value": "Мелитополь"
+	},
+	{
+		"id": 708,
+		"cityId": 248,
+		"languageId": 2,
+		"value": "Мена"
+	},
+	{
+		"id": 709,
+		"cityId": 249,
+		"languageId": 2,
+		"value": "Мерефа"
+	},
+	{
+		"id": 710,
+		"cityId": 250,
+		"languageId": 2,
+		"value": "Миргород"
+	},
+	{
+		"id": 711,
+		"cityId": 251,
+		"languageId": 2,
+		"value": "Мирноград"
+	},
+	{
+		"id": 712,
+		"cityId": 252,
+		"languageId": 2,
+		"value": "Мироновка"
+	},
+	{
+		"id": 713,
+		"cityId": 253,
+		"languageId": 2,
+		"value": "Миусинск"
+	},
+	{
+		"id": 714,
+		"cityId": 254,
+		"languageId": 2,
+		"value": "Могилёв-Подольский"
+	},
+	{
+		"id": 715,
+		"cityId": 255,
+		"languageId": 2,
+		"value": "Молодогвардейск"
+	},
+	{
+		"id": 716,
+		"cityId": 256,
+		"languageId": 2,
+		"value": "Молочанск"
+	},
+	{
+		"id": 717,
+		"cityId": 257,
+		"languageId": 2,
+		"value": "Монастыриска"
+	},
+	{
+		"id": 718,
+		"cityId": 258,
+		"languageId": 2,
+		"value": "Монастырище"
+	},
+	{
+		"id": 719,
+		"cityId": 259,
+		"languageId": 2,
+		"value": "Моршин"
+	},
+	{
+		"id": 720,
+		"cityId": 260,
+		"languageId": 2,
+		"value": "Моспино"
+	},
+	{
+		"id": 721,
+		"cityId": 261,
+		"languageId": 2,
+		"value": "Мостиска"
+	},
+	{
+		"id": 722,
+		"cityId": 262,
+		"languageId": 2,
+		"value": "Мукачево"
+	},
+	{
+		"id": 723,
+		"cityId": 263,
+		"languageId": 2,
+		"value": "Надворная"
+	},
+	{
+		"id": 724,
+		"cityId": 264,
+		"languageId": 2,
+		"value": "Нежин"
+	},
+	{
+		"id": 725,
+		"cityId": 265,
+		"languageId": 2,
+		"value": "Немиров"
+	},
+	{
+		"id": 726,
+		"cityId": 266,
+		"languageId": 2,
+		"value": "Нетешин"
+	},
+	{
+		"id": 727,
+		"cityId": 267,
+		"languageId": 2,
+		"value": "Николаев"
+	},
+	{
+		"id": 728,
+		"cityId": 268,
+		"languageId": 2,
+		"value": "Николаев"
+	},
+	{
+		"id": 729,
+		"cityId": 269,
+		"languageId": 2,
+		"value": "Николаевка"
+	},
+	{
+		"id": 730,
+		"cityId": 270,
+		"languageId": 2,
+		"value": "Никополь"
+	},
+	{
+		"id": 731,
+		"cityId": 271,
+		"languageId": 2,
+		"value": "Новая Каховка"
+	},
+	{
+		"id": 732,
+		"cityId": 272,
+		"languageId": 2,
+		"value": "Новая Одесса"
+	},
+	{
+		"id": 733,
+		"cityId": 273,
+		"languageId": 2,
+		"value": "Новгород-Северский"
+	},
+	{
+		"id": 734,
+		"cityId": 274,
+		"languageId": 2,
+		"value": "Новоазовск"
+	},
+	{
+		"id": 735,
+		"cityId": 275,
+		"languageId": 2,
+		"value": "Нововолынск"
+	},
+	{
+		"id": 736,
+		"cityId": 276,
+		"languageId": 2,
+		"value": "Новоград-Волынский"
+	},
+	{
+		"id": 737,
+		"cityId": 277,
+		"languageId": 2,
+		"value": "Новогродовка"
+	},
+	{
+		"id": 738,
+		"cityId": 278,
+		"languageId": 2,
+		"value": "Новоднестровск"
+	},
+	{
+		"id": 739,
+		"cityId": 279,
+		"languageId": 2,
+		"value": "Новодружеск"
+	},
+	{
+		"id": 740,
+		"cityId": 280,
+		"languageId": 2,
+		"value": "Новомиргород"
+	},
+	{
+		"id": 741,
+		"cityId": 281,
+		"languageId": 2,
+		"value": "Новомосковск"
+	},
+	{
+		"id": 742,
+		"cityId": 282,
+		"languageId": 2,
+		"value": "Новоселица"
+	},
+	{
+		"id": 743,
+		"cityId": 283,
+		"languageId": 2,
+		"value": "Новоукраинка"
+	},
+	{
+		"id": 744,
+		"cityId": 284,
+		"languageId": 2,
+		"value": "Новояворовск"
+	},
+	{
+		"id": 745,
+		"cityId": 285,
+		"languageId": 2,
+		"value": "Новый Буг"
+	},
+	{
+		"id": 746,
+		"cityId": 286,
+		"languageId": 2,
+		"value": "Новый Калинов"
+	},
+	{
+		"id": 747,
+		"cityId": 287,
+		"languageId": 2,
+		"value": "Новый Роздол"
+	},
+	{
+		"id": 748,
+		"cityId": 288,
+		"languageId": 2,
+		"value": "Носовка"
+	},
+	{
+		"id": 749,
+		"cityId": 289,
+		"languageId": 2,
+		"value": "Обухов"
+	},
+	{
+		"id": 750,
+		"cityId": 290,
+		"languageId": 2,
+		"value": "Овруч"
+	},
+	{
+		"id": 751,
+		"cityId": 291,
+		"languageId": 2,
+		"value": "Одесса"
+	},
+	{
+		"id": 752,
+		"cityId": 292,
+		"languageId": 2,
+		"value": "Олевск"
+	},
+	{
+		"id": 753,
+		"cityId": 293,
+		"languageId": 2,
+		"value": "Орехов"
+	},
+	{
+		"id": 754,
+		"cityId": 294,
+		"languageId": 2,
+		"value": "Остёр"
+	},
+	{
+		"id": 755,
+		"cityId": 295,
+		"languageId": 2,
+		"value": "Острог"
+	},
+	{
+		"id": 756,
+		"cityId": 296,
+		"languageId": 2,
+		"value": "Павлоград"
+	},
+	{
+		"id": 757,
+		"cityId": 297,
+		"languageId": 2,
+		"value": "Первомайск"
+	},
+	{
+		"id": 758,
+		"cityId": 298,
+		"languageId": 2,
+		"value": "Первомайск"
+	},
+	{
+		"id": 759,
+		"cityId": 299,
+		"languageId": 2,
+		"value": "Первомайский"
+	},
+	{
+		"id": 760,
+		"cityId": 300,
+		"languageId": 2,
+		"value": "Перевальск"
+	},
+	{
+		"id": 761,
+		"cityId": 301,
+		"languageId": 2,
+		"value": "Перемышляны"
+	},
+	{
+		"id": 762,
+		"cityId": 302,
+		"languageId": 2,
+		"value": "Перечин"
+	},
+	{
+		"id": 763,
+		"cityId": 303,
+		"languageId": 2,
+		"value": "Перещепино"
+	},
+	{
+		"id": 764,
+		"cityId": 304,
+		"languageId": 2,
+		"value": "Переяслав"
+	},
+	{
+		"id": 765,
+		"cityId": 305,
+		"languageId": 2,
+		"value": "Першотравенск"
+	},
+	{
+		"id": 766,
+		"cityId": 306,
+		"languageId": 2,
+		"value": "Петрово-Красноселье"
+	},
+	{
+		"id": 767,
+		"cityId": 307,
+		"languageId": 2,
+		"value": "Пивденное"
+	},
+	{
+		"id": 768,
+		"cityId": 308,
+		"languageId": 2,
+		"value": "Пирятин"
+	},
+	{
+		"id": 769,
+		"cityId": 309,
+		"languageId": 2,
+		"value": "Погребище"
+	},
+	{
+		"id": 770,
+		"cityId": 310,
+		"languageId": 2,
+		"value": "Подгайцы"
+	},
+	{
+		"id": 771,
+		"cityId": 311,
+		"languageId": 2,
+		"value": "Подгородное"
+	},
+	{
+		"id": 772,
+		"cityId": 312,
+		"languageId": 2,
+		"value": "Подольск"
+	},
+	{
+		"id": 773,
+		"cityId": 313,
+		"languageId": 2,
+		"value": "Покров"
+	},
+	{
+		"id": 774,
+		"cityId": 314,
+		"languageId": 2,
+		"value": "Покровск"
+	},
+	{
+		"id": 775,
+		"cityId": 315,
+		"languageId": 2,
+		"value": "Пологи"
+	},
+	{
+		"id": 776,
+		"cityId": 316,
+		"languageId": 2,
+		"value": "Полонное"
+	},
+	{
+		"id": 777,
+		"cityId": 317,
+		"languageId": 2,
+		"value": "Полтава"
+	},
+	{
+		"id": 778,
+		"cityId": 318,
+		"languageId": 2,
+		"value": "Помошная"
+	},
+	{
+		"id": 779,
+		"cityId": 319,
+		"languageId": 2,
+		"value": "Попасная"
+	},
+	{
+		"id": 780,
+		"cityId": 320,
+		"languageId": 2,
+		"value": "Почаев"
+	},
+	{
+		"id": 781,
+		"cityId": 321,
+		"languageId": 2,
+		"value": "Приволье"
+	},
+	{
+		"id": 782,
+		"cityId": 322,
+		"languageId": 2,
+		"value": "Прилуки"
+	},
+	{
+		"id": 783,
+		"cityId": 323,
+		"languageId": 2,
+		"value": "Приморск"
+	},
+	{
+		"id": 784,
+		"cityId": 324,
+		"languageId": 2,
+		"value": "Припять"
+	},
+	{
+		"id": 785,
+		"cityId": 325,
+		"languageId": 2,
+		"value": "Пустомыты"
+	},
+	{
+		"id": 786,
+		"cityId": 326,
+		"languageId": 2,
+		"value": "Путивль"
+	},
+	{
+		"id": 787,
+		"cityId": 327,
+		"languageId": 2,
+		"value": "Пятихатки"
+	},
+	{
+		"id": 788,
+		"cityId": 328,
+		"languageId": 2,
+		"value": "Рава-Русская"
+	},
+	{
+		"id": 789,
+		"cityId": 329,
+		"languageId": 2,
+		"value": "Радехов"
+	},
+	{
+		"id": 790,
+		"cityId": 330,
+		"languageId": 2,
+		"value": "Радивилов"
+	},
+	{
+		"id": 791,
+		"cityId": 331,
+		"languageId": 2,
+		"value": "Радомышль"
+	},
+	{
+		"id": 792,
+		"cityId": 332,
+		"languageId": 2,
+		"value": "Раздельная"
+	},
+	{
+		"id": 793,
+		"cityId": 333,
+		"languageId": 2,
+		"value": "Рахов"
+	},
+	{
+		"id": 794,
+		"cityId": 334,
+		"languageId": 2,
+		"value": "Рени"
+	},
+	{
+		"id": 795,
+		"cityId": 335,
+		"languageId": 2,
+		"value": "Решетиловка"
+	},
+	{
+		"id": 796,
+		"cityId": 336,
+		"languageId": 2,
+		"value": "Ржищев"
+	},
+	{
+		"id": 797,
+		"cityId": 337,
+		"languageId": 2,
+		"value": "Ровеньки"
+	},
+	{
+		"id": 798,
+		"cityId": 338,
+		"languageId": 2,
+		"value": "Ровно"
+	},
+	{
+		"id": 799,
+		"cityId": 339,
+		"languageId": 2,
+		"value": "Рогатин"
+	},
+	{
+		"id": 800,
+		"cityId": 340,
+		"languageId": 2,
+		"value": "Родинское"
+	},
+	{
+		"id": 801,
+		"cityId": 341,
+		"languageId": 2,
+		"value": "Рожище"
+	},
+	{
+		"id": 802,
+		"cityId": 342,
+		"languageId": 2,
+		"value": "Ромны"
+	},
+	{
+		"id": 803,
+		"cityId": 343,
+		"languageId": 2,
+		"value": "Рубежное"
+	},
+	{
+		"id": 804,
+		"cityId": 344,
+		"languageId": 2,
+		"value": "Рудки"
+	},
+	{
+		"id": 805,
+		"cityId": 345,
+		"languageId": 2,
+		"value": "Саки"
+	},
+	{
+		"id": 806,
+		"cityId": 346,
+		"languageId": 2,
+		"value": "Самбор"
+	},
+	{
+		"id": 807,
+		"cityId": 347,
+		"languageId": 2,
+		"value": "Сарны"
+	},
+	{
+		"id": 808,
+		"cityId": 348,
+		"languageId": 2,
+		"value": "Свалява"
+	},
+	{
+		"id": 809,
+		"cityId": 349,
+		"languageId": 2,
+		"value": "Сватово"
+	},
+	{
+		"id": 810,
+		"cityId": 350,
+		"languageId": 2,
+		"value": "Светловодск"
+	},
+	{
+		"id": 811,
+		"cityId": 351,
+		"languageId": 2,
+		"value": "Светлодарск"
+	},
+	{
+		"id": 812,
+		"cityId": 352,
+		"languageId": 2,
+		"value": "Святогорск"
+	},
+	{
+		"id": 813,
+		"cityId": 353,
+		"languageId": 2,
+		"value": "Севастополь"
+	},
+	{
+		"id": 814,
+		"cityId": 354,
+		"languageId": 2,
+		"value": "Северодонецк"
+	},
+	{
+		"id": 815,
+		"cityId": 355,
+		"languageId": 2,
+		"value": "Северск"
+	},
+	{
+		"id": 816,
+		"cityId": 356,
+		"languageId": 2,
+		"value": "Селидово"
+	},
+	{
+		"id": 817,
+		"cityId": 357,
+		"languageId": 2,
+		"value": "Семёновка"
+	},
+	{
+		"id": 818,
+		"cityId": 358,
+		"languageId": 2,
+		"value": "Середина-Буда"
+	},
+	{
+		"id": 819,
+		"cityId": 359,
+		"languageId": 2,
+		"value": "Симферополь"
+	},
+	{
+		"id": 820,
+		"cityId": 360,
+		"languageId": 2,
+		"value": "Синельниково"
+	},
+	{
+		"id": 821,
+		"cityId": 361,
+		"languageId": 2,
+		"value": "Скадовск"
+	},
+	{
+		"id": 822,
+		"cityId": 362,
+		"languageId": 2,
+		"value": "Скалат"
+	},
+	{
+		"id": 823,
+		"cityId": 363,
+		"languageId": 2,
+		"value": "Сквира"
+	},
+	{
+		"id": 824,
+		"cityId": 364,
+		"languageId": 2,
+		"value": "Сколе"
+	},
+	{
+		"id": 825,
+		"cityId": 365,
+		"languageId": 2,
+		"value": "Славута"
+	},
+	{
+		"id": 826,
+		"cityId": 366,
+		"languageId": 2,
+		"value": "Славутич"
+	},
+	{
+		"id": 827,
+		"cityId": 367,
+		"languageId": 2,
+		"value": "Славянск"
+	},
+	{
+		"id": 828,
+		"cityId": 368,
+		"languageId": 2,
+		"value": "Смела"
+	},
+	{
+		"id": 829,
+		"cityId": 369,
+		"languageId": 2,
+		"value": "Снежное"
+	},
+	{
+		"id": 830,
+		"cityId": 370,
+		"languageId": 2,
+		"value": "Снигирёвка"
+	},
+	{
+		"id": 831,
+		"cityId": 371,
+		"languageId": 2,
+		"value": "Сновск"
+	},
+	{
+		"id": 832,
+		"cityId": 372,
+		"languageId": 2,
+		"value": "Снятын"
+	},
+	{
+		"id": 833,
+		"cityId": 373,
+		"languageId": 2,
+		"value": "Сокаль"
+	},
+	{
+		"id": 834,
+		"cityId": 374,
+		"languageId": 2,
+		"value": "Сокиряны"
+	},
+	{
+		"id": 835,
+		"cityId": 375,
+		"languageId": 2,
+		"value": "Соледар"
+	},
+	{
+		"id": 836,
+		"cityId": 376,
+		"languageId": 2,
+		"value": "Сорокино"
+	},
+	{
+		"id": 837,
+		"cityId": 377,
+		"languageId": 2,
+		"value": "Сосновка"
+	},
+	{
+		"id": 838,
+		"cityId": 378,
+		"languageId": 2,
+		"value": "Старобельск"
+	},
+	{
+		"id": 839,
+		"cityId": 379,
+		"languageId": 2,
+		"value": "Староконстантинов"
+	},
+	{
+		"id": 840,
+		"cityId": 380,
+		"languageId": 2,
+		"value": "Старый Крым"
+	},
+	{
+		"id": 841,
+		"cityId": 381,
+		"languageId": 2,
+		"value": "Старый Самбор"
+	},
+	{
+		"id": 842,
+		"cityId": 382,
+		"languageId": 2,
+		"value": "Стебник"
+	},
+	{
+		"id": 843,
+		"cityId": 383,
+		"languageId": 2,
+		"value": "Сторожинец"
+	},
+	{
+		"id": 844,
+		"cityId": 384,
+		"languageId": 2,
+		"value": "Стрый"
+	},
+	{
+		"id": 845,
+		"cityId": 385,
+		"languageId": 2,
+		"value": "Судак"
+	},
+	{
+		"id": 846,
+		"cityId": 386,
+		"languageId": 2,
+		"value": "Судовая Вишня"
+	},
+	{
+		"id": 847,
+		"cityId": 387,
+		"languageId": 2,
+		"value": "Сумы"
+	},
+	{
+		"id": 848,
+		"cityId": 388,
+		"languageId": 2,
+		"value": "Суходольск"
+	},
+	{
+		"id": 849,
+		"cityId": 389,
+		"languageId": 2,
+		"value": "Счастье"
+	},
+	{
+		"id": 850,
+		"cityId": 390,
+		"languageId": 2,
+		"value": "Таврийск"
+	},
+	{
+		"id": 851,
+		"cityId": 391,
+		"languageId": 2,
+		"value": "Тальное"
+	},
+	{
+		"id": 852,
+		"cityId": 392,
+		"languageId": 2,
+		"value": "Тараща"
+	},
+	{
+		"id": 853,
+		"cityId": 393,
+		"languageId": 2,
+		"value": "Татарбунары"
+	},
+	{
+		"id": 854,
+		"cityId": 394,
+		"languageId": 2,
+		"value": "Теплодар"
+	},
+	{
+		"id": 855,
+		"cityId": 395,
+		"languageId": 2,
+		"value": "Теребовля"
+	},
+	{
+		"id": 856,
+		"cityId": 396,
+		"languageId": 2,
+		"value": "Терновка"
+	},
+	{
+		"id": 857,
+		"cityId": 397,
+		"languageId": 2,
+		"value": "Тернополь"
+	},
+	{
+		"id": 858,
+		"cityId": 398,
+		"languageId": 2,
+		"value": "Тетиев"
+	},
+	{
+		"id": 859,
+		"cityId": 399,
+		"languageId": 2,
+		"value": "Тлумач"
+	},
+	{
+		"id": 860,
+		"cityId": 400,
+		"languageId": 2,
+		"value": "Токмак"
+	},
+	{
+		"id": 861,
+		"cityId": 401,
+		"languageId": 2,
+		"value": "Торецк"
+	},
+	{
+		"id": 862,
+		"cityId": 402,
+		"languageId": 2,
+		"value": "Тростянец"
+	},
+	{
+		"id": 863,
+		"cityId": 403,
+		"languageId": 2,
+		"value": "Трускавец"
+	},
+	{
+		"id": 864,
+		"cityId": 404,
+		"languageId": 2,
+		"value": "Тульчин"
+	},
+	{
+		"id": 865,
+		"cityId": 405,
+		"languageId": 2,
+		"value": "Турка"
+	},
+	{
+		"id": 866,
+		"cityId": 406,
+		"languageId": 2,
+		"value": "Тысменица"
+	},
+	{
+		"id": 867,
+		"cityId": 407,
+		"languageId": 2,
+		"value": "Тячев"
+	},
+	{
+		"id": 868,
+		"cityId": 408,
+		"languageId": 2,
+		"value": "Углегорск"
+	},
+	{
+		"id": 869,
+		"cityId": 409,
+		"languageId": 2,
+		"value": "Угледар"
+	},
+	{
+		"id": 870,
+		"cityId": 410,
+		"languageId": 2,
+		"value": "Угнев"
+	},
+	{
+		"id": 871,
+		"cityId": 411,
+		"languageId": 2,
+		"value": "Ужгород"
+	},
+	{
+		"id": 872,
+		"cityId": 412,
+		"languageId": 2,
+		"value": "Узин"
+	},
+	{
+		"id": 873,
+		"cityId": 413,
+		"languageId": 2,
+		"value": "Украинка"
+	},
+	{
+		"id": 874,
+		"cityId": 414,
+		"languageId": 2,
+		"value": "Украинск"
+	},
+	{
+		"id": 875,
+		"cityId": 415,
+		"languageId": 2,
+		"value": "Умань"
+	},
+	{
+		"id": 876,
+		"cityId": 416,
+		"languageId": 2,
+		"value": "Устилуг"
+	},
+	{
+		"id": 877,
+		"cityId": 417,
+		"languageId": 2,
+		"value": "Фастов"
+	},
+	{
+		"id": 878,
+		"cityId": 418,
+		"languageId": 2,
+		"value": "Феодосия"
+	},
+	{
+		"id": 879,
+		"cityId": 419,
+		"languageId": 2,
+		"value": "Харцызск"
+	},
+	{
+		"id": 880,
+		"cityId": 420,
+		"languageId": 2,
+		"value": "Харьков"
+	},
+	{
+		"id": 881,
+		"cityId": 421,
+		"languageId": 2,
+		"value": "Херсон"
+	},
+	{
+		"id": 882,
+		"cityId": 422,
+		"languageId": 2,
+		"value": "Хмельник"
+	},
+	{
+		"id": 883,
+		"cityId": 423,
+		"languageId": 2,
+		"value": "Хмельницкий"
+	},
+	{
+		"id": 884,
+		"cityId": 424,
+		"languageId": 2,
+		"value": "Ходоров"
+	},
+	{
+		"id": 885,
+		"cityId": 425,
+		"languageId": 2,
+		"value": "Хорол"
+	},
+	{
+		"id": 886,
+		"cityId": 426,
+		"languageId": 2,
+		"value": "Хоростков"
+	},
+	{
+		"id": 887,
+		"cityId": 427,
+		"languageId": 2,
+		"value": "Хотин"
+	},
+	{
+		"id": 888,
+		"cityId": 428,
+		"languageId": 2,
+		"value": "Христиновка"
+	},
+	{
+		"id": 889,
+		"cityId": 429,
+		"languageId": 2,
+		"value": "Хрустальный"
+	},
+	{
+		"id": 890,
+		"cityId": 430,
+		"languageId": 2,
+		"value": "Хуст"
+	},
+	{
+		"id": 891,
+		"cityId": 431,
+		"languageId": 2,
+		"value": "Хыров"
+	},
+	{
+		"id": 892,
+		"cityId": 432,
+		"languageId": 2,
+		"value": "Часов Яр"
+	},
+	{
+		"id": 893,
+		"cityId": 433,
+		"languageId": 2,
+		"value": "Червоноград"
+	},
+	{
+		"id": 894,
+		"cityId": 434,
+		"languageId": 2,
+		"value": "Черкассы"
+	},
+	{
+		"id": 895,
+		"cityId": 435,
+		"languageId": 2,
+		"value": "Чернигов"
+	},
+	{
+		"id": 896,
+		"cityId": 436,
+		"languageId": 2,
+		"value": "Чернобыль"
+	},
+	{
+		"id": 897,
+		"cityId": 437,
+		"languageId": 2,
+		"value": "Черновцы"
+	},
+	{
+		"id": 898,
+		"cityId": 438,
+		"languageId": 2,
+		"value": "Черноморск"
+	},
+	{
+		"id": 899,
+		"cityId": 439,
+		"languageId": 2,
+		"value": "Чигирин"
+	},
+	{
+		"id": 900,
+		"cityId": 440,
+		"languageId": 2,
+		"value": "Чистяково"
+	},
+	{
+		"id": 901,
+		"cityId": 441,
+		"languageId": 2,
+		"value": "Чоп"
+	},
+	{
+		"id": 902,
+		"cityId": 442,
+		"languageId": 2,
+		"value": "Чортков"
+	},
+	{
+		"id": 903,
+		"cityId": 443,
+		"languageId": 2,
+		"value": "Чугуев"
+	},
+	{
+		"id": 904,
+		"cityId": 444,
+		"languageId": 2,
+		"value": "Чуднов"
+	},
+	{
+		"id": 905,
+		"cityId": 445,
+		"languageId": 2,
+		"value": "Шаргород"
+	},
+	{
+		"id": 906,
+		"cityId": 446,
+		"languageId": 2,
+		"value": "Шахтёрск"
+	},
+	{
+		"id": 907,
+		"cityId": 447,
+		"languageId": 2,
+		"value": "Шепетовка"
+	},
+	{
+		"id": 908,
+		"cityId": 448,
+		"languageId": 2,
+		"value": "Шостка"
+	},
+	{
+		"id": 909,
+		"cityId": 449,
+		"languageId": 2,
+		"value": "Шпола"
+	},
+	{
+		"id": 910,
+		"cityId": 450,
+		"languageId": 2,
+		"value": "Шумск"
+	},
+	{
+		"id": 911,
+		"cityId": 451,
+		"languageId": 2,
+		"value": "Щёлкино"
+	},
+	{
+		"id": 912,
+		"cityId": 452,
+		"languageId": 2,
+		"value": "Энергодар"
+	},
+	{
+		"id": 913,
+		"cityId": 453,
+		"languageId": 2,
+		"value": "Южное"
+	},
+	{
+		"id": 914,
+		"cityId": 454,
+		"languageId": 2,
+		"value": "Южноукраинск"
+	},
+	{
+		"id": 915,
+		"cityId": 455,
+		"languageId": 2,
+		"value": "Яворов"
+	},
+	{
+		"id": 916,
+		"cityId": 456,
+		"languageId": 2,
+		"value": "Яготин"
+	},
+	{
+		"id": 917,
+		"cityId": 457,
+		"languageId": 2,
+		"value": "Ялта"
+	},
+	{
+		"id": 918,
+		"cityId": 458,
+		"languageId": 2,
+		"value": "Ямполь"
+	},
+	{
+		"id": 919,
+		"cityId": 459,
+		"languageId": 2,
+		"value": "Яремче"
+	},
+	{
+		"id": 920,
+		"cityId": 460,
+		"languageId": 2,
+		"value": "Ясиноватая"
+	}
+]

@@ -18,9 +18,16 @@ namespace Marketplace.Models
 			builder.Entity<Language>().HasData(languages);
 			builder.Entity<Currency>().HasData(GetSeed<Currency>(nameof(Currencies)));
 			builder.Entity<Category>().HasData(GetSeed<Category>(nameof(Categories)));
+			builder.Entity<Country>().HasData(GetSeed<Country>(nameof(Countries)));
+			builder.Entity<Region>().HasData(GetSeed<Region>(nameof(Regions)));
+			builder.Entity<City>().HasData(GetSeed<City>(nameof(Cities)));
+
 			foreach (Language language in languages)
 			{
 				builder.Entity<CategoryTitle>().HasData(GetSeed<CategoryTitle>(nameof(CategoryTitles), language.Code));
+				builder.Entity<CountryName>().HasData(GetSeed<CountryName>(nameof(CountryNames), language.Code));
+				builder.Entity<RegionName>().HasData(GetSeed<RegionName>(nameof(RegionNames), language.Code));
+				builder.Entity<CityName>().HasData(GetSeed<CityName>(nameof(CityNames), language.Code));
 			}
 
 			base.OnModelCreating(builder);
@@ -48,5 +55,11 @@ namespace Marketplace.Models
 		public DbSet<Category> Categories => Set<Category>();
 		public DbSet<CategoryTitle> CategoryTitles => Set<CategoryTitle>();
 
+		public DbSet<Country> Countries => Set<Country>();
+		public DbSet<CountryName> CountryNames => Set<CountryName>();
+		public DbSet<Region> Regions => Set<Region>();
+		public DbSet<RegionName> RegionNames => Set<RegionName>();
+		public DbSet<City> Cities => Set<City>();
+		public DbSet<CityName> CityNames => Set<CityName>();
 	}
 }
