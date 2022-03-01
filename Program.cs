@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<MarketplaceContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DebugConnection")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
 	opts.Password.RequireNonAlphanumeric = false;

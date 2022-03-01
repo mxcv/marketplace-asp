@@ -8,11 +8,11 @@ namespace Marketplace.Controllers
 {
 	[Route("api/[controller]")]
 	[ApiController]
-	public class CountriesController : ControllerBase
+	public class LocationsController : ControllerBase
 	{
 		private MarketplaceContext db;
 
-		public CountriesController(MarketplaceContext db)
+		public LocationsController(MarketplaceContext db)
 		{
 			this.db = db;
 		}
