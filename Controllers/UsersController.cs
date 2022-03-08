@@ -39,6 +39,10 @@ namespace Marketplace.Controllers
 				db.Entry(user.City.Region).Reference(x => x.Country).Load();
 				db.Entry(user.City.Region.Country).Collection(x => x.Names).Load();
 			}
+			db.Entry(user).Reference(x => x.Image).Load();
+			if (user.Image != null)
+				db.Entry(user.Image).Reference(x => x.File).Load();
+
 			return Ok(new UserModel() {
 				Email = user.Email,
 				PhoneNumber = user.PhoneNumber,
@@ -54,6 +58,9 @@ namespace Marketplace.Controllers
 							Name = user.City.Region.Country.Names.Where(n => n.LanguageId == languageId).First().Value
 						}
 					}
+				},
+				Image = user.Image == null ? null : new ImageModel() {
+					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, user.Image.File.Name)
 				}
 			});
 		}

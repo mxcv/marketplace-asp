@@ -56,6 +56,7 @@ namespace Marketplace.Models
 		public DbSet<CategoryTitle> CategoryTitles => Set<CategoryTitle>();
 		public DbSet<MediaFile> MediaFiles => Set<MediaFile>();
 		public DbSet<ItemImage> ItemImages => Set<ItemImage>();
+		public DbSet<UserImage> UserImages => Set<UserImage>();
 
 		public DbSet<Country> Countries => Set<Country>();
 		public DbSet<CountryName> CountryNames => Set<CountryName>();

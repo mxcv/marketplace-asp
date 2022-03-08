@@ -11,9 +11,10 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public class ImagesController : ControllerBase
 	{
+		public static readonly string DirectoryPath = "files";
+
 		private MarketplaceDbContext db;
 		private IWebHostEnvironment appEnvironment;
-		public static readonly string DirectoryPath = "files";
 
 		public ImagesController(MarketplaceDbContext db, IWebHostEnvironment appEnvironment)
 		{
@@ -28,12 +29,12 @@ namespace Marketplace.Controllers
 			foreach (var image in images)
 			{
 				Item? item = await db.Items.Where(x => x.Id == itemId).FirstOrDefaultAsync();
-				int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new NullReferenceException());
+				int userId = GetUserId();
 				if (item == null || item.UserId != userId)
 					return BadRequest();
 
 				ItemImage itemImage = new ItemImage() {
-					Item = item,
+					ItemId = itemId,
 					File = new MediaFile() {
 						Extension = Path.GetExtension(image.FileName)
 					}
@@ -41,11 +42,53 @@ namespace Marketplace.Controllers
 				db.Add(itemImage);
 				await db.SaveChangesAsync();
 
-				string path = Path.Combine(appEnvironment.WebRootPath, DirectoryPath, itemImage.File.Name);
-				using (var stream = new FileStream(path, FileMode.Create))
+				using (var stream = new FileStream(GetFullPath(itemImage.File.Name), FileMode.Create))
 					await image.CopyToAsync(stream);
 			}
 			return Ok();
+		}
+
+		[HttpPut("users")]
+		public async Task<IActionResult> PutUserImage(IFormFile image)
+		{
+			int userId = GetUserId();
+			UserImage? userImage = await db.UserImages
+				.Where(x => x.UserId == userId)
+				.Include(x => x.File)
+				.FirstOrDefaultAsync();
+
+			string extension = Path.GetExtension(image.FileName);
+			if (userImage == null)
+			{
+				userImage = new UserImage() {
+					UserId = userId,
+					File = new MediaFile() {
+						Extension = extension
+					}
+				};
+				db.Add(userImage);
+				await db.SaveChangesAsync();
+			}
+			else if (userImage.File.Extension != extension)
+			{
+				System.IO.File.Delete(GetFullPath(userImage.File.Name));
+				userImage.File.Extension = extension;
+				await db.SaveChangesAsync();
+			}
+
+			using (var stream = new FileStream(GetFullPath(userImage.File.Name), FileMode.Create))
+				await image.CopyToAsync(stream);
+			return Ok();
+		}
+
+		private int GetUserId()
+		{
+			return int.Parse(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new NullReferenceException());
+		}
+
+		private string GetFullPath(string filename)
+		{
+			return Path.Combine(appEnvironment.WebRootPath, DirectoryPath, filename);
 		}
 	}
 }

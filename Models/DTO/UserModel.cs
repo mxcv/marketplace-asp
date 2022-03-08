@@ -15,5 +15,7 @@ namespace Marketplace.Models.DTO
 		public string? Name { get; set; }
 
 		public CityModel? City { get; set; }
+
+		public ImageModel? Image { get; set; }
 	}
 }
