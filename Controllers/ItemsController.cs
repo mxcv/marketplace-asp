@@ -37,7 +37,9 @@ namespace Marketplace.Controllers
 				.Include(x => x.Category)
 					.ThenInclude(x => x == null ? null : x.Titles)
 				.Include(x => x.Price)
-					.ThenInclude(x => x == null ? null : x.Currency);
+					.ThenInclude(x => x == null ? null : x.Currency)
+				.Include(x => x.Images)
+					.ThenInclude(x => x.File);
 
 			int leftCount = await items.CountAsync() - pageInputModel.SkipCount - pageInputModel.TakeCount;
 			if (leftCount < 0)
@@ -59,7 +61,10 @@ namespace Marketplace.Controllers
 							: new CurrencyModel() {
 								Id = x.Price.Currency.Id,
 								LanguageTag = x.Price.Currency.LanguageTag
-							}
+							},
+						Images = x.Images.Select(i => new ImageModel() {
+							Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
+						})
 					})
 					.Skip(pageInputModel.SkipCount)
 					.Take(pageInputModel.TakeCount)

@@ -23,5 +23,7 @@ namespace Marketplace.Models.DTO
 		public CategoryModel? Category { get; set; }
 
 		public UserModel? User { get; set; }
+
+		public IEnumerable<ImageModel>? Images { get; set; }
 	}
 }

@@ -13,5 +13,6 @@
 		public virtual Price? Price { get; set; }
 		public virtual Category? Category { get; set; }
 		public virtual User User { get; set; } = null!;
+		public virtual ICollection<ItemImage> Images { get; set; } = null!;
 	}
 }
