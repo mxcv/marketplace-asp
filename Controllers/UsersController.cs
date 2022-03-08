@@ -12,10 +12,10 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class UsersController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 		private UserManager<User> userManager;
 
-		public UsersController(MarketplaceContext db, UserManager<User> userManager)
+		public UsersController(MarketplaceDbContext db, UserManager<User> userManager)
 		{
 			this.db = db;
 			this.userManager = userManager;

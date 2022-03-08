@@ -12,9 +12,9 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class ItemsController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 
-		public ItemsController(MarketplaceContext db)
+		public ItemsController(MarketplaceDbContext db)
 		{
 			this.db = db;
 		}

@@ -14,11 +14,11 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class TokensController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 		private UserManager<User> userManager;
 		private JwtConfiguration jwtConfig;
 
-		public TokensController(MarketplaceContext db, UserManager<User> userManager, IOptions<JwtConfiguration> jwtOptions)
+		public TokensController(MarketplaceDbContext db, UserManager<User> userManager, IOptions<JwtConfiguration> jwtOptions)
 		{
 			this.db = db;
 			this.userManager = userManager;

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Models
 {
-	public class MarketplaceContext : IdentityDbContext<User, IdentityRole<int>, int>
+	public class MarketplaceDbContext : IdentityDbContext<User, IdentityRole<int>, int>
 	{
-		public MarketplaceContext(DbContextOptions<MarketplaceContext> options) : base(options)
+		public MarketplaceDbContext(DbContextOptions<MarketplaceDbContext> options) : base(options)
 		{
 			Database.EnsureCreated();
 		}

@@ -10,9 +10,9 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 
-		public CategoriesController(MarketplaceContext db)
+		public CategoriesController(MarketplaceDbContext db)
 		{
 			this.db = db;
 		}

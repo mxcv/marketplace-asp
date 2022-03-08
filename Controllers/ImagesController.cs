@@ -11,11 +11,11 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public class ImagesController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 		private IWebHostEnvironment appEnvironment;
 		public static readonly string DirectoryPath = "files";
 
-		public ImagesController(MarketplaceContext db, IWebHostEnvironment appEnvironment)
+		public ImagesController(MarketplaceDbContext db, IWebHostEnvironment appEnvironment)
 		{
 			this.db = db;
 			this.appEnvironment = appEnvironment;

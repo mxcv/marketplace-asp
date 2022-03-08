@@ -10,7 +10,7 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<MarketplaceContext>(options =>
+builder.Services.AddDbContext<MarketplaceDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection")));
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
@@ -19,7 +19,7 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
 	opts.Password.RequireUppercase = false;
 	opts.Password.RequireDigit = false;
 })
-	.AddEntityFrameworkStores<MarketplaceContext>();
+	.AddEntityFrameworkStores<MarketplaceDbContext>();
 
 var jwtConfigSection = builder.Configuration.GetSection(nameof(JwtConfiguration));
 var jwtConfig = jwtConfigSection.Get<JwtConfiguration>();

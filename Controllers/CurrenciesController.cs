@@ -9,9 +9,9 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class CurrenciesController : ControllerBase
 	{
-		private MarketplaceContext db;
+		private MarketplaceDbContext db;
 
-		public CurrenciesController(MarketplaceContext db)
+		public CurrenciesController(MarketplaceDbContext db)
 		{
 			this.db = db;
 		}
