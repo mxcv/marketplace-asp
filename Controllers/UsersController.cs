@@ -58,8 +58,8 @@ namespace Marketplace.Controllers
 			});
 		}
 
-		[HttpPut]
-		public async Task<IActionResult> Put(UserModel user)
+		[HttpPost]
+		public async Task<IActionResult> Post(UserModel user)
 		{
 			var result = await userManager.CreateAsync(
 				new User() {

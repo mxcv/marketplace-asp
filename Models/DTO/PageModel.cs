@@ -1,8 +1,8 @@
 ﻿namespace Marketplace.Models.DTO
 {
-	public class PageOutputModel
+	public class PageModel
 	{
-		public PageOutputModel(ICollection<ItemModel> items, int leftCount)
+		public PageModel(ICollection<ItemModel> items, int leftCount)
 		{
 			Items = items;
 			LeftCount = leftCount;

@@ -20,8 +20,8 @@ namespace Marketplace.Controllers
 		}
 
 		[Authorize]
-		[HttpPost("my")]
-		public async Task<IActionResult> Get(PageInputModel pageInputModel)
+		[HttpGet("my")]
+		public async Task<IActionResult> GetMyItems(int? skipCount, int? takeCount)
 		{
 			int? languageId = (await db.Languages
 				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
@@ -31,7 +31,6 @@ namespace Marketplace.Controllers
 				languageId = 1;
 
 			int userId = GetUserId();
-
 			var items = db.Items
 				.Where(x => x.UserId == userId)
 				.Include(x => x.Category)
@@ -41,43 +40,47 @@ namespace Marketplace.Controllers
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
-			int leftCount = await items.CountAsync() - pageInputModel.SkipCount - pageInputModel.TakeCount;
+			int leftCount = 0;
+			if (takeCount.HasValue)
+				leftCount = await items.CountAsync() - takeCount.Value;
+			if (skipCount.HasValue)
+				leftCount -= skipCount.Value;
 			if (leftCount < 0)
 				leftCount = 0;
 
-			return Ok(new PageOutputModel(
-				await items
-					.Select(x => new ItemModel() {
-						Id = x.Id,
-						Title = x.Title,
-						Description = x.Description,
-						Created = x.Created,
-						Category = x.Category == null ? null : new CategoryModel() {
-							Id = x.Category.Id,
-							Title = x.Category.Titles.Where(x => x.LanguageId == languageId).First().Value
-						},
-						Price = x.Price == null ? null : x.Price.Value,
-						Currency = x.Price == null || x.Price.Currency == null ? null
-							: new CurrencyModel() {
-								Id = x.Price.Currency.Id,
-								LanguageTag = x.Price.Currency.LanguageTag
-							},
-						Images = x.Images.Select(i => new ImageModel() {
-							Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
-						})
-					})
-					.Skip(pageInputModel.SkipCount)
-					.Take(pageInputModel.TakeCount)
-					.ToListAsync(),
-				leftCount
-			));
+			var itemModels = items.Select(x => new ItemModel() {
+				Id = x.Id,
+				Title = x.Title,
+				Description = x.Description,
+				Created = x.Created,
+				Category = x.Category == null ? null : new CategoryModel() {
+					Id = x.Category.Id,
+					Title = x.Category.Titles.Where(x => x.LanguageId == languageId).First().Value
+				},
+				Price = x.Price == null ? null : x.Price.Value,
+				Currency = x.Price == null || x.Price.Currency == null ? null
+					: new CurrencyModel() {
+						Id = x.Price.Currency.Id,
+						LanguageTag = x.Price.Currency.LanguageTag
+					},
+				Images = x.Images.Select(i => new ImageModel() {
+					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
+				})
+			});
+
+			if (skipCount.HasValue)
+				itemModels = itemModels.Skip(skipCount.Value);
+			if (takeCount.HasValue)
+				itemModels = itemModels.Take(takeCount.Value);
+
+			return Ok(new PageModel(await itemModels.ToListAsync(), leftCount));
 		}
 
 		[Authorize]
-		[HttpPut]
-		public async Task<IActionResult> Put(ItemModel itemModel)
+		[HttpPost]
+		public async Task<IActionResult> Post(ItemModel itemModel)
 		{
-			await db.Items.AddAsync(new Item() {
+			Item item = new Item() {
 				Title = itemModel.Title,
 				Description = itemModel.Description,
 				Created = DateTime.UtcNow,
@@ -89,9 +92,11 @@ namespace Marketplace.Controllers
 						? null
 						: itemModel.Currency.Id
 				}
-			});
+			};
+
+			db.Items.Add(item);
 			await db.SaveChangesAsync();
-			return Ok();
+			return Ok(item.Id);
 		}
 
 		[Authorize]
