@@ -8,7 +8,7 @@
 
 		public string Title { get; set; } = null!;
 		public string? Description { get; set; }
-		public DateTime Created { get; set; }
+		public DateTimeOffset Created { get; set; }
 
 		public virtual Price? Price { get; set; }
 		public virtual Category? Category { get; set; }

@@ -7,7 +7,7 @@ namespace Marketplace.Models
 		public int? CityId { get; set; }
 
 		public string? Name { get; set; }
-		public DateTime Created { get; set; }
+		public DateTimeOffset Created { get; set; }
 
 		public virtual City? City { get; set; }
 		public virtual UserImage? Image { get; set; }

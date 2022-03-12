@@ -25,11 +25,12 @@ namespace Marketplace.Controllers
 		{
 			await userManager.CreateAsync(
 				new User() {
-					UserName = "a@a",
-					Email = "a@a",
+					UserName = "a",
+					Email = "a",
 					PhoneNumber = "555555",
 					Name = "max",
-					Created = DateTime.UtcNow
+					Created = DateTime.UtcNow,
+					CityId = 1
 				},
 				"123456"
 			);

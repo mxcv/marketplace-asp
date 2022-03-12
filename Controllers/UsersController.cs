@@ -47,6 +47,7 @@ namespace Marketplace.Controllers
 				Email = user.Email,
 				PhoneNumber = user.PhoneNumber,
 				Name = user.Name,
+				Created = user.Created,
 				City = user.City == null ? null : new CityModel() {
 					Id = user.City.Id,
 					Name = user.City.Names.Where(n => n.LanguageId == languageId).First().Value,

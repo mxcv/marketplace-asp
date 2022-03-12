@@ -13,7 +13,7 @@ namespace Marketplace.Models.DTO
 		[StringLength(1000)]
 		public string? Description { get; set; }
 
-		public DateTime Created { get; set; }
+		public DateTimeOffset Created { get; set; }
 
 		[Range(0, double.PositiveInfinity)]
 		public decimal? Price { get; set; }
