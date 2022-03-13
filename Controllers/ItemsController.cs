@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Marketplace.Models;
 using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -19,34 +18,78 @@ namespace Marketplace.Controllers
 			this.db = db;
 		}
 
-		[Authorize]
-		[HttpGet("my")]
-		public async Task<IActionResult> GetMyItems(int? skipCount, int? takeCount)
+		[HttpGet]
+		public async Task<IActionResult> Get(
+			string? query,
+			decimal? minPrice,
+			decimal? maxPrice,
+			int? categoryId,
+			int? countryId,
+			int? regionId,
+			int? cityId,
+			int? userId,
+			int? sortType,
+			int? skipCount,
+			int? takeCount)
 		{
-			int? languageId = (await db.Languages
-				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
-				.FirstOrDefaultAsync()
-				)?.Id;
-			if (languageId == null)
-				languageId = 1;
-
-			int userId = GetUserId();
-			var items = db.Items
-				.Where(x => x.UserId == userId)
-				.Include(x => x.Category)
-					.ThenInclude(x => x == null ? null : x.Titles)
+			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
-					.ThenInclude(x => x == null ? null : x.Currency)
+					.ThenInclude(x => x!.Currency)
+				.Include(x => x.Category)
+				.Include(x => x.User)
+					.ThenInclude(x => x.Image)
+						.ThenInclude(x => x!.File)
+				.Include(x => x.User)
+					.ThenInclude(x => x.City)
+						.ThenInclude(x => x!.Region)
+							.ThenInclude(x => x.Country)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
+			if (query != null)
+				items = items.Where(x => EF.Functions.Like(x.Title, $"%{query}%"));
+			if (minPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value >= minPrice.Value);
+			if (maxPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value <= maxPrice.Value);
+			if (categoryId != null)
+				items = items.Where(x => x.CategoryId == categoryId);
+			if (userId != null)
+				items = items.Where(x => x.UserId == userId);
+			if (cityId != null)
+				items = items.Where(x => x.User.CityId == cityId);
+			else if (regionId != null)
+				items = items.Where(x => x.User.City != null && x.User.City.RegionId == regionId);
+			else if (countryId != null)
+				items = items.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
+			if (sortType != null)
+			{
+				switch ((SortType)sortType)
+				{
+					case SortType.CreatedDescending:
+						items = items.OrderByDescending(x => x.Created);
+						break;
+					case SortType.PriceAscending:
+						items = items.OrderBy(x => x.Price == null).ThenBy(x => x.Price);
+						break;
+					case SortType.PriceDescending:
+						items = items.OrderBy(x => x.Price == null).ThenByDescending(x => x.Price);
+						break;
+				}
+			}
+
 			int leftCount = 0;
-			if (takeCount.HasValue)
+			if (takeCount != null)
 				leftCount = await items.CountAsync() - takeCount.Value;
-			if (skipCount.HasValue)
+			if (skipCount != null)
 				leftCount -= skipCount.Value;
 			if (leftCount < 0)
 				leftCount = 0;
+
+			if (skipCount != null)
+				items = items.Skip(skipCount.Value);
+			if (takeCount != null)
+				items = items.Take(takeCount.Value);
 
 			var itemModels = items.Select(x => new ItemModel() {
 				Id = x.Id,
@@ -54,8 +97,7 @@ namespace Marketplace.Controllers
 				Description = x.Description,
 				Created = x.Created,
 				Category = x.Category == null ? null : new CategoryModel() {
-					Id = x.Category.Id,
-					Title = x.Category.Titles.Where(x => x.LanguageId == languageId).First().Value
+					Id = x.Category.Id
 				},
 				Price = x.Price == null ? null : x.Price.Value,
 				Currency = x.Price == null || x.Price.Currency == null ? null
@@ -63,15 +105,21 @@ namespace Marketplace.Controllers
 						Id = x.Price.Currency.Id,
 						LanguageTag = x.Price.Currency.LanguageTag
 					},
+				User = new UserModel() {
+					PhoneNumber = x.User.PhoneNumber,
+					Name = x.User.Name,
+					Created = x.User.Created,
+					City = x.User.City == null ? null : new CityModel() {
+						Id = x.User.City.Id
+					},
+					Image = x.User.Image == null ? null : new ImageModel() {
+						Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, x.User.Image.File.Name)
+					}
+				},
 				Images = x.Images.Select(i => new ImageModel() {
 					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
 				})
 			});
-
-			if (skipCount.HasValue)
-				itemModels = itemModels.Skip(skipCount.Value);
-			if (takeCount.HasValue)
-				itemModels = itemModels.Take(takeCount.Value);
 
 			return Ok(new PageModel(await itemModels.ToListAsync(), leftCount));
 		}
