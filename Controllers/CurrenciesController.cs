@@ -1,5 +1,5 @@
-﻿using Marketplace.Models;
-using Marketplace.Models.DTO;
+﻿using Marketplace.DTO;
+using Marketplace.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +20,7 @@ namespace Marketplace.Controllers
 		public async Task<IActionResult> Get()
 		{
 			return Ok(await db.Currencies
-				.Select(x => new CurrencyModel() {
+				.Select(x => new CurrencyDto() {
 					Id = x.Id,
 					LanguageTag = x.LanguageTag
 				})

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Models.DTO
+namespace Marketplace.DTO
 {
-	public class UserModel
+	public class UserDto
 	{
 		[Required]
 		public string Email { get; set; } = null!;
@@ -16,8 +16,8 @@ namespace Marketplace.Models.DTO
 
 		public DateTimeOffset Created { get; set; }
 
-		public CityModel? City { get; set; }
+		public CityDto? City { get; set; }
 
-		public ImageModel? Image { get; set; }
+		public ImageDto? Image { get; set; }
 	}
 }

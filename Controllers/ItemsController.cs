@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
+using Marketplace.DTO;
 using Marketplace.Models;
-using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -91,54 +91,54 @@ namespace Marketplace.Controllers
 			if (takeCount != null)
 				items = items.Take(takeCount.Value);
 
-			var itemModels = items.Select(x => new ItemModel() {
+			var itemModels = items.Select(x => new ItemDto() {
 				Id = x.Id,
 				Title = x.Title,
 				Description = x.Description,
 				Created = x.Created,
-				Category = x.Category == null ? null : new CategoryModel() {
+				Category = x.Category == null ? null : new CategoryDto() {
 					Id = x.Category.Id
 				},
 				Price = x.Price == null ? null : x.Price.Value,
 				Currency = x.Price == null || x.Price.Currency == null ? null
-					: new CurrencyModel() {
+					: new CurrencyDto() {
 						Id = x.Price.Currency.Id,
 						LanguageTag = x.Price.Currency.LanguageTag
 					},
-				User = new UserModel() {
+				User = new UserDto() {
 					PhoneNumber = x.User.PhoneNumber,
 					Name = x.User.Name,
 					Created = x.User.Created,
-					City = x.User.City == null ? null : new CityModel() {
+					City = x.User.City == null ? null : new CityDto() {
 						Id = x.User.City.Id
 					},
-					Image = x.User.Image == null ? null : new ImageModel() {
+					Image = x.User.Image == null ? null : new ImageDto() {
 						Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, x.User.Image.File.Name)
 					}
 				},
-				Images = x.Images.Select(i => new ImageModel() {
+				Images = x.Images.Select(i => new ImageDto() {
 					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
 				})
 			});
 
-			return Ok(new PageModel(await itemModels.ToListAsync(), leftCount));
+			return Ok(new PageDto(await itemModels.ToListAsync(), leftCount));
 		}
 
 		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Post(ItemModel itemModel)
+		public async Task<IActionResult> Post(ItemDto itemDto)
 		{
 			Item item = new Item() {
-				Title = itemModel.Title,
-				Description = itemModel.Description,
+				Title = itemDto.Title,
+				Description = itemDto.Description,
 				Created = DateTime.UtcNow,
 				UserId = GetUserId(),
-				CategoryId = itemModel.Category?.Id,
-				Price = itemModel.Price == null ? null : new Price() {
-					Value = itemModel.Price.Value,
-					CurrencyId = itemModel.Price.Value == 0 || itemModel.Currency == null
+				CategoryId = itemDto.Category?.Id,
+				Price = itemDto.Price == null ? null : new Price() {
+					Value = itemDto.Price.Value,
+					CurrencyId = itemDto.Price.Value == 0 || itemDto.Currency == null
 						? null
-						: itemModel.Currency.Id
+						: itemDto.Currency.Id
 				}
 			};
 

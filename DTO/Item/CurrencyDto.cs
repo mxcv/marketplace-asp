@@ -1,6 +1,6 @@
-﻿namespace Marketplace.Models.DTO
+﻿namespace Marketplace.DTO
 {
-	public class CurrencyModel
+	public class CurrencyDto
 	{
 		public int Id { get; set; }
 

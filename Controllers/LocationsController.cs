@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using Marketplace.DTO;
 using Marketplace.Models;
-using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,13 +31,13 @@ namespace Marketplace.Controllers
 				.Include(x => x.Regions)
 					.ThenInclude(x => x.Cities)
 						.ThenInclude(x => x.Names)
-				.Select(x => new CountryModel() {
+				.Select(x => new CountryDto() {
 					Id = x.Id,
 					Name = x.Names.Where(n => n.LanguageId == languageId).First().Value,
-					Regions = x.Regions.Select(r => new RegionModel() {
+					Regions = x.Regions.Select(r => new RegionDto() {
 						Id = r.Id,
 						Name = r.Names.Where(n => n.LanguageId == languageId).First().Value,
-						Cities = r.Cities.Select(c => new CityModel() {
+						Cities = r.Cities.Select(c => new CityDto() {
 							Id = c.Id,
 							Name = c.Names.Where(n => n.LanguageId == languageId).First().Value
 						})

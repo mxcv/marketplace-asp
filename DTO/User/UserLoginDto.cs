@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Models.DTO
+namespace Marketplace.DTO
 {
-	public class UserLoginModel
+	public class UserLoginDto
 	{
 		[Required]
 		public string Email { get; set; } = null!;

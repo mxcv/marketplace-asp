@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Models.DTO
+namespace Marketplace.DTO
 {
-	public class ItemModel
+	public class ItemDto
 	{
 		public int? Id { get; set; }
 
@@ -18,12 +18,12 @@ namespace Marketplace.Models.DTO
 		[Range(0, double.PositiveInfinity)]
 		public decimal? Price { get; set; }
 
-		public CurrencyModel? Currency { get; set; }
+		public CurrencyDto? Currency { get; set; }
 
-		public CategoryModel? Category { get; set; }
+		public CategoryDto? Category { get; set; }
 
-		public UserModel? User { get; set; }
+		public UserDto? User { get; set; }
 
-		public IEnumerable<ImageModel>? Images { get; set; }
+		public IEnumerable<ImageDto>? Images { get; set; }
 	}
 }

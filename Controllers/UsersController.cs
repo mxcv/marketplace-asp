@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using Marketplace.DTO;
 using Marketplace.Models;
-using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -43,31 +43,31 @@ namespace Marketplace.Controllers
 			if (user.Image != null)
 				db.Entry(user.Image).Reference(x => x.File).Load();
 
-			return Ok(new UserModel() {
+			return Ok(new UserDto() {
 				Email = user.Email,
 				PhoneNumber = user.PhoneNumber,
 				Name = user.Name,
 				Created = user.Created,
-				City = user.City == null ? null : new CityModel() {
+				City = user.City == null ? null : new CityDto() {
 					Id = user.City.Id,
 					Name = user.City.Names.Where(n => n.LanguageId == languageId).First().Value,
-					Region = new RegionModel() {
+					Region = new RegionDto() {
 						Id = user.City.Region.Id,
 						Name = user.City.Region.Names.Where(n => n.LanguageId == languageId).First().Value,
-						Country = new CountryModel() {
+						Country = new CountryDto() {
 							Id = user.City.Region.Country.Id,
 							Name = user.City.Region.Country.Names.Where(n => n.LanguageId == languageId).First().Value
 						}
 					}
 				},
-				Image = user.Image == null ? null : new ImageModel() {
+				Image = user.Image == null ? null : new ImageDto() {
 					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, user.Image.File.Name)
 				}
 			});
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(UserModel user)
+		public async Task<IActionResult> Post(UserDto user)
 		{
 			var result = await userManager.CreateAsync(
 				new User() {

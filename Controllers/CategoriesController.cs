@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
+using Marketplace.DTO;
 using Marketplace.Models;
-using Marketplace.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +29,7 @@ namespace Marketplace.Controllers
 
 			return Ok(await db.CategoryTitles
 				.Where(x => x.LanguageId == languageId)
-				.Select(x => new CategoryModel() {
+				.Select(x => new CategoryDto() {
 					Id = x.CategoryId,
 					Title = x.Value
 				})

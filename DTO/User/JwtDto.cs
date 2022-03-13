@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Models.DTO
+namespace Marketplace.DTO
 {
-	public class JwtModel
+	public class JwtDto
 	{
 		[Required]
 		public string AccessToken { get; set; } = null!;

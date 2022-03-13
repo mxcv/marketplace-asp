@@ -1,6 +1,6 @@
-﻿namespace Marketplace.Models.DTO
+﻿namespace Marketplace.DTO
 {
-	public class CategoryModel
+	public class CategoryDto
 	{
 		public int Id { get; set; }
 
