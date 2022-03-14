@@ -44,6 +44,7 @@ namespace Marketplace.Controllers
 				db.Entry(user.Image).Reference(x => x.File).Load();
 
 			return Ok(new UserDto() {
+				Id = user.Id,
 				Email = user.Email,
 				PhoneNumber = user.PhoneNumber,
 				Name = user.Name,
@@ -67,18 +68,18 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(UserDto user)
+		public async Task<IActionResult> Post(UserRegisterDto userRegister)
 		{
 			var result = await userManager.CreateAsync(
 				new User() {
-					UserName = user.Email,
-					Email = user.Email,
-					PhoneNumber = user.PhoneNumber,
-					Name = user.Name,
+					UserName = userRegister.Email,
+					Email = userRegister.Email,
+					PhoneNumber = userRegister.PhoneNumber,
+					Name = userRegister.Name,
 					Created = DateTime.UtcNow,
-					CityId = user.City?.Id
+					CityId = userRegister.City?.Id
 				},
-				user.Password
+				userRegister.Password
 			);
 			return result.Succeeded ? Ok() : BadRequest();
 		}
