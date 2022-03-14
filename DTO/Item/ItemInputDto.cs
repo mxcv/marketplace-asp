@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.DTO
+namespace Marketplace.Dto
 {
 	public class ItemInputDto
 	{

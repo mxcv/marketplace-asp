@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using Marketplace.DTO;
+using Marketplace.Dto;
 using Marketplace.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

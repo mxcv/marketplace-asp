@@ -1,4 +1,4 @@
-﻿using Marketplace.DTO;
+﻿using Marketplace.Dto;
 using Marketplace.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace Marketplace.DTO
+﻿namespace Marketplace.Dto
 {
 	public class ItemDto
 	{
