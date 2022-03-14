@@ -126,19 +126,19 @@ namespace Marketplace.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Post(ItemDto itemDto)
+		public async Task<IActionResult> Post(ItemInputDto itemInput)
 		{
 			Item item = new Item() {
-				Title = itemDto.Title,
-				Description = itemDto.Description,
+				Title = itemInput.Title,
+				Description = itemInput.Description,
 				Created = DateTime.UtcNow,
 				UserId = GetUserId(),
-				CategoryId = itemDto.Category?.Id,
-				Price = itemDto.Price == null ? null : new Price() {
-					Value = itemDto.Price.Value,
-					CurrencyId = itemDto.Price.Value == 0 || itemDto.Currency == null
+				CategoryId = itemInput.Category?.Id,
+				Price = itemInput.Price == null ? null : new Price() {
+					Value = itemInput.Price.Value,
+					CurrencyId = itemInput.Price.Value == 0 || itemInput.Currency == null
 						? null
-						: itemDto.Currency.Id
+						: itemInput.Currency.Id
 				}
 			};
 
