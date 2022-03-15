@@ -12,6 +12,7 @@ namespace Marketplace.Controllers
 	public class ImagesController : ControllerBase
 	{
 		public static readonly string DirectoryPath = "files";
+		public static readonly int MaxItemImages = 7;
 
 		private MarketplaceDbContext db;
 		private IWebHostEnvironment appEnvironment;
@@ -26,6 +27,9 @@ namespace Marketplace.Controllers
 		[HttpPost("items/{itemId}")]
 		public async Task<IActionResult> PostItemImages(int itemId, IFormFileCollection images)
 		{
+			if (await db.ItemImages.Where(x => x.ItemId == itemId).CountAsync() + images.Count > MaxItemImages)
+				return BadRequest();
+
 			foreach (var image in images)
 			{
 				Item? item = await db.Items.Where(x => x.Id == itemId).FirstOrDefaultAsync();
