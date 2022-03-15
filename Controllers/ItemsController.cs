@@ -63,20 +63,19 @@ namespace Marketplace.Controllers
 				items = items.Where(x => x.User.City != null && x.User.City.RegionId == regionId);
 			else if (countryId != null)
 				items = items.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
-			if (sortType != null)
+			if (sortType == null)
+				sortType = (int)SortType.CreatedDescending;
+			switch ((SortType)sortType)
 			{
-				switch ((SortType)sortType)
-				{
-					case SortType.CreatedDescending:
-						items = items.OrderByDescending(x => x.Created);
-						break;
-					case SortType.PriceAscending:
-						items = items.OrderBy(x => x.Price == null).ThenBy(x => x.Price);
-						break;
-					case SortType.PriceDescending:
-						items = items.OrderBy(x => x.Price == null).ThenByDescending(x => x.Price);
-						break;
-				}
+				case SortType.CreatedDescending:
+					items = items.OrderByDescending(x => x.Created);
+					break;
+				case SortType.PriceAscending:
+					items = items.OrderBy(x => x.Price == null).ThenBy(x => x.Price);
+					break;
+				case SortType.PriceDescending:
+					items = items.OrderBy(x => x.Price == null).ThenByDescending(x => x.Price);
+					break;
 			}
 
 			int leftCount = 0;
