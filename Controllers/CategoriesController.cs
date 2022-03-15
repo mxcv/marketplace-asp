@@ -29,6 +29,7 @@ namespace Marketplace.Controllers
 
 			return Ok(await db.CategoryTitles
 				.Where(x => x.LanguageId == languageId)
+				.OrderBy(x => x.Value)
 				.Select(x => new CategoryDto() {
 					Id = x.CategoryId,
 					Title = x.Value
