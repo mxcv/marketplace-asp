@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using Marketplace.Dto;
 using Marketplace.Models;
+using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -126,19 +127,19 @@ namespace Marketplace.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Post(ItemInputDto itemInput)
+		public async Task<IActionResult> Post(ItemViewModel itemModel)
 		{
 			Item item = new Item() {
-				Title = itemInput.Title,
-				Description = itemInput.Description,
+				Title = itemModel.Title,
+				Description = itemModel.Description,
 				Created = DateTime.UtcNow,
 				UserId = GetUserId(),
-				CategoryId = itemInput.Category?.Id,
-				Price = itemInput.Price == null ? null : new Price() {
-					Value = itemInput.Price.Value,
-					CurrencyId = itemInput.Price.Value == 0 || itemInput.Currency == null
+				CategoryId = itemModel.Category?.Id,
+				Price = itemModel.Price == null ? null : new Price() {
+					Value = itemModel.Price.Value,
+					CurrencyId = itemModel.Price.Value == 0 || itemModel.Currency == null
 						? null
-						: itemInput.Currency.Id
+						: itemModel.Currency.Id
 				}
 			};
 

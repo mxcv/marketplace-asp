@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Marketplace.Models;
+using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

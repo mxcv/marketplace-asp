@@ -1,4 +1,4 @@
-namespace Marketplace.Models
+namespace Marketplace.ViewModels
 {
 	public class ErrorViewModel
 	{

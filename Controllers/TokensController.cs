@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using Marketplace.Dto;
 using Marketplace.Models;
+using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -26,9 +27,9 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Access(UserLoginDto userLogin)
+		public async Task<IActionResult> Access(UserLoginViewModel userLoginModel)
 		{
-			var identity = await GetIdentity(userLogin.Email, userLogin.Password);
+			var identity = await GetIdentity(userLoginModel.Email, userLoginModel.Password);
 			if (identity == null)
 				return BadRequest();
 

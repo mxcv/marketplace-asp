@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Marketplace.Dto;
 
-namespace Marketplace.Dto
+namespace Marketplace.ViewModels
 {
-	public class ItemInputDto
+	public class ItemViewModel
 	{
 		[Required]
 		[StringLength(50)]

@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Marketplace.Dto;
 using Marketplace.Models;
+using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -68,18 +69,18 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(UserRegisterDto userRegister)
+		public async Task<IActionResult> Post(UserRegisterViewModel userRegisterModel)
 		{
 			var result = await userManager.CreateAsync(
 				new User() {
-					UserName = userRegister.Email,
-					Email = userRegister.Email,
-					PhoneNumber = userRegister.PhoneNumber,
-					Name = userRegister.Name,
+					UserName = userRegisterModel.Email,
+					Email = userRegisterModel.Email,
+					PhoneNumber = userRegisterModel.PhoneNumber,
+					Name = userRegisterModel.Name,
 					Created = DateTime.UtcNow,
-					CityId = userRegister.City?.Id
+					CityId = userRegisterModel.City?.Id
 				},
-				userRegister.Password
+				userRegisterModel.Password
 			);
 			return result.Succeeded ? Ok() : BadRequest();
 		}

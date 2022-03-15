@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Dto
+namespace Marketplace.ViewModels
 {
-	public class UserLoginDto
+	public class UserLoginViewModel
 	{
 		[Required]
 		[DataType(DataType.EmailAddress)]

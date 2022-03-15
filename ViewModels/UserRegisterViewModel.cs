@@ -1,14 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Marketplace.Dto;
 
-namespace Marketplace.Dto
+namespace Marketplace.ViewModels
 {
-	public class UserRegisterDto : UserLoginDto
+	public class UserRegisterViewModel : UserLoginViewModel
 	{
-		[Required]
-		[DataType(DataType.Password)]
-		[Compare(nameof(Password))]
-		public string ConfirmPassword { get; set; } = null!;
-
 		[DataType(DataType.PhoneNumber)]
 		public string? PhoneNumber { get; set; }
 
