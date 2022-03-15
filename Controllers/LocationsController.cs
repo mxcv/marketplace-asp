@@ -22,7 +22,8 @@ namespace Marketplace.Controllers
 		{
 			int languageId = (await db.Languages
 				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
-				.FirstOrDefaultAsync())?.Id ?? 1;
+				.FirstOrDefaultAsync())
+				?.Id ?? 1;
 
 			return Ok((await db.Countries
 				.Include(x => x.Names.Where(n => n.LanguageId == languageId).Take(1))

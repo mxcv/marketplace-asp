@@ -20,12 +20,10 @@ namespace Marketplace.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			int? languageId = (await db.Languages
+			int languageId = (await db.Languages
 				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
-				.FirstOrDefaultAsync()
-				)?.Id;
-			if (languageId == null)
-				languageId = 1;
+				.FirstOrDefaultAsync())
+				?.Id ?? 1;
 
 			return Ok(await db.CategoryTitles
 				.Where(x => x.LanguageId == languageId)
