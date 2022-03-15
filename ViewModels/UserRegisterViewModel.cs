@@ -6,9 +6,11 @@ namespace Marketplace.ViewModels
 	public class UserRegisterViewModel : UserLoginViewModel
 	{
 		[DataType(DataType.PhoneNumber)]
+		[StringLength(20)]
 		public string? PhoneNumber { get; set; }
 
 		[DataType(DataType.Text)]
+		[StringLength(20)]
 		public string? Name { get; set; }
 
 		public CityDto? City { get; set; }

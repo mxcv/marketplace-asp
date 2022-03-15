@@ -6,10 +6,12 @@ namespace Marketplace.ViewModels
 	{
 		[Required]
 		[DataType(DataType.EmailAddress)]
+		[StringLength(254)]
 		public string Email { get; set; } = null!;
 
 		[Required]
 		[DataType(DataType.Password)]
+		[StringLength(30)]
 		public string Password { get; set; } = null!;
 	}
 }
