@@ -64,9 +64,10 @@ namespace Marketplace.Controllers
 			else if (countryId != null)
 				items = items.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
 			if (sortType == null)
-				sortType = (int)SortType.CreatedDescending;
+				sortType = (int)default(SortType);
 			switch ((SortType)sortType)
 			{
+				default:
 				case SortType.CreatedDescending:
 					items = items.OrderByDescending(x => x.Created);
 					break;

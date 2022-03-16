@@ -4,7 +4,7 @@
 	{
 		public enum SortType
 		{
-			CreatedDescending,
+			CreatedDescending = 1,
 			PriceAscending,
 			PriceDescending
 		}
