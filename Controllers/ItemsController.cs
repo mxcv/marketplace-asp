@@ -29,21 +29,15 @@ namespace Marketplace.Controllers
 			int? regionId,
 			int? cityId,
 			int? userId,
-			int? sortType,
+			int? sortTypeId,
 			int? skipCount,
 			int? takeCount)
 		{
 			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
-					.ThenInclude(x => x!.Currency)
-				.Include(x => x.Category)
 				.Include(x => x.User)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
-				.Include(x => x.User)
-					.ThenInclude(x => x.City)
-						.ThenInclude(x => x!.Region)
-							.ThenInclude(x => x.Country)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
@@ -57,25 +51,34 @@ namespace Marketplace.Controllers
 				items = items.Where(x => x.CategoryId == categoryId);
 			if (userId != null)
 				items = items.Where(x => x.UserId == userId);
+
 			if (cityId != null)
 				items = items.Where(x => x.User.CityId == cityId);
 			else if (regionId != null)
-				items = items.Where(x => x.User.City != null && x.User.City.RegionId == regionId);
+				items = items
+					.Include(x => x.User)
+						.ThenInclude(x => x.City)
+					.Where(x => x.User.City != null && x.User.City.RegionId == regionId);
 			else if (countryId != null)
-				items = items.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
-			if (sortType == null)
-				sortType = (int)default(SortType);
-			switch ((SortType)sortType)
+				items = items
+					.Include(x => x.User)
+						.ThenInclude(x => x.City)
+							.ThenInclude(x => x!.Region)
+					.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
+
+			if (sortTypeId == null)
+				sortTypeId = (int)default(SortType);
+			switch ((SortType)sortTypeId)
 			{
 				default:
 				case SortType.CreatedDescending:
 					items = items.OrderByDescending(x => x.Created);
 					break;
 				case SortType.PriceAscending:
-					items = items.OrderBy(x => x.Price == null).ThenBy(x => x.Price);
+					items = items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value);
 					break;
 				case SortType.PriceDescending:
-					items = items.OrderBy(x => x.Price == null).ThenByDescending(x => x.Price);
+					items = items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value);
 					break;
 			}
 
@@ -97,21 +100,21 @@ namespace Marketplace.Controllers
 				Title = x.Title,
 				Description = x.Description,
 				Created = x.Created,
-				Category = x.Category == null ? null : new CategoryDto() {
-					Id = x.Category.Id
+				Category = x.CategoryId == null ? null : new CategoryDto() {
+					Id = x.CategoryId.Value
 				},
 				Price = x.Price == null ? null : x.Price.Value,
-				Currency = x.Price == null || x.Price.Currency == null ? null
+				Currency = x.Price == null || x.Price.CurrencyId == null ? null
 					: new CurrencyDto() {
-						Id = x.Price.Currency.Id,
-						LanguageTag = x.Price.Currency.LanguageTag
+						Id = x.Price.CurrencyId.Value
 					},
 				User = new UserDto() {
+					Id = x.UserId,
 					PhoneNumber = x.User.PhoneNumber,
 					Name = x.User.Name,
 					Created = x.User.Created,
-					City = x.User.City == null ? null : new CityDto() {
-						Id = x.User.City.Id
+					City = x.User.CityId == null ? null : new CityDto() {
+						Id = x.User.CityId.Value
 					},
 					Image = x.User.Image == null ? null : new ImageDto() {
 						Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, x.User.Image.File.Name)
