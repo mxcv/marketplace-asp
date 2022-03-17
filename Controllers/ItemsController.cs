@@ -13,10 +13,12 @@ namespace Marketplace.Controllers
 	public partial class ItemsController : ControllerBase
 	{
 		private MarketplaceDbContext db;
+		private IWebHostEnvironment appEnvironment;
 
-		public ItemsController(MarketplaceDbContext db)
+		public ItemsController(MarketplaceDbContext db, IWebHostEnvironment appEnvironment)
 		{
 			this.db = db;
+			this.appEnvironment = appEnvironment;
 		}
 
 		[HttpGet]
@@ -156,10 +158,20 @@ namespace Marketplace.Controllers
 		public async Task<IActionResult> Delete(int id)
 		{
 			int userId = GetUserId();
-			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
+			Item? item = await db.Items
+				.Include(x => x.Images)
+					.ThenInclude(x => x.File)
+				.Where(x => x.Id == id)
+				.FirstOrDefaultAsync();
 			if (item == null || item.UserId != userId)
 				return BadRequest();
 
+			foreach (ItemImage image in item.Images)
+				System.IO.File.Delete(Path.Combine(
+					appEnvironment.WebRootPath,
+					ImagesController.DirectoryPath,
+					image.File.Name)
+				);
 			db.Items.Remove(item);
 			await db.SaveChangesAsync();
 			return Ok();
