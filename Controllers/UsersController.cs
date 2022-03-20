@@ -71,18 +71,16 @@ namespace Marketplace.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Post(UserRegisterViewModel userRegisterModel)
 		{
-			var result = await userManager.CreateAsync(
-				new User() {
-					UserName = userRegisterModel.Email,
-					Email = userRegisterModel.Email,
-					PhoneNumber = userRegisterModel.PhoneNumber,
-					Name = userRegisterModel.Name,
-					Created = DateTime.UtcNow,
-					CityId = userRegisterModel.City?.Id
-				},
-				userRegisterModel.Password
-			);
-			return result.Succeeded ? Ok() : BadRequest();
+			User user = new User() {
+				UserName = userRegisterModel.Email,
+				Email = userRegisterModel.Email,
+				PhoneNumber = userRegisterModel.PhoneNumber,
+				Name = userRegisterModel.Name,
+				Created = DateTime.UtcNow,
+				CityId = userRegisterModel.City?.Id
+			};
+			var result = await userManager.CreateAsync(user, userRegisterModel.Password);
+			return result.Succeeded ? Ok(user.Id) : BadRequest();
 		}
 	}
 }
