@@ -1,5 +1,6 @@
 using System.Globalization;
 using Marketplace.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,12 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<MarketplaceDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection")));
 
-builder.Services.AddIdentity<User, IdentityRole<int>>(opts => {
-	opts.Password.RequireNonAlphanumeric = false;
-	opts.Password.RequireLowercase = false;
-	opts.Password.RequireUppercase = false;
-	opts.Password.RequireDigit = false;
-})
+builder.Services.AddIdentity<User, IdentityRole<int>>(options => {
+		options.Password.RequireNonAlphanumeric = false;
+		options.Password.RequireLowercase = false;
+		options.Password.RequireUppercase = false;
+		options.Password.RequireDigit = false;
+	})
 	.AddEntityFrameworkStores<MarketplaceDbContext>();
 
 var jwtConfigSection = builder.Configuration.GetSection(nameof(JwtConfiguration));
@@ -40,11 +41,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			ClockSkew = TimeSpan.Zero
 		};
 	});
-builder.Services.AddAuthorization(options => {
-	options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthorization(options =>
+	options.DefaultPolicy =
+		new AuthorizationPolicyBuilder(
+			CookieAuthenticationDefaults.AuthenticationScheme,
+			JwtBearerDefaults.AuthenticationScheme)
 		.RequireAuthenticatedUser()
-		.Build();
-});
+		.Build()
+);
 
 builder.Services.AddControllersWithViews();
 //.AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);

@@ -1,0 +1,26 @@
+﻿@model Marketplace.ViewModels.WebLoginViewModel
+@{
+	ViewData["Title"] = "Sign in";
+}
+
+<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="form-group mx-auto w-450">
+	<h2 class="mb-2">Sign in</h2>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="mb-2">
+		<label asp-for="Email"></label>
+		<span asp-validation-for="Email" class="text-danger float-end"></span>
+		<input asp-for="Email" class="form-control" autocomplete="off" />
+	</div>
+	<div class="mb-2">
+		<label asp-for="Password"></label>
+		<span asp-validation-for="Password" class="text-danger float-end"></span>
+		<input asp-for="Password" class="form-control" />
+	</div>
+	<div class="mb-3">
+		<input asp-for="RememberMe" />
+		<label asp-for="RememberMe"></label>
+	</div>
+	<div>
+		<input type="submit" value="Sign in" class="form-control btn btn-primary" />
+	</div>
+</form>
