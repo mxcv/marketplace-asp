@@ -1,5 +1,6 @@
 using System.Globalization;
 using Marketplace.Models;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<MarketplaceDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection")));
+
+builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
+	.AddCertificate();
 
 builder.Services.AddIdentity<User, IdentityRole<int>>(options => {
 		options.Password.RequireNonAlphanumeric = false;
