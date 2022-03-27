@@ -2,7 +2,7 @@
 
 namespace Marketplace.ViewModels
 {
-	public class WebLoginViewModel : UserLoginViewModel
+	public class WebLoginViewModel : LoginViewModel
 	{
 		[Display(Name = "RememberMe")]
 		public bool RememberMe { get; set; }

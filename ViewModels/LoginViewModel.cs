@@ -2,7 +2,7 @@
 
 namespace Marketplace.ViewModels
 {
-	public class UserLoginViewModel
+	public class LoginViewModel
 	{
 		[Required(ErrorMessage = "EmailRequired")]
 		[DataType(DataType.EmailAddress)]

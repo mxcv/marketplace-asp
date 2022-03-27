@@ -69,17 +69,17 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(UserRegisterViewModel userRegisterModel)
+		public async Task<IActionResult> Post(RegisterViewModel registerModel)
 		{
 			User user = new User() {
-				UserName = userRegisterModel.Email,
-				Email = userRegisterModel.Email,
-				PhoneNumber = userRegisterModel.PhoneNumber,
-				Name = userRegisterModel.Name,
+				UserName = registerModel.Email,
+				Email = registerModel.Email,
+				PhoneNumber = registerModel.PhoneNumber,
+				Name = registerModel.Name,
 				Created = DateTime.UtcNow,
-				CityId = userRegisterModel.City?.Id
+				CityId = registerModel.City?.Id
 			};
-			var result = await userManager.CreateAsync(user, userRegisterModel.Password);
+			var result = await userManager.CreateAsync(user, registerModel.Password);
 			return result.Succeeded ? Ok(user.Id) : BadRequest();
 		}
 	}

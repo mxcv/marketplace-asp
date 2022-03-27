@@ -3,7 +3,7 @@ using Marketplace.Dto;
 
 namespace Marketplace.ViewModels
 {
-	public class UserRegisterViewModel : UserLoginViewModel
+	public class RegisterViewModel : LoginViewModel
 	{
 		[DataType(DataType.PhoneNumber)]
 		[StringLength(20)]

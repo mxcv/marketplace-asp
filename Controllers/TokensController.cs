@@ -27,9 +27,9 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Access(UserLoginViewModel userLoginModel)
+		public async Task<IActionResult> Access(LoginViewModel loginModel)
 		{
-			var identity = await GetIdentity(userLoginModel.Email, userLoginModel.Password);
+			var identity = await GetIdentity(loginModel.Email, loginModel.Password);
 			if (identity == null)
 				return BadRequest();
 
