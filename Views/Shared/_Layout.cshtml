@@ -1,4 +1,5 @@
-﻿@inject SignInManager<User> SignInManager
+﻿@inject IViewLocalizer Localizer
+@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
 						<li class="nav-item">
-							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
@@ -31,14 +32,14 @@
 						{
 							<li class="nav-item">
 								<form method="post" asp-controller="Account" asp-action="Logout">
-									<button type="submit" class="btn-reset nav-link text-dark">Sign out</button>
+									<button type="submit" class="btn-reset nav-link text-dark">@Localizer["Logout"]</button>
 								</form>
 							</li>
 						}
 						else
 						{
 							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Sign in</a>
+								<a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">@Localizer["Login"]</a>
 							</li>
 						}
 					</ul>

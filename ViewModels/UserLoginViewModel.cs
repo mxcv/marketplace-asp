@@ -4,14 +4,16 @@ namespace Marketplace.ViewModels
 {
 	public class UserLoginViewModel
 	{
-		[Required]
+		[Required(ErrorMessage = "EmailRequired")]
 		[DataType(DataType.EmailAddress)]
 		[StringLength(254)]
+		[Display(Name = "Email")]
 		public string Email { get; set; } = null!;
 
-		[Required]
+		[Required(ErrorMessage = "PasswordRequired")]
 		[DataType(DataType.Password)]
 		[StringLength(30)]
+		[Display(Name = "Password")]
 		public string Password { get; set; } = null!;
 	}
 }

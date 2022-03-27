@@ -1,10 +1,11 @@
-﻿@model Marketplace.ViewModels.WebLoginViewModel
+﻿@inject IViewLocalizer Localizer
+@model Marketplace.ViewModels.WebLoginViewModel
 @{
-	ViewData["Title"] = "Sign in";
+	ViewData["Title"] = @Localizer["Login"];
 }
 
 <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="form-group mx-auto w-450">
-	<h2 class="mb-2">Sign in</h2>
+	<h2 class="mb-2">@Localizer["Login"]</h2>
 	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="mb-2">
 		<label asp-for="Email"></label>
@@ -21,6 +22,6 @@
 		<label asp-for="RememberMe"></label>
 	</div>
 	<div>
-		<input type="submit" value="Sign in" class="form-control btn btn-primary" />
+		<input type="submit" value="@Localizer["Login"]" class="form-control btn btn-primary" />
 	</div>
 </form>

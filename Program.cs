@@ -50,7 +50,11 @@ builder.Services.AddAuthorization(options =>
 		.Build()
 );
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddControllersWithViews()
+	.AddDataAnnotationsLocalization()
+	.AddViewLocalization();
 //.AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull);
 
 var app = builder.Build();
