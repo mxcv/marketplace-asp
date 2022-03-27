@@ -10,5 +10,7 @@ namespace Marketplace.ViewModels
 		[Compare(nameof(Password), ErrorMessage = "ConfirmPasswordCompare")]
 		[Display(Name = "ConfirmPassword")]
 		public string ConfirmPassword { get; set; } = null!;
+
+		public int? CityId { get; set; }
 	}
 }

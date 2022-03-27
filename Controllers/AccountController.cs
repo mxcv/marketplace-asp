@@ -67,7 +67,7 @@ namespace Marketplace.Controllers
 					PhoneNumber = model.PhoneNumber,
 					Name = model.Name,
 					Created = DateTime.UtcNow,
-					CityId = model.City?.Id
+					CityId = model.CityId
 				};
 				var result = await userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)

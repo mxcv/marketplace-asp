@@ -22,12 +22,44 @@
 		<span asp-validation-for="Email" class="text-danger float-end"></span>
 		<input asp-for="Email" class="form-control" autocomplete="off" />
 	</div>
+	<table class="mb-2">
+		<tr>
+			<td>
+				<label for="country-select">@Localizer["Country"]</label>
+			</td>
+			<td class="ps-3 w-100">
+				<select id="country-select" class="form-control">
+					<option value="">@Localizer["NotSelected"]</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="region-select">@Localizer["Region"]</label>
+			</td>
+			<td class="ps-3 w-100">
+				<select id="region-select" class="form-control">
+					<option value="">@Localizer["NotSelected"]</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label for="city-select">@Localizer["City"]</label>
+			</td>
+			<td class="ps-3 w-100">
+				<select asp-for="CityId" id="city-select" class="form-control">
+					<option value="">@Localizer["NotSelected"]</option>
+				</select>
+			</td>
+		</tr>
+	</table>
 	<div class="mb-2">
 		<label asp-for="Password"></label>
 		<span asp-validation-for="Password" class="text-danger float-end"></span>
 		<input asp-for="Password" class="form-control" />
 	</div>
-	<div class="mb-2">
+	<div class="mb-4">
 		<label asp-for="ConfirmPassword"></label>
 		<span asp-validation-for="ConfirmPassword" class="text-danger float-end"></span>
 		<input asp-for="ConfirmPassword" class="form-control" />
@@ -36,3 +68,7 @@
 		<input type="submit" value="@Localizer["Register"]" class="form-control btn btn-primary" />
 	</div>
 </form>
+
+@section Scripts {
+	<script src="~/js/location.js"></script>
+}
