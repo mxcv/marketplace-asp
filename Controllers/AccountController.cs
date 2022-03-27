@@ -2,16 +2,19 @@
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Marketplace.Controllers
 {
 	public class AccountController : Controller
 	{
 		private SignInManager<User> signInManager;
+		private IStringLocalizer<AccountController> localizer;
 
-		public AccountController(SignInManager<User> signInManager)
+		public AccountController(SignInManager<User> signInManager, IStringLocalizer<AccountController> localizer)
 		{
 			this.signInManager = signInManager;
+			this.localizer = localizer;
 		}
 
 		[HttpGet]
@@ -38,7 +41,7 @@ namespace Marketplace.Controllers
 						? Redirect(model.ReturnUrl)
 						: RedirectToAction("Index", "Home");
 				else
-					ModelState.AddModelError(string.Empty, "Invalid email or password");
+					ModelState.AddModelError(string.Empty, localizer["LoginError"]);
 			}
 			return View(model);
 		}
