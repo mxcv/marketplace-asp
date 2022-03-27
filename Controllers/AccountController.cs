@@ -8,11 +8,15 @@ namespace Marketplace.Controllers
 {
 	public class AccountController : Controller
 	{
+		private UserManager<User> userManager;
 		private SignInManager<User> signInManager;
 		private IStringLocalizer<AccountController> localizer;
 
-		public AccountController(SignInManager<User> signInManager, IStringLocalizer<AccountController> localizer)
+		public AccountController(UserManager<User> userManager,
+			SignInManager<User> signInManager,
+			IStringLocalizer<AccountController> localizer)
 		{
+			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.localizer = localizer;
 		}
@@ -42,6 +46,35 @@ namespace Marketplace.Controllers
 						: RedirectToAction("Index", "Home");
 				else
 					ModelState.AddModelError(string.Empty, localizer["LoginError"]);
+			}
+			return View(model);
+		}
+
+		[HttpGet]
+		public IActionResult Register()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Register(WebRegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				User user = new User() {
+					UserName = model.Email,
+					Email = model.Email,
+					PhoneNumber = model.PhoneNumber,
+					Name = model.Name,
+					Created = DateTime.UtcNow,
+					CityId = model.City?.Id
+				};
+				var result = await userManager.CreateAsync(user, model.Password);
+				if (result.Succeeded)
+					return RedirectToAction("Index", "Home");
+				else
+					foreach (var error in result.Errors)
+						ModelState.AddModelError(string.Empty, error.Description);
 			}
 			return View(model);
 		}
