@@ -3,7 +3,6 @@ using System.Security.Principal;
 using Marketplace.Models;
 using Marketplace.Repositories;
 using Microsoft.AspNetCore.Authentication.Certificate;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -49,11 +48,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 	});
 builder.Services.AddAuthorization(options =>
 	options.DefaultPolicy =
-		new AuthorizationPolicyBuilder(
-			CookieAuthenticationDefaults.AuthenticationScheme,
-			JwtBearerDefaults.AuthenticationScheme)
-		.RequireAuthenticatedUser()
-		.Build()
+		new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+			.RequireAuthenticatedUser()
+			.Build()
 );
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
