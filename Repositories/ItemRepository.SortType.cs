@@ -1,6 +1,6 @@
-﻿namespace Marketplace.Controllers
+﻿namespace Marketplace.Repositories
 {
-	public partial class ItemsController
+	public partial class ItemRepository
 	{
 		public enum SortType
 		{

@@ -1,10 +1,8 @@
-﻿using System.Security.Claims;
-using Marketplace.Dto;
-using Marketplace.Models;
+﻿using Marketplace.Models;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Controllers
 {
@@ -12,13 +10,11 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class ItemsController : ControllerBase
 	{
-		private MarketplaceDbContext db;
-		private IWebHostEnvironment appEnvironment;
+		private IItemRepository itemRepository;
 
-		public ItemsController(MarketplaceDbContext db, IWebHostEnvironment appEnvironment)
+		public ItemsController(IItemRepository itemRepository)
 		{
-			this.db = db;
-			this.appEnvironment = appEnvironment;
+			this.itemRepository = itemRepository;
 		}
 
 		[HttpGet]
@@ -35,151 +31,34 @@ namespace Marketplace.Controllers
 			int? skipCount,
 			int? takeCount)
 		{
-			IQueryable<Item> items = db.Items
-				.Include(x => x.Price)
-				.Include(x => x.User)
-					.ThenInclude(x => x.Image)
-						.ThenInclude(x => x!.File)
-				.Include(x => x.Images)
-					.ThenInclude(x => x.File);
-
-			if (query != null)
-				items = items.Where(x => EF.Functions.Like(x.Title, $"%{query}%"));
-			if (minPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value >= minPrice.Value);
-			if (maxPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value <= maxPrice.Value);
-			if (categoryId != null)
-				items = items.Where(x => x.CategoryId == categoryId);
-			if (userId != null)
-				items = items.Where(x => x.UserId == userId);
-
-			if (cityId != null)
-				items = items.Where(x => x.User.CityId == cityId);
-			else if (regionId != null)
-				items = items
-					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-					.Where(x => x.User.City != null && x.User.City.RegionId == regionId);
-			else if (countryId != null)
-				items = items
-					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-							.ThenInclude(x => x!.Region)
-					.Where(x => x.User.City != null && x.User.City.Region.CountryId == countryId);
-
-			if (sortTypeId == null)
-				sortTypeId = (int)default(SortType);
-			switch ((SortType)sortTypeId)
-			{
-				default:
-				case SortType.CreatedDescending:
-					items = items.OrderByDescending(x => x.Created);
-					break;
-				case SortType.PriceAscending:
-					items = items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value);
-					break;
-				case SortType.PriceDescending:
-					items = items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value);
-					break;
-			}
-
-			int leftCount = 0;
-			if (takeCount != null)
-				leftCount = await items.CountAsync() - takeCount.Value;
-			if (skipCount != null)
-				leftCount -= skipCount.Value;
-			if (leftCount < 0)
-				leftCount = 0;
-
-			if (skipCount != null)
-				items = items.Skip(skipCount.Value);
-			if (takeCount != null)
-				items = items.Take(takeCount.Value);
-
-			var itemModels = items.Select(x => new ItemDto() {
-				Id = x.Id,
-				Title = x.Title,
-				Description = x.Description,
-				Created = x.Created,
-				Category = x.CategoryId == null ? null : new CategoryDto() {
-					Id = x.CategoryId.Value
-				},
-				Price = x.Price == null ? null : x.Price.Value,
-				Currency = x.Price == null || x.Price.CurrencyId == null ? null
-					: new CurrencyDto() {
-						Id = x.Price.CurrencyId.Value
-					},
-				User = new UserDto() {
-					Id = x.UserId,
-					PhoneNumber = x.User.PhoneNumber,
-					Name = x.User.Name,
-					Created = x.User.Created,
-					City = x.User.CityId == null ? null : new CityDto() {
-						Id = x.User.CityId.Value
-					},
-					Image = x.User.Image == null ? null : new ImageDto() {
-						Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, x.User.Image.File.Name)
-					}
-				},
-				Images = x.Images.Select(i => new ImageDto() {
-					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
-				})
-			});
-
-			return Ok(new PageDto(await itemModels.ToListAsync(), leftCount));
+			return Ok(await itemRepository.GetItems(new ItemRequest() {
+				Query = query,
+				MinPrice = minPrice,
+				MaxPrice = maxPrice,
+				CategoryId = categoryId,
+				CountryId = countryId,
+				RegionId = regionId,
+				CityId = cityId,
+				UserId = userId,
+				SortTypeId = sortTypeId,
+				SkipCount = skipCount,
+				TakeCount = takeCount
+			}));
 		}
 
 		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> Post(ItemViewModel itemModel)
 		{
-			Item item = new Item() {
-				Title = itemModel.Title,
-				Description = itemModel.Description,
-				Created = DateTime.UtcNow,
-				UserId = GetUserId(),
-				CategoryId = itemModel.Category?.Id,
-				Price = itemModel.Price == null ? null : new Price() {
-					Value = itemModel.Price.Value,
-					CurrencyId = itemModel.Price.Value == 0 || itemModel.Currency == null
-						? null
-						: itemModel.Currency.Id
-				}
-			};
-
-			db.Items.Add(item);
-			await db.SaveChangesAsync();
-			return Ok(item.Id);
+			int? itemId = await itemRepository.AddItem(itemModel);
+			return itemId == null ? BadRequest() : Ok(itemId);
 		}
 
 		[Authorize]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			int userId = GetUserId();
-			Item? item = await db.Items
-				.Include(x => x.Images)
-					.ThenInclude(x => x.File)
-				.Where(x => x.Id == id)
-				.FirstOrDefaultAsync();
-			if (item == null || item.UserId != userId)
-				return BadRequest();
-
-			foreach (ItemImage image in item.Images)
-				System.IO.File.Delete(Path.Combine(
-					appEnvironment.WebRootPath,
-					ImagesController.DirectoryPath,
-					image.File.Name)
-				);
-			db.Items.Remove(item);
-			await db.SaveChangesAsync();
-			return Ok();
-		}
-
-		private int GetUserId()
-		{
-			return int.Parse(User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new NullReferenceException());
+			return await itemRepository.RemoveItem(id) ? Ok() : BadRequest();
 		}
 	}
 }

@@ -1,5 +1,7 @@
 using System.Globalization;
+using System.Security.Principal;
 using Marketplace.Models;
+using Marketplace.Repositories;
 using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -52,6 +54,13 @@ builder.Services.AddAuthorization(options =>
 			JwtBearerDefaults.AuthenticationScheme)
 		.RequireAuthenticatedUser()
 		.Build()
+);
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IPrincipal>(provider =>
+	provider.GetService<IHttpContextAccessor>()!.HttpContext!.User
 );
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
