@@ -126,6 +126,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Sign out</value>
   </data>
+  <data name="MyItems" xml:space="preserve">
+    <value>My items</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Sign up</value>
   </data>

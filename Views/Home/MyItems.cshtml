@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Marketplace.Dto.ItemDto>
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["MyItems"];
+}
+
+@foreach(Marketplace.Dto.ItemDto item in Model)
+{
+	<div class="mt-3">
+		@await Html.PartialAsync("ItemPartial", item)
+	</div>
+}

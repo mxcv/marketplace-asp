@@ -25,3 +25,13 @@ body {
 .w-450 {
 	width: 450px;
 }
+
+.item-image, .no-item-image {
+	width: 200px;
+	height: 150px;
+	object-fit: cover;
+}
+
+.no-item-image {
+	object-fit: contain;
+}

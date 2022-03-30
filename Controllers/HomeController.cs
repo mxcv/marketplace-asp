@@ -1,14 +1,19 @@
 ﻿using System.Diagnostics;
+using Marketplace.Models;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
 	public class HomeController : Controller
 	{
-		public HomeController()
+		private IItemRepository itemRepository;
+
+		public HomeController(IItemRepository itemRepository)
 		{
-			
+			this.itemRepository = itemRepository;
 		}
 
 		public IActionResult Index()
@@ -16,9 +21,15 @@ namespace Marketplace.Controllers
 			return View();
 		}
 
-		public async Task<IActionResult> Privacy()
+		public IActionResult Privacy()
 		{
 			return View();
+		}
+
+		[Authorize]
+		public async Task<IActionResult> MyItems()
+		{
+			return View((await itemRepository.GetMyItems(new ItemRequest())).Items);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

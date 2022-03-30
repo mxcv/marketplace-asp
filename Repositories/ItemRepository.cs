@@ -121,6 +121,12 @@ namespace Marketplace.Repositories
 			return new PageDto(await itemModels.ToListAsync(), leftCount);
 		}
 
+		public async Task<PageDto> GetMyItems(ItemRequest request)
+		{
+			request.UserId = userId;
+			return await GetItems(request);
+		}
+
 		public async Task<int?> AddItem(ItemViewModel model)
 		{
 			if (userId == null)

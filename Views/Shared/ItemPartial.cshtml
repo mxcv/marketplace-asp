@@ -1,0 +1,37 @@
+﻿@model Marketplace.Dto.ItemDto
+@inject IViewLocalizer Localizer
+
+<div class="d-flex shadow rounded p-2">
+	<a asp-controller="Home" asp-action="Index" asp-route-id="@Model.Id">
+		@if(Model.Images.FirstOrDefault() == null)
+		{
+			<img class="no-item-image" src="~/img/no-image.svg" alt="No item image" />
+		}
+		else
+		{
+			<img class="item-image rounded" src="@Url.Content(Model.Images.First().Path)" alt="Item image" />
+		}
+	</a>
+	<div class="d-flex flex-column justify-content-between w-100 ms-3">
+		<div class="d-flex justify-content-between">
+			<a asp-controller="Home" asp-action="Index" asp-route-id="@Model.Id"><b>@Model.Title</b></a>
+			@if (Model.Price != null)
+			{
+				<span class="ms-1">
+					<b class="price">@(Model.Price.Value != 0 ? Model.Price.Value : Localizer["Free"])</b>
+					@if (Model.Currency != null)
+					{
+						<b class="currency">@Model.Currency.Id</b>
+					}
+				</span>
+			}
+		</div>
+		<small>
+			@if ((Model.User.City != null))
+			{
+				<span class="location">@Model.User.City.Id</span>
+			}
+			<span class="time">@Model.Created.ToString("O")</span>
+		</small>
+	</div>
+</div>
