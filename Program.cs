@@ -11,10 +11,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
+var jwtConfigSection = builder.Configuration.GetSection("JwtConfiguration");
+var jwtConfig = jwtConfigSection.Get<JwtConfiguration>();
 
 // Add services to the container.
 builder.Services.AddDbContext<MarketplaceDbContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection")));
+	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection"))
+);
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IPrincipal>(provider =>
+	provider.GetService<IHttpContextAccessor>()!.HttpContext!.User
+);
+
+builder.Services.Configure<JwtConfiguration>(jwtConfigSection);
+builder.Services.AddOptions();
 
 builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)
 	.AddCertificate();
@@ -27,13 +40,28 @@ builder.Services.AddIdentity<User, IdentityRole<int>>(options => {
 	})
 	.AddEntityFrameworkStores<MarketplaceDbContext>();
 
-var jwtConfigSection = builder.Configuration.GetSection(nameof(JwtConfiguration));
-var jwtConfig = jwtConfigSection.Get<JwtConfiguration>();
+builder.Services.AddAuthentication(config => {
+		config.DefaultScheme = "IdentityOrJwt";
+	})
+	.AddPolicyScheme("IdentityOrJwt", "Identity or JWT", options => {
+		options.ForwardDefaultSelector = context => {
+			var isBearerAuthorization = context
+				.Request
+				.Headers["Authorization"]
+				.FirstOrDefault()?
+				.StartsWith("Bearer ")
+				?? false;
+			var isApiPath = context
+				.Request
+				.Path
+				.StartsWithSegments("/api", StringComparison.InvariantCulture);
 
-builder.Services.Configure<JwtConfiguration>(jwtConfigSection);
-builder.Services.AddOptions();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	.AddJwtBearer(options => {
+			return isBearerAuthorization || isApiPath
+				? JwtBearerDefaults.AuthenticationScheme
+				: IdentityConstants.ApplicationScheme;
+		};
+	})
+	.AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options => {
 		options.RequireHttpsMetadata = false;
 		options.TokenValidationParameters = new TokenValidationParameters {
 			ValidateIssuer = true,
@@ -46,18 +74,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			ClockSkew = TimeSpan.Zero
 		};
 	});
+
 builder.Services.AddAuthorization(options =>
 	options.DefaultPolicy =
-		new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+		new AuthorizationPolicyBuilder(
+			IdentityConstants.ApplicationScheme,
+			JwtBearerDefaults.AuthenticationScheme
+		)
 			.RequireAuthenticatedUser()
 			.Build()
-);
-
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddTransient<IPrincipal>(provider =>
-	provider.GetService<IHttpContextAccessor>()!.HttpContext!.User
 );
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
