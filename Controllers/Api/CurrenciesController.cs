@@ -1,4 +1,5 @@
-﻿using Marketplace.Dto;
+﻿using System.Globalization;
+using Marketplace.Dto;
 using Marketplace.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace Marketplace.Controllers
 			return Ok(await db.Currencies
 				.Select(x => new CurrencyDto() {
 					Id = x.Id,
-					LanguageTag = x.LanguageTag
+					LanguageTag = x.LanguageTag,
+					CurrencyCode = new RegionInfo(x.LanguageTag).ISOCurrencySymbol
 				})
 				.OrderBy(x => x.Id)
 				.ToListAsync()
