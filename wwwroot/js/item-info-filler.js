@@ -40,6 +40,6 @@ getCurrencies()
 
 var dateOptions = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
 $('.time-iso').each(function () {
-	$(this).next().text(new Date($(this).text()).toLocaleString(undefined, dateOptions));
+	$(this).next().text(new Date($(this).text()).toLocaleString($('html').attr('lang'), dateOptions));
 	$(this).remove();
 });

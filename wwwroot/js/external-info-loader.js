@@ -1,5 +1,10 @@
 ﻿var countries, categories, currencies;
 
+if (localStorage.getItem('lang') != $('html').attr('lang')) {
+	localStorage.clear();
+	localStorage.setItem('lang', $('html').attr('lang'));
+}
+
 async function getCountries() {
 	return await getValues('countries', 'locations');
 }
