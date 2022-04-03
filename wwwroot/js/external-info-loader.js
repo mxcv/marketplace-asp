@@ -12,10 +12,15 @@ async function getCurrencies() {
 
 async function getValues(variable, path) {
 	if (!window[variable]) {
-		let response = await fetch('/api/' + path);
-		if (!response.ok)
-			throw new Error(response.status);
-		variable = await response.json();
-    }
+		let valuesJSON = localStorage.getItem(variable);
+		if (!valuesJSON) {
+			let response = await fetch('/api/' + path);
+			if (!response.ok)
+				throw new Error(response.status);
+			valuesJSON = await response.text();
+			localStorage.setItem(variable, valuesJSON);
+		}
+		variable = JSON.parse(valuesJSON);
+	}
 	return variable;
 }
