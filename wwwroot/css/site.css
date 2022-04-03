@@ -2,9 +2,19 @@ html {
 	font-size: 14px;
 }
 
+.item-image {
+	width: 180px;
+	height: 135px;
+}
+
 @media (min-width: 768px) {
 	html {
 		font-size: 16px;
+	}
+
+	.item-image {
+		width: 220px;
+		height: 165px;
 	}
 }
 
@@ -26,12 +36,10 @@ body {
 	width: 450px;
 }
 
-.item-image, .no-item-image {
-	width: 200px;
-	height: 150px;
+.item-image {
 	object-fit: cover;
 }
 
-.no-item-image {
+.item-image-none {
 	object-fit: contain;
 }
