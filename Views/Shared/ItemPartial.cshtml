@@ -29,7 +29,7 @@
 		<small>
 			@if ((Model.User.City != null))
 			{
-				<span class="location">@Model.User.City.Id</span>
+				<span class="city">@Model.User.City.Id</span><span>,</span>
 			}
 			<span class="time">@Model.Created.ToString("O")</span>
 		</small>
