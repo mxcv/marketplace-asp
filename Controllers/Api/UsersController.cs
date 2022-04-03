@@ -69,7 +69,7 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Post(RegisterViewModel registerModel)
+		public async Task<IActionResult> Post(ApiRegisterViewModel registerModel)
 		{
 			User user = new User() {
 				UserName = registerModel.Email,

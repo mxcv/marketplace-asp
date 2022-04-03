@@ -48,7 +48,7 @@ namespace Marketplace.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Post(ItemViewModel itemModel)
+		public async Task<IActionResult> Post(ApiItemViewModel itemModel)
 		{
 			int? itemId = await itemRepository.AddItem(itemModel);
 			return itemId == null ? BadRequest() : Ok(itemId);

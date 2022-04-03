@@ -1,20 +1,16 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Marketplace.Dto;
 
 namespace Marketplace.ViewModels
 {
-	public class RegisterViewModel : LoginViewModel
+	public class RegisterViewModel : ApiRegisterViewModel
 	{
-		[DataType(DataType.PhoneNumber)]
-		[StringLength(20)]
-		[Display(Name = "PhoneNumber")]
-		public string? PhoneNumber { get; set; }
+		[Required(ErrorMessage = "ConfirmPasswordRequired")]
+		[DataType(DataType.Password)]
+		[StringLength(30)]
+		[Compare(nameof(Password), ErrorMessage = "ConfirmPasswordCompare")]
+		[Display(Name = "ConfirmPassword")]
+		public string ConfirmPassword { get; set; } = null!;
 
-		[DataType(DataType.Text)]
-		[StringLength(20)]
-		[Display(Name = "Name")]
-		public string? Name { get; set; }
-
-		public CityDto? City { get; set; }
+		public int? CityId { get; set; }
 	}
 }

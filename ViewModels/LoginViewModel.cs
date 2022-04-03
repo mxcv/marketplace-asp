@@ -2,18 +2,11 @@
 
 namespace Marketplace.ViewModels
 {
-	public class LoginViewModel
+	public class LoginViewModel : ApiLoginViewModel
 	{
-		[Required(ErrorMessage = "EmailRequired")]
-		[DataType(DataType.EmailAddress)]
-		[StringLength(254)]
-		[Display(Name = "Email")]
-		public string Email { get; set; } = null!;
+		[Display(Name = "RememberMe")]
+		public bool RememberMe { get; set; }
 
-		[Required(ErrorMessage = "PasswordRequired")]
-		[DataType(DataType.Password)]
-		[StringLength(30)]
-		[Display(Name = "Password")]
-		public string Password { get; set; } = null!;
+		public string? ReturnUrl { get; set; }
 	}
 }

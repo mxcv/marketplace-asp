@@ -3,7 +3,7 @@ using Marketplace.Dto;
 
 namespace Marketplace.ViewModels
 {
-	public class ItemViewModel
+	public class ApiItemViewModel
 	{
 		[Required]
 		[StringLength(50)]

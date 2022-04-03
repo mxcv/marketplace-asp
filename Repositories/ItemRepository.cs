@@ -127,7 +127,7 @@ namespace Marketplace.Repositories
 			return await GetItems(request);
 		}
 
-		public async Task<int?> AddItem(ItemViewModel model)
+		public async Task<int?> AddItem(ApiItemViewModel model)
 		{
 			if (userId == null)
 				return null;

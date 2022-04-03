@@ -24,12 +24,12 @@ namespace Marketplace.Controllers
 		[HttpGet]
 		public IActionResult Login(string returnUrl)
 		{
-			return View(new WebLoginViewModel { ReturnUrl = returnUrl });
+			return View(new LoginViewModel { ReturnUrl = returnUrl });
 		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Login(WebLoginViewModel model)
+		public async Task<IActionResult> Login(LoginViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -57,7 +57,7 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Register(WebRegisterViewModel model)
+		public async Task<IActionResult> Register(RegisterViewModel model)
 		{
 			if (ModelState.IsValid)
 			{

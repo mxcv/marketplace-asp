@@ -8,7 +8,7 @@ namespace Marketplace.Repositories
 	{
 		Task<PageDto> GetItems(ItemRequest request);
 		Task<PageDto> GetMyItems(ItemRequest request);
-		Task<int?> AddItem(ItemViewModel model);
+		Task<int?> AddItem(ApiItemViewModel model);
 		Task<bool> RemoveItem(int id);
 	}
 }
