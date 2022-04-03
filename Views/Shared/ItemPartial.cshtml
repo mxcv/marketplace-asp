@@ -18,20 +18,27 @@
 			@if (Model.Price != null)
 			{
 				<span class="ms-1">
-					<b class="price">@(Model.Price.Value != 0 ? Model.Price.Value : Localizer["Free"])</b>
 					@if (Model.Currency != null)
 					{
-						<b class="currency">@Model.Currency.Id</b>
+						<span class="currency-id d-none">@Model.Currency.Id</span>
 					}
+					<b>
+						@(Model.Price.Value == 0
+							? Localizer["Free"]
+							: Model.Price.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))
+					</b>
 				</span>
 			}
 		</div>
 		<small>
 			@if ((Model.User.City != null))
 			{
-				<span class="city">@Model.User.City.Id</span><span>,</span>
+				<span class="city-id d-none">@Model.User.City.Id</span>
+				<span></span>
+				<span>-</span>
 			}
-			<span class="time">@Model.Created.ToString("O")</span>
+			<span class="time-iso d-none">@Model.Created.ToString("O")</span>
+			<span></span>
 		</small>
 	</div>
 </div>

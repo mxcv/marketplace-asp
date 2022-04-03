@@ -24,7 +24,8 @@ namespace Marketplace.Controllers
 				.Select(x => new CurrencyDto() {
 					Id = x.Id,
 					LanguageTag = x.LanguageTag,
-					CurrencyCode = new RegionInfo(x.LanguageTag).ISOCurrencySymbol
+					Code = new RegionInfo(x.LanguageTag).ISOCurrencySymbol,
+					Symbol = new CultureInfo(x.LanguageTag).NumberFormat.CurrencySymbol
 				})
 				.OrderBy(x => x.Id)
 				.ToListAsync()

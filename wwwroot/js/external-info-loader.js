@@ -1,7 +1,13 @@
-﻿var countries;
+﻿var countries, categories, currencies;
 
 async function getCountries() {
 	return await getValues('countries', 'locations');
+}
+async function getCategories() {
+	return await getValues('categories', 'categories');
+}
+async function getCurrencies() {
+	return await getValues('currencies', 'currencies');
 }
 
 async function getValues(variable, path) {
