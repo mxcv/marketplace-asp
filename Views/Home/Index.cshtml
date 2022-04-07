@@ -1,8 +1,110 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Marketplace.ViewModels.IndexViewModel
+@{
+	ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+	<h1 class="display-4">Welcome</h1>
+	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+<form asp-controller="Home" asp-action="Index">
+	<div class="form-floating mb-2">
+		<input asp-for="Filter.Query" class="form-control" placeholder=" ">
+		<label asp-for="Filter.Query"></label>
+	</div>
+	<div class="row">
+		<div class="col-lg-6">
+			<span>Price</span>
+			<div class="row justify-content-start mb-2">
+				<div class="col">
+					<div class="form-floating">
+						<input asp-for="Filter.MinPrice" class="form-control" placeholder=" ">
+						<label asp-for="Filter.MinPrice"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-floating">
+						<input asp-for="Filter.MaxPrice" class="form-control" placeholder=" ">
+						<label asp-for="Filter.MaxPrice"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-floating">
+					  <select asp-for="Filter.CurrencyId" id="currency-select" class="form-select">
+						<option value="">Default</option>
+					  </select>
+					  <label asp-for="Filter.CurrencyId"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<span>Location</span>
+			<div class="row justify-content-start mb-4">
+				<div class="col">
+					<div class="form-floating">
+					  <select asp-for="Filter.CountryId" id="country-select" class="form-select">
+						<option value="">Not selected</option>
+					  </select>
+					  <label asp-for="Filter.CountryId"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-floating">
+					  <select asp-for="Filter.RegionId" id="region-select" class="form-select">
+						<option value="">Not selected</option>
+					  </select>
+					  <label asp-for="Filter.RegionId"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-floating">
+					  <select asp-for="Filter.CityId" id="city-select" class="form-select">
+						<option value="">Not selected</option>
+					  </select>
+					  <label asp-for="Filter.CityId"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col col-lg-2">
+			<div class="form-floating">
+			  <select asp-for="Filter.CategoryId" id="category-select" class="form-select">
+				<option value="">Not selected</option>
+			  </select>
+			  <label asp-for="Filter.CategoryId"></label>
+			</div>
+		</div>
+		<div class="col col-lg-2">
+			<div class="form-floating">
+				<select asp-for="SortType" id="category-select" class="form-select">
+					<option value="1">Newest</option>
+					<option value="2">Cheapest</option>
+					<option value="3">Most expensive</option>
+				</select>
+				<label asp-for="SortType"></label>
+			</div>
+		</div>
+		<div class="col clearfix">
+			<div class="float-end h-100 d-flex align-items-end">
+				<button type="submit" class="btn btn-primary h-75 px-5">Apply</button>
+			</div>
+		</div>
+	</div>
+</form>
+
+@foreach(Marketplace.Dto.ItemDto item in Model.Items)
+{
+	<div class="mt-3">
+		@await Html.PartialAsync("ItemPartial", item)
+	</div>
+}
+
+@section Scripts {
+	<script src="~/js/external-info-loader.js"></script>
+	<script src="~/js/select-filler.js"></script>
+	<script src="~/js/item-info-filler.js"></script>
+}

@@ -24,7 +24,7 @@ namespace Marketplace.Repositories
 				userId = int.Parse(identifier);
 		}
 
-		public async Task<PageDto> GetItems(ItemRequest request)
+		public async Task<IndexViewModel> GetItems(IndexViewModel model)
 		{
 			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
@@ -34,34 +34,32 @@ namespace Marketplace.Repositories
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
-			if (request.Query != null)
-				items = items.Where(x => EF.Functions.Like(x.Title, $"%{request.Query}%"));
-			if (request.MinPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value >= request.MinPrice.Value);
-			if (request.MaxPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value <= request.MaxPrice.Value);
-			if (request.CategoryId != null)
-				items = items.Where(x => x.CategoryId == request.CategoryId);
+			if (model.Filter.Query != null)
+				items = items.Where(x => EF.Functions.Like(x.Title, $"%{model.Filter.Query}%"));
+			if (model.Filter.MinPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value >= model.Filter.MinPrice.Value);
+			if (model.Filter.MaxPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value <= model.Filter.MaxPrice.Value);
+			if (model.Filter.CategoryId != null)
+				items = items.Where(x => x.CategoryId == model.Filter.CategoryId);
 			if (userId != null)
 				items = items.Where(x => x.UserId == userId);
 
-			if (request.CityId != null)
-				items = items.Where(x => x.User.CityId == request.CityId);
-			else if (request.RegionId != null)
+			if (model.Filter.CityId != null)
+				items = items.Where(x => x.User.CityId == model.Filter.CityId);
+			else if (model.Filter.RegionId != null)
 				items = items
 					.Include(x => x.User)
 						.ThenInclude(x => x.City)
-					.Where(x => x.User.City != null && x.User.City.RegionId == request.RegionId);
-			else if (request.CountryId != null)
+					.Where(x => x.User.City != null && x.User.City.RegionId == model.Filter.RegionId);
+			else if (model.Filter.CountryId != null)
 				items = items
 					.Include(x => x.User)
 						.ThenInclude(x => x.City)
 							.ThenInclude(x => x!.Region)
-					.Where(x => x.User.City != null && x.User.City.Region.CountryId == request.CountryId);
+					.Where(x => x.User.City != null && x.User.City.Region.CountryId == model.Filter.CountryId);
 
-			if (request.SortTypeId == null)
-				request.SortTypeId = (int)default(SortType);
-			switch ((SortType)request.SortTypeId)
+			switch (model.SortType)
 			{
 				default:
 				case SortType.CreatedDescending:
@@ -75,18 +73,18 @@ namespace Marketplace.Repositories
 					break;
 			}
 
-			int leftCount = 0;
-			if (request.TakeCount != null)
-				leftCount = await items.CountAsync() - request.TakeCount.Value;
-			if (request.SkipCount != null)
-				leftCount -= request.SkipCount.Value;
-			if (leftCount < 0)
-				leftCount = 0;
+			//int leftCount = 0;
+			//if (model.Filter.TakeCount != null)
+			//	leftCount = await items.CountAsync() - model.Filter.TakeCount.Value;
+			//if (model.Filter.SkipCount != null)
+			//	leftCount -= model.Filter.SkipCount.Value;
+			//if (leftCount < 0)
+			//	leftCount = 0;
 
-			if (request.SkipCount != null)
-				items = items.Skip(request.SkipCount.Value);
-			if (request.TakeCount != null)
-				items = items.Take(request.TakeCount.Value);
+			//if (model.Filter.SkipCount != null)
+			//	items = items.Skip(model.Filter.SkipCount.Value);
+			//if (model.Filter.TakeCount != null)
+			//	items = items.Take(model.Filter.TakeCount.Value);
 
 			var itemModels = items.Select(x => new ItemDto() {
 				Id = x.Id,
@@ -118,13 +116,14 @@ namespace Marketplace.Repositories
 				})
 			});
 
-			return new PageDto(await itemModels.ToListAsync(), leftCount);
+			model.Items = await itemModels.ToListAsync();
+			return model;
 		}
 
-		public async Task<PageDto> GetMyItems(ItemRequest request)
+		public async Task<IndexViewModel> GetMyItems(IndexViewModel model)
 		{
-			request.UserId = userId;
-			return await GetItems(request);
+			model.Filter.UserId = userId;
+			return await GetItems(model);
 		}
 
 		public async Task<int?> AddItem(ApiItemViewModel model)

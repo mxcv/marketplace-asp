@@ -1,4 +1,5 @@
-﻿using Marketplace.Models;
+﻿using Marketplace.Dto;
+using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -31,19 +32,22 @@ namespace Marketplace.Controllers
 			int? skipCount,
 			int? takeCount)
 		{
-			return Ok(await itemRepository.GetItems(new ItemRequest() {
-				Query = query,
-				MinPrice = minPrice,
-				MaxPrice = maxPrice,
-				CategoryId = categoryId,
-				CountryId = countryId,
-				RegionId = regionId,
-				CityId = cityId,
-				UserId = userId,
-				SortTypeId = sortTypeId,
-				SkipCount = skipCount,
-				TakeCount = takeCount
-			}));
+			var model = await itemRepository.GetItems(new IndexViewModel() {
+				Filter = {
+					Query = query,
+					MinPrice = minPrice,
+					MaxPrice = maxPrice,
+					CategoryId = categoryId,
+					CountryId = countryId,
+					RegionId = regionId,
+					CityId = cityId,
+					UserId = userId,
+					//SkipCount = skipCount,
+					//TakeCount = takeCount
+				},
+				SortType = (SortType)(sortTypeId ?? 0),
+			});
+			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, 0));
 		}
 
 		[Authorize]

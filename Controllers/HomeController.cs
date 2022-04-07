@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -16,9 +15,16 @@ namespace Marketplace.Controllers
 			this.itemRepository = itemRepository;
 		}
 
-		public IActionResult Index()
+		[HttpGet]
+		public async Task<IActionResult> Index()
 		{
-			return View();
+			return await Index(new IndexViewModel());
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Index(IndexViewModel model)
+		{
+			return View(await itemRepository.GetItems(model));
 		}
 
 		public IActionResult Privacy()
@@ -29,7 +35,7 @@ namespace Marketplace.Controllers
 		[Authorize]
 		public async Task<IActionResult> MyItems()
 		{
-			return View((await itemRepository.GetMyItems(new ItemRequest())).Items);
+			return View((await itemRepository.GetMyItems(new IndexViewModel())).Items);
 		}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
