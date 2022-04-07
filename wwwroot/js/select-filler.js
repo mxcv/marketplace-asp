@@ -8,6 +8,9 @@
 			let defaultRegion = $('#region-select').val(),
 				defaultCity = $('#city-select').val();
 
+			$('#region-select').prop('disabled', true);
+			$('#city-select').prop('disabled', true);
+
 			$('#country-select').change(function () {
 				selectedCountry = countries.find(c => c.id == $(this).val());
 				updateSubLocations('#region-select', selectedCountry, 'regions', defaultRegion);
@@ -48,7 +51,7 @@ function updateSubLocations(select, selectedLocation, subLocationsName, defaultS
 		for (region of selectedLocation[subLocationsName])
 			$(select).append($('<option>', { text: region.name, value: region.id }));
 	setDefaultValue(select, defaultSubLocation);
-	$(select).change();
+	$(select).prop('disabled', !selectedLocation).change();
 }
 function setDefaultValue(select, value) {
 	if (value) {
