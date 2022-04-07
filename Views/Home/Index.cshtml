@@ -8,9 +8,9 @@
 	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<form asp-controller="Home" asp-action="Index">
+<form asp-controller="Home" asp-action="Index" method="get">
 	<div class="form-floating mb-2">
-		<input asp-for="Filter.Query" class="form-control" placeholder=" ">
+		<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
 		<label asp-for="Filter.Query"></label>
 	</div>
 	<div class="row">
@@ -19,20 +19,20 @@
 			<div class="row justify-content-start mb-2">
 				<div class="col">
 					<div class="form-floating">
-						<input asp-for="Filter.MinPrice" class="form-control" placeholder=" ">
+						<input name="minPrice" value="@Model.Filter.MinPrice" class="form-control" placeholder=" ">
 						<label asp-for="Filter.MinPrice"></label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-floating">
-						<input asp-for="Filter.MaxPrice" class="form-control" placeholder=" ">
+						<input name="maxPrice" value="@Model.Filter.MaxPrice" class="form-control" placeholder=" ">
 						<label asp-for="Filter.MaxPrice"></label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-floating">
-					  <select asp-for="Filter.CurrencyId" id="currency-select" class="form-select">
-						<option value="">Default</option>
+					  <select name="currency" id="currency-select" class="form-select">
+						<option value="@Model.Filter.CurrencyId">Default</option>
 					  </select>
 					  <label asp-for="Filter.CurrencyId"></label>
 					</div>
@@ -44,24 +44,24 @@
 			<div class="row justify-content-start mb-4">
 				<div class="col">
 					<div class="form-floating">
-					  <select asp-for="Filter.CountryId" id="country-select" class="form-select">
-						<option value="">Not selected</option>
+					  <select name="country" id="country-select" class="form-select">
+						<option value="@Model.Filter.CountryId">Not selected</option>
 					  </select>
 					  <label asp-for="Filter.CountryId"></label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-floating">
-					  <select asp-for="Filter.RegionId" id="region-select" class="form-select">
-						<option value="">Not selected</option>
+					  <select name="region" id="region-select" class="form-select">
+						<option value="@Model.Filter.RegionId">Not selected</option>
 					  </select>
 					  <label asp-for="Filter.RegionId"></label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-floating">
-					  <select asp-for="Filter.CityId" id="city-select" class="form-select">
-						<option value="">Not selected</option>
+					  <select name="city" id="city-select" class="form-select">
+						<option value="@Model.Filter.CityId">Not selected</option>
 					  </select>
 					  <label asp-for="Filter.CityId"></label>
 					</div>
@@ -72,15 +72,15 @@
 	<div class="row">
 		<div class="col col-lg-2">
 			<div class="form-floating">
-			  <select asp-for="Filter.CategoryId" id="category-select" class="form-select">
-				<option value="">Not selected</option>
+			  <select name="category" id="category-select" class="form-select">
+				<option value="@Model.Filter.CategoryId">Not selected</option>
 			  </select>
 			  <label asp-for="Filter.CategoryId"></label>
 			</div>
 		</div>
 		<div class="col col-lg-2">
 			<div class="form-floating">
-				<select asp-for="SortType" id="category-select" class="form-select">
+				<select asp-for="SortType" name="sortType" id="category-select" class="form-select">
 					<option value="1">Newest</option>
 					<option value="2">Cheapest</option>
 					<option value="3">Most expensive</option>

@@ -5,14 +5,22 @@
 				$('#country-select').append($('<option>', { text: country.name, value: country.id }));
 
 			let selectedCountry, selectedRegion;
+			let defaultRegion = $('#region-select').val(),
+				defaultCity = $('#city-select').val();
+
 			$('#country-select').change(function () {
 				selectedCountry = countries.find(c => c.id == $(this).val());
-				updateSubLocations('#region-select', selectedCountry, 'regions');
+				updateSubLocations('#region-select', selectedCountry, 'regions', defaultRegion);
+				defaultRegion = null;
 			});
 			$('#region-select').change(function () {
 				selectedRegion = selectedCountry?.regions.find(r => r.id == $(this).val());
-				updateSubLocations('#city-select', selectedRegion, 'cities');
+				updateSubLocations('#city-select', selectedRegion, 'cities', defaultCity);
+				defaultCity = null;
 			});
+
+			setDefaultValue('#country-select', $('#country-select').val());
+			$('#country-select').change();
 		})
 		.catch(console.log);
 
@@ -21,6 +29,7 @@ if ($('#category-select').length)
 		.then(function (categories) {
 			for (category of categories)
 				$('#category-select').append($('<option>', { text: category.title, value: category.id }));
+			setDefaultValue('#category-select', $('#category-select').val());
 		})
 		.catch(console.log);
 
@@ -29,13 +38,21 @@ if ($('#currency-select').length)
 		.then(function (currencies) {
 			for (currency of currencies)
 				$('#currency-select').append($('<option>', { text: currency.symbol, value: currency.id }));
+			setDefaultValue('#currency-select', $('#currency-select').val());
 		})
 		.catch(console.log);
 
-function updateSubLocations(select, selectedLocation, subLocationsName) {
+function updateSubLocations(select, selectedLocation, subLocationsName, defaultSubLocation) {
 	$(select + ' option:not(:first-child)').remove();
 	if (selectedLocation)
 		for (region of selectedLocation[subLocationsName])
 			$(select).append($('<option>', { text: region.name, value: region.id }));
+	setDefaultValue(select, defaultSubLocation);
 	$(select).change();
+}
+function setDefaultValue(select, value) {
+	if (value) {
+		$(select + ' option').first().val('');
+		$(select).val(value);
+	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +17,30 @@ namespace Marketplace.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(
+			string? query,
+			decimal? minPrice,
+			decimal? maxPrice,
+			int? category,
+			int? currency,
+			int? country,
+			int? region,
+			int? city,
+			SortType? sortType)
 		{
-			return await Index(new IndexViewModel());
-		}
-
-		[HttpPost]
-		public async Task<IActionResult> Index(IndexViewModel model)
-		{
+			var model = await itemRepository.GetItems(new IndexViewModel() {
+				Filter = {
+					Query = query,
+					MinPrice = minPrice,
+					MaxPrice = maxPrice,
+					CurrencyId = currency,
+					CategoryId = category,
+					CountryId = country,
+					RegionId = region,
+					CityId = city,
+				},
+				SortType = sortType,
+			});
 			return View(await itemRepository.GetItems(model));
 		}
 
