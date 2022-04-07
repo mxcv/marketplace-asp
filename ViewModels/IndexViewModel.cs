@@ -12,6 +12,6 @@ namespace Marketplace.ViewModels
 
 		public IEnumerable<ItemDto>? Items { get; set; }
 		public FilterViewModel Filter { get; set; }
-		public SortType SortType { get; set; }
+		public SortType? SortType { get; set; }
 	}
 }

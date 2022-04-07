@@ -28,7 +28,7 @@ namespace Marketplace.Controllers
 			int? regionId,
 			int? cityId,
 			int? userId,
-			int? sortTypeId,
+			SortType? sortTypeId,
 			int? skipCount,
 			int? takeCount)
 		{
@@ -45,7 +45,7 @@ namespace Marketplace.Controllers
 					//SkipCount = skipCount,
 					//TakeCount = takeCount
 				},
-				SortType = (SortType)(sortTypeId ?? 0),
+				SortType = sortTypeId,
 			});
 			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, 0));
 		}
