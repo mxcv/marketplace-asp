@@ -34,30 +34,33 @@ namespace Marketplace.Repositories
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
-			if (model.Filter.Query != null)
-				items = items.Where(x => EF.Functions.Like(x.Title, $"%{model.Filter.Query}%"));
-			if (model.Filter.MinPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value >= model.Filter.MinPrice.Value);
-			if (model.Filter.MaxPrice != null)
-				items = items.Where(x => x.Price != null && x.Price.Value <= model.Filter.MaxPrice.Value);
-			if (model.Filter.CategoryId != null)
-				items = items.Where(x => x.CategoryId == model.Filter.CategoryId);
-			if (userId != null)
-				items = items.Where(x => x.UserId == userId);
+			if (model.Filter != null)
+			{
+				if (model.Filter.Query != null)
+					items = items.Where(x => EF.Functions.Like(x.Title, $"%{model.Filter.Query}%"));
+				if (model.Filter.MinPrice != null)
+					items = items.Where(x => x.Price != null && x.Price.Value >= model.Filter.MinPrice.Value);
+				if (model.Filter.MaxPrice != null)
+					items = items.Where(x => x.Price != null && x.Price.Value <= model.Filter.MaxPrice.Value);
+				if (model.Filter.CategoryId != null)
+					items = items.Where(x => x.CategoryId == model.Filter.CategoryId);
+				if (userId != null)
+					items = items.Where(x => x.UserId == userId);
 
-			if (model.Filter.CityId != null)
-				items = items.Where(x => x.User.CityId == model.Filter.CityId);
-			else if (model.Filter.RegionId != null)
-				items = items
-					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-					.Where(x => x.User.City != null && x.User.City.RegionId == model.Filter.RegionId);
-			else if (model.Filter.CountryId != null)
-				items = items
-					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-							.ThenInclude(x => x!.Region)
-					.Where(x => x.User.City != null && x.User.City.Region.CountryId == model.Filter.CountryId);
+				if (model.Filter.CityId != null)
+					items = items.Where(x => x.User.CityId == model.Filter.CityId);
+				else if (model.Filter.RegionId != null)
+					items = items
+						.Include(x => x.User)
+							.ThenInclude(x => x.City)
+						.Where(x => x.User.City != null && x.User.City.RegionId == model.Filter.RegionId);
+				else if (model.Filter.CountryId != null)
+					items = items
+						.Include(x => x.User)
+							.ThenInclude(x => x.City)
+								.ThenInclude(x => x!.Region)
+						.Where(x => x.User.City != null && x.User.City.Region.CountryId == model.Filter.CountryId);
+			}
 
 			switch (model.SortType)
 			{
@@ -73,18 +76,12 @@ namespace Marketplace.Repositories
 					break;
 			}
 
-			//int leftCount = 0;
-			//if (model.Filter.TakeCount != null)
-			//	leftCount = await items.CountAsync() - model.Filter.TakeCount.Value;
-			//if (model.Filter.SkipCount != null)
-			//	leftCount -= model.Filter.SkipCount.Value;
-			//if (leftCount < 0)
-			//	leftCount = 0;
-
-			//if (model.Filter.SkipCount != null)
-			//	items = items.Skip(model.Filter.SkipCount.Value);
-			//if (model.Filter.TakeCount != null)
-			//	items = items.Take(model.Filter.TakeCount.Value);
+			if (model.Page != null)
+			{
+				model.Page.TotalItems = await items.CountAsync();
+				model.Page.TotalPages = (int)Math.Ceiling(model.Page.TotalItems / (double)model.Page.Size);
+				items = items.Skip((model.Page.Index - 1) * model.Page.Size).Take(model.Page.Size);
+			}
 
 			var itemModels = items.Select(x => new ItemDto() {
 				Id = x.Id,
@@ -122,6 +119,8 @@ namespace Marketplace.Repositories
 
 		public async Task<IndexViewModel> GetMyItems(IndexViewModel model)
 		{
+			if (model.Filter == null)
+				model.Filter = new FilterViewModel();
 			model.Filter.UserId = userId;
 			return await GetItems(model);
 		}

@@ -1,6 +1,7 @@
 ﻿@model Marketplace.ViewModels.IndexViewModel
 @{
 	ViewData["Title"] = "Home Page";
+	System.Diagnostics.Debug.Assert(Model != null && Model.Items != null && Model.Filter != null && Model.Page != null);
 }
 
 <div class="text-center">
@@ -11,7 +12,7 @@
 <form asp-controller="Home" asp-action="Index" method="get">
 	<div class="form-floating mb-2">
 		<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
-		<label asp-for="Filter.Query"></label>
+		<label asp-for="Filter!.Query"></label>
 	</div>
 	<div class="row">
 		<div class="col-lg-6">
@@ -20,13 +21,13 @@
 				<div class="col">
 					<div class="form-floating">
 						<input name="minPrice" value="@Model.Filter.MinPrice" class="form-control" placeholder=" ">
-						<label asp-for="Filter.MinPrice"></label>
+						<label asp-for="Filter!.MinPrice"></label>
 					</div>
 				</div>
 				<div class="col">
 					<div class="form-floating">
 						<input name="maxPrice" value="@Model.Filter.MaxPrice" class="form-control" placeholder=" ">
-						<label asp-for="Filter.MaxPrice"></label>
+						<label asp-for="Filter!.MaxPrice"></label>
 					</div>
 				</div>
 				<div class="col">
@@ -34,7 +35,7 @@
 					  <select name="currency" id="currency-select" class="form-select">
 						<option value="@Model.Filter.CurrencyId">Default</option>
 					  </select>
-					  <label asp-for="Filter.CurrencyId"></label>
+					  <label asp-for="Filter!.CurrencyId"></label>
 					</div>
 				</div>
 			</div>
@@ -47,7 +48,7 @@
 					  <select name="country" id="country-select" class="form-select">
 						<option value="@Model.Filter.CountryId">Not selected</option>
 					  </select>
-					  <label asp-for="Filter.CountryId"></label>
+					  <label asp-for="Filter!.CountryId"></label>
 					</div>
 				</div>
 				<div class="col">
@@ -55,7 +56,7 @@
 					  <select name="region" id="region-select" class="form-select">
 						<option value="@Model.Filter.RegionId">Not selected</option>
 					  </select>
-					  <label asp-for="Filter.RegionId"></label>
+					  <label asp-for="Filter!.RegionId"></label>
 					</div>
 				</div>
 				<div class="col">
@@ -63,7 +64,7 @@
 					  <select name="city" id="city-select" class="form-select">
 						<option value="@Model.Filter.CityId">Not selected</option>
 					  </select>
-					  <label asp-for="Filter.CityId"></label>
+					  <label asp-for="Filter!.CityId"></label>
 					</div>
 				</div>
 			</div>
@@ -75,7 +76,7 @@
 			  <select name="category" id="category-select" class="form-select">
 				<option value="@Model.Filter.CategoryId">Not selected</option>
 			  </select>
-			  <label asp-for="Filter.CategoryId"></label>
+			  <label asp-for="Filter!.CategoryId"></label>
 			</div>
 		</div>
 		<div class="col col-lg-2">

@@ -26,10 +26,12 @@ namespace Marketplace.Controllers
 			int? country,
 			int? region,
 			int? city,
-			SortType? sortType)
+			SortType? sortType,
+			int? page)
 		{
-			var model = await itemRepository.GetItems(new IndexViewModel() {
-				Filter = {
+			var model = await itemRepository.GetItems(new IndexViewModel(
+				sortType,
+				new FilterViewModel() {
 					Query = query,
 					MinPrice = minPrice,
 					MaxPrice = maxPrice,
@@ -39,8 +41,8 @@ namespace Marketplace.Controllers
 					RegionId = region,
 					CityId = city,
 				},
-				SortType = sortType,
-			});
+				new PageViewModel(page, 1)
+			));
 			return View(await itemRepository.GetItems(model));
 		}
 

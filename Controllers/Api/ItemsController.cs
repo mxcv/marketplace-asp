@@ -1,4 +1,5 @@
-﻿using Marketplace.Dto;
+﻿using System.Diagnostics;
+using Marketplace.Dto;
 using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
@@ -30,11 +31,12 @@ namespace Marketplace.Controllers
 			int? cityId,
 			int? userId,
 			SortType? sortTypeId,
-			int? skipCount,
-			int? takeCount)
+			int? pageIndex,
+			int? pageSize)
 		{
-			var model = await itemRepository.GetItems(new IndexViewModel() {
-				Filter = {
+			var model = await itemRepository.GetItems(new IndexViewModel(
+				sortTypeId,
+				new FilterViewModel() {
 					Query = query,
 					MinPrice = minPrice,
 					MaxPrice = maxPrice,
@@ -43,13 +45,13 @@ namespace Marketplace.Controllers
 					CountryId = countryId,
 					RegionId = regionId,
 					CityId = cityId,
-					UserId = userId,
-					//SkipCount = skipCount,
-					//TakeCount = takeCount
+					UserId = userId
 				},
-				SortType = sortTypeId,
-			});
-			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, 0));
+				new PageViewModel(pageIndex, pageSize)
+			));
+
+			Debug.Assert(model.Page != null);
+			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, model.Page.TotalItems));
 		}
 
 		[Authorize]

@@ -2,13 +2,13 @@
 {
 	public class PageDto
 	{
-		public PageDto(IEnumerable<ItemDto> items, int leftCount)
+		public PageDto(IEnumerable<ItemDto> items, int totalItems)
 		{
 			Items = items;
-			LeftCount = leftCount;
+			TotalItems = totalItems;
 		}
 
 		public IEnumerable<ItemDto> Items { get; set; }
-		public int LeftCount { get; set; }
+		public int TotalItems { get; set; }
 	}
 }
