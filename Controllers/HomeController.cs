@@ -41,7 +41,7 @@ namespace Marketplace.Controllers
 					RegionId = region,
 					CityId = city,
 				},
-				new PageViewModel(page, 1)
+				new PageViewModel(page, null)
 			));
 			return View(await itemRepository.GetItems(model));
 		}

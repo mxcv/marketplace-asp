@@ -95,14 +95,51 @@
 			</div>
 		</div>
 	</div>
-</form>
 
-@foreach(Marketplace.Dto.ItemDto item in Model.Items)
-{
-	<div class="mt-3">
-		@await Html.PartialAsync("ItemPartial", item)
+	<div>
+		@foreach (Marketplace.Dto.ItemDto item in Model.Items)
+		{
+			<div class="mt-3">
+				@await Html.PartialAsync("ItemPartial", item)
+			</div>
+		}
 	</div>
-}
+
+	@if (Model.Page.TotalItems != 0)
+	{
+		<div class="d-flex justify-content-center mt-4">
+			<button type="submit" name="page" value="@(Model.Page.Index - 1)" class="btn btn-outline-primary me-2" @(Model.Page.Index == 1 ? "disabled" : "")><b>&lt;</b></button>
+			@{
+				int radius = 2;
+				List<int> indeces = new List<int>();
+				indeces.Add(1);
+				if (Model.Page.TotalPages != 1)
+				{
+					if (Model.Page.Index - radius > 2)
+						indeces.Add((Model.Page.Index - radius + 1) / -2);
+					for (int i = Model.Page.Index - radius > 1 ? Model.Page.Index - radius : 2;
+						i <= (Model.Page.Index + radius < Model.Page.TotalPages ? Model.Page.Index + radius : Model.Page.TotalPages - 1);
+						++i)
+						indeces.Add(i);
+					if (indeces[indeces.Count - 1] != Model.Page.TotalPages - 1)
+						indeces.Add((indeces[indeces.Count - 1] + Model.Page.TotalPages) / -2);
+					indeces.Add(Model.Page.TotalPages);
+				}
+
+				foreach (int i in indeces)
+					if (i < 0)
+					{
+						<button type="submit" name="page" value="@(-i)" class="btn btn-link">...</button>
+					}
+					else
+					{
+						<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.Page.Index == i ? "disabled" : "")>@i</button>
+					}
+			}
+			<button type="submit" name="page" value="@(Model.Page.Index + 1)" class="btn btn-outline-primary ms-2" @(Model.Page.Index == Model.Page.TotalPages ? "disabled" : "")><b>&gt;</b></button>
+		</div>
+	}
+</form>
 
 @section Scripts {
 	<script src="~/js/hide-empty-form-fileds.js"></script>
