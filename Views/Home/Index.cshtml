@@ -9,97 +9,15 @@
 	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-<form asp-controller="Home" asp-action="Index" method="get">
-	<div>
-		<div class="form-floating mb-2">
+<form asp-controller="Items" asp-action="Index" method="get">
+	<div class="d-flex">
+		<div class="form-floating w-100">
 			<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
 			<label asp-for="Filter!.Query"></label>
 		</div>
-		<div class="row">
-			<div class="col-lg-6">
-				<span>Price</span>
-				<div class="row justify-content-start mb-2">
-					<div class="col">
-						<div class="form-floating">
-							<input name="minPrice" value="@Model.Filter.MinPrice" class="form-control" placeholder=" ">
-							<label asp-for="Filter!.MinPrice"></label>
-						</div>
-					</div>
-					<div class="col">
-						<div class="form-floating">
-							<input name="maxPrice" value="@Model.Filter.MaxPrice" class="form-control" placeholder=" ">
-							<label asp-for="Filter!.MaxPrice"></label>
-						</div>
-					</div>
-					<div class="col">
-						<div class="form-floating">
-						  <select name="currency" id="currency-select" class="form-select">
-							<option value="@Model.Filter.CurrencyId">Default</option>
-						  </select>
-						  <label asp-for="Filter!.CurrencyId"></label>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<span>Location</span>
-				<div class="row justify-content-start mb-4">
-					<div class="col">
-						<div class="form-floating">
-						  <select name="country" id="country-select" class="form-select">
-							<option value="@Model.Filter.CountryId">Not selected</option>
-						  </select>
-						  <label asp-for="Filter!.CountryId"></label>
-						</div>
-					</div>
-					<div class="col">
-						<div class="form-floating">
-						  <select name="region" id="region-select" class="form-select">
-							<option value="@Model.Filter.RegionId">Not selected</option>
-						  </select>
-						  <label asp-for="Filter!.RegionId"></label>
-						</div>
-					</div>
-					<div class="col">
-						<div class="form-floating">
-						  <select name="city" id="city-select" class="form-select">
-							<option value="@Model.Filter.CityId">Not selected</option>
-						  </select>
-						  <label asp-for="Filter!.CityId"></label>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col col-lg-2">
-				<div class="form-floating">
-				  <select name="category" id="category-select" class="form-select">
-					<option value="@Model.Filter.CategoryId">Not selected</option>
-				  </select>
-				  <label asp-for="Filter!.CategoryId"></label>
-				</div>
-			</div>
-			<div class="col col-lg-2">
-				<div class="form-floating">
-					<select asp-for="SortType" name="sort" id="category-select" class="form-select">
-						<option value="1">Newest</option>
-						<option value="2">Cheapest</option>
-						<option value="3">Most expensive</option>
-					</select>
-					<label asp-for="SortType"></label>
-				</div>
-			</div>
-			<div class="col clearfix">
-				<div class="float-end h-100 d-flex align-items-end">
-					<button type="submit" class="btn btn-primary h-75 px-5">Apply</button>
-				</div>
-			</div>
-		</div>
+		<button type="submit" class="btn btn-outline-primary ms-1 px-4 text-monospace">Find</button>
 	</div>
-
-	<div class="mt-4"><i>Found: @Model.Page.TotalItems</i></div>
-
+	<h2 class="display-4 mt-4">Latest items</h2>
 	<div>
 		@foreach (Marketplace.Dto.ItemDto item in Model.Items)
 		{
@@ -108,46 +26,10 @@
 			</div>
 		}
 	</div>
-
-	@if (Model.Page.TotalItems != 0)
-	{
-		<div class="d-flex justify-content-center mt-4">
-			<button type="submit" name="page" value="@(Model.Page.Index - 1)" class="btn btn-outline-primary me-2" @(Model.Page.Index == 1 ? "disabled" : "")><b>&lt;</b></button>
-			@{
-				int radius = 2;
-				List<int> indeces = new List<int>();
-				indeces.Add(1);
-				if (Model.Page.TotalPages != 1)
-				{
-					if (Model.Page.Index - radius > 2)
-						indeces.Add((Model.Page.Index - radius + 1) / -2);
-					for (int i = Model.Page.Index - radius > 1 ? Model.Page.Index - radius : 2;
-						i <= (Model.Page.Index + radius < Model.Page.TotalPages ? Model.Page.Index + radius : Model.Page.TotalPages - 1);
-						++i)
-						indeces.Add(i);
-					if (indeces[indeces.Count - 1] != Model.Page.TotalPages - 1)
-						indeces.Add((indeces[indeces.Count - 1] + Model.Page.TotalPages) / -2);
-					indeces.Add(Model.Page.TotalPages);
-				}
-
-				foreach (int i in indeces)
-					if (i < 0)
-					{
-						<button type="submit" name="page" value="@(-i)" class="btn btn-link">...</button>
-					}
-					else
-					{
-						<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.Page.Index == i ? "disabled" : "")>@i</button>
-					}
-			}
-			<button type="submit" name="page" value="@(Model.Page.Index + 1)" class="btn btn-outline-primary ms-2" @(Model.Page.Index == Model.Page.TotalPages ? "disabled" : "")><b>&gt;</b></button>
-		</div>
-	}
 </form>
 
 @section Scripts {
 	<script src="~/js/hide-empty-form-fileds.js"></script>
 	<script src="~/js/external-info-loader.js"></script>
-	<script src="~/js/select-filler.js"></script>
 	<script src="~/js/item-info-filler.js"></script>
 }

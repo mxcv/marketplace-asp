@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
-	[Route("api/[controller]")]
+	[Route("api/items")]
 	[ApiController]
-	public partial class ItemsController : ControllerBase
+	public partial class ItemsApiController : ControllerBase
 	{
 		private IItemRepository itemRepository;
 
-		public ItemsController(IItemRepository itemRepository)
+		public ItemsApiController(IItemRepository itemRepository)
 		{
 			this.itemRepository = itemRepository;
 		}
