@@ -10,91 +10,95 @@
 </div>
 
 <form asp-controller="Home" asp-action="Index" method="get">
-	<div class="form-floating mb-2">
-		<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
-		<label asp-for="Filter!.Query"></label>
+	<div>
+		<div class="form-floating mb-2">
+			<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
+			<label asp-for="Filter!.Query"></label>
+		</div>
+		<div class="row">
+			<div class="col-lg-6">
+				<span>Price</span>
+				<div class="row justify-content-start mb-2">
+					<div class="col">
+						<div class="form-floating">
+							<input name="minPrice" value="@Model.Filter.MinPrice" class="form-control" placeholder=" ">
+							<label asp-for="Filter!.MinPrice"></label>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-floating">
+							<input name="maxPrice" value="@Model.Filter.MaxPrice" class="form-control" placeholder=" ">
+							<label asp-for="Filter!.MaxPrice"></label>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-floating">
+						  <select name="currency" id="currency-select" class="form-select">
+							<option value="@Model.Filter.CurrencyId">Default</option>
+						  </select>
+						  <label asp-for="Filter!.CurrencyId"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<span>Location</span>
+				<div class="row justify-content-start mb-4">
+					<div class="col">
+						<div class="form-floating">
+						  <select name="country" id="country-select" class="form-select">
+							<option value="@Model.Filter.CountryId">Not selected</option>
+						  </select>
+						  <label asp-for="Filter!.CountryId"></label>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-floating">
+						  <select name="region" id="region-select" class="form-select">
+							<option value="@Model.Filter.RegionId">Not selected</option>
+						  </select>
+						  <label asp-for="Filter!.RegionId"></label>
+						</div>
+					</div>
+					<div class="col">
+						<div class="form-floating">
+						  <select name="city" id="city-select" class="form-select">
+							<option value="@Model.Filter.CityId">Not selected</option>
+						  </select>
+						  <label asp-for="Filter!.CityId"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-lg-2">
+				<div class="form-floating">
+				  <select name="category" id="category-select" class="form-select">
+					<option value="@Model.Filter.CategoryId">Not selected</option>
+				  </select>
+				  <label asp-for="Filter!.CategoryId"></label>
+				</div>
+			</div>
+			<div class="col col-lg-2">
+				<div class="form-floating">
+					<select asp-for="SortType" name="sort" id="category-select" class="form-select">
+						<option value="1">Newest</option>
+						<option value="2">Cheapest</option>
+						<option value="3">Most expensive</option>
+					</select>
+					<label asp-for="SortType"></label>
+				</div>
+			</div>
+			<div class="col clearfix">
+				<div class="float-end h-100 d-flex align-items-end">
+					<button type="submit" class="btn btn-primary h-75 px-5">Apply</button>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div class="row">
-		<div class="col-lg-6">
-			<span>Price</span>
-			<div class="row justify-content-start mb-2">
-				<div class="col">
-					<div class="form-floating">
-						<input name="minPrice" value="@Model.Filter.MinPrice" class="form-control" placeholder=" ">
-						<label asp-for="Filter!.MinPrice"></label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-floating">
-						<input name="maxPrice" value="@Model.Filter.MaxPrice" class="form-control" placeholder=" ">
-						<label asp-for="Filter!.MaxPrice"></label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-floating">
-					  <select name="currency" id="currency-select" class="form-select">
-						<option value="@Model.Filter.CurrencyId">Default</option>
-					  </select>
-					  <label asp-for="Filter!.CurrencyId"></label>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<span>Location</span>
-			<div class="row justify-content-start mb-4">
-				<div class="col">
-					<div class="form-floating">
-					  <select name="country" id="country-select" class="form-select">
-						<option value="@Model.Filter.CountryId">Not selected</option>
-					  </select>
-					  <label asp-for="Filter!.CountryId"></label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-floating">
-					  <select name="region" id="region-select" class="form-select">
-						<option value="@Model.Filter.RegionId">Not selected</option>
-					  </select>
-					  <label asp-for="Filter!.RegionId"></label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-floating">
-					  <select name="city" id="city-select" class="form-select">
-						<option value="@Model.Filter.CityId">Not selected</option>
-					  </select>
-					  <label asp-for="Filter!.CityId"></label>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col col-lg-2">
-			<div class="form-floating">
-			  <select name="category" id="category-select" class="form-select">
-				<option value="@Model.Filter.CategoryId">Not selected</option>
-			  </select>
-			  <label asp-for="Filter!.CategoryId"></label>
-			</div>
-		</div>
-		<div class="col col-lg-2">
-			<div class="form-floating">
-				<select asp-for="SortType" name="sort" id="category-select" class="form-select">
-					<option value="1">Newest</option>
-					<option value="2">Cheapest</option>
-					<option value="3">Most expensive</option>
-				</select>
-				<label asp-for="SortType"></label>
-			</div>
-		</div>
-		<div class="col clearfix">
-			<div class="float-end h-100 d-flex align-items-end">
-				<button type="submit" class="btn btn-primary h-75 px-5">Apply</button>
-			</div>
-		</div>
-	</div>
+
+	<div class="mt-4"><i>Found: @Model.Page.TotalItems</i></div>
 
 	<div>
 		@foreach (Marketplace.Dto.ItemDto item in Model.Items)
