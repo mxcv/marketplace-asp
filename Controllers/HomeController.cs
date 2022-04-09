@@ -26,11 +26,11 @@ namespace Marketplace.Controllers
 			int? country,
 			int? region,
 			int? city,
-			SortType? sortType,
+			SortType? sort,
 			int? page)
 		{
 			var model = await itemRepository.GetItems(new IndexViewModel(
-				sortType,
+				sort,
 				new FilterViewModel() {
 					Query = query,
 					MinPrice = minPrice,

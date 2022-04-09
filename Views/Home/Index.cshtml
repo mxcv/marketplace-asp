@@ -81,7 +81,7 @@
 		</div>
 		<div class="col col-lg-2">
 			<div class="form-floating">
-				<select asp-for="SortType" name="sortType" id="category-select" class="form-select">
+				<select asp-for="SortType" name="sort" id="category-select" class="form-select">
 					<option value="1">Newest</option>
 					<option value="2">Cheapest</option>
 					<option value="3">Most expensive</option>
@@ -105,6 +105,7 @@
 }
 
 @section Scripts {
+	<script src="~/js/hide-empty-form-fileds.js"></script>
 	<script src="~/js/external-info-loader.js"></script>
 	<script src="~/js/select-filler.js"></script>
 	<script src="~/js/item-info-filler.js"></script>
