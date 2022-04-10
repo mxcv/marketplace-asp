@@ -1,6 +1,5 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
-using Marketplace.Controllers;
 using Marketplace.Dto;
 using Marketplace.Models;
 using Marketplace.ViewModels;
@@ -11,13 +10,13 @@ namespace Marketplace.Repositories
 	public partial class ItemRepository : IItemRepository
 	{
 		private MarketplaceDbContext db;
-		private IWebHostEnvironment appEnvironment;
+		private IImageRepository imageRepository;
 		private int? userId;
 
-		public ItemRepository(MarketplaceDbContext db, IWebHostEnvironment appEnvironment, IPrincipal principal)
+		public ItemRepository(MarketplaceDbContext db, IImageRepository imageRepository, IPrincipal principal)
 		{
 			this.db = db;
-			this.appEnvironment = appEnvironment;
+			this.imageRepository = imageRepository;
 
 			string? identifier = ((ClaimsPrincipal)principal).FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			if (identifier != null)
@@ -105,11 +104,11 @@ namespace Marketplace.Repositories
 						Id = x.User.CityId.Value
 					},
 					Image = x.User.Image == null ? null : new ImageDto() {
-						Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, x.User.Image.File.Name)
+						Path = imageRepository.GetRelativeWebPath(x.User.Image.File.Name)
 					}
 				},
 				Images = x.Images.Select(i => new ImageDto() {
-					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, i.File.Name)
+					Path = imageRepository.GetRelativeWebPath(i.File.Name)
 				})
 			});
 
@@ -162,12 +161,8 @@ namespace Marketplace.Repositories
 			if (item == null || item.UserId != userId)
 				return false;
 
-			foreach (ItemImage image in item.Images)
-				File.Delete(Path.Combine(
-					appEnvironment.WebRootPath,
-					ImagesController.DirectoryPath,
-					image.File.Name
-				));
+			if (!await imageRepository.RemoveItemImagesAsync(id))
+				return false;
 
 			db.Items.Remove(item);
 			await db.SaveChangesAsync();

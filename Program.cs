@@ -20,6 +20,7 @@ builder.Services.AddDbContext<MarketplaceDbContext>(options =>
 );
 
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IPrincipal>(provider =>
