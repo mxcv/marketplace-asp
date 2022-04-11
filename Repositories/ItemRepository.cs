@@ -148,6 +148,19 @@ namespace Marketplace.Repositories
 			return item.Id;
 		}
 
+		public async Task<int?> AddItem(ApiItemViewModel model, IFormFileCollection images)
+		{
+			int? id = await AddItem(model);
+			if (id == null)
+				return null;
+			if (!await imageRepository.AddItemImagesAsync(id.Value, images))
+			{
+				await RemoveItem(id.Value);
+				return null;
+			}
+			return id;
+		}
+
 		public async Task<bool> RemoveItem(int id)
 		{
 			if (userId == null)

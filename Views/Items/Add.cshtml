@@ -1,0 +1,52 @@
+﻿@model Marketplace.ViewModels.ItemViewModel
+@{
+	ViewData["Title"] = "Add item";
+	System.Diagnostics.Debug.Assert(Model != null);
+}
+
+<form asp-controller="Items" asp-action="Add" enctype="multipart/form-data">
+	<div class="row mb-3">
+		<div class="col-lg-5">
+			<div class="form-floating mb-2">
+				<input asp-for="Title" class="form-control" placeholder=" " required>
+				<label asp-for="Title"></label>
+			</div>
+			<div class="row mb-2">
+				<div class="col">
+					<div class="form-floating">
+						<input asp-for="Price" type="number" class="form-control" placeholder=" ">
+						<label asp-for="Price"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="col form-floating">
+						<select asp-for="CurrencyId" id="currency-select" class="form-select"></select>
+						<label asp-for="CurrencyId"></label>
+					</div>
+				</div>
+			</div>
+			<div class="form-floating mb-2">
+				<select asp-for="CategoryId" id="category-select" class="form-select">
+					<option value="@Model.CategoryId">Not selected</option>
+				</select>
+				<label asp-for="CategoryId"></label>
+			</div>
+			<div class="mb-2">
+				<input asp-for="Images" type="file" class="form-control" placeholder=" ">
+				<small>Up to: 7</small>
+			</div>
+			<div asp-validation-summary="All" class="text-danger"></div>
+			<input type="submit" value="Publish" class="form-control d-none d-lg-block btn btn-primary mt-5" />
+		</div>
+		<div class="col-lg-7">
+			<label asp-for="Description"></label>
+			<textarea asp-for="Description" class="form-control h-400"></textarea>
+		</div>
+	</div>
+	<input type="submit" value="Publish" class="form-control d-lg-none btn btn-primary" />
+</form>
+
+@section Scripts {
+	<script src="~/js/external-info-loader.js"></script>
+	<script src="~/js/select-filler.js"></script>
+}

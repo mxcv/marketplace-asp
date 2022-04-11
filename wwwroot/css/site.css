@@ -43,3 +43,7 @@ body {
 .item-image-none {
 	object-fit: contain;
 }
+
+.h-400 {
+	height: 400px;
+}

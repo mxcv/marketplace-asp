@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Marketplace.Dto;
 using Marketplace.Models;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +15,13 @@ namespace Marketplace.Controllers
 	public partial class UsersController : ControllerBase
 	{
 		private MarketplaceDbContext db;
+		private IImageRepository imageRepository;
 		private UserManager<User> userManager;
 
-		public UsersController(MarketplaceDbContext db, UserManager<User> userManager)
+		public UsersController(MarketplaceDbContext db, IImageRepository imageRepository, UserManager<User> userManager)
 		{
 			this.db = db;
+			this.imageRepository = imageRepository;
 			this.userManager = userManager;
 		}
 
@@ -63,7 +66,7 @@ namespace Marketplace.Controllers
 					}
 				},
 				Image = user.Image == null ? null : new ImageDto() {
-					Path = string.Format("/{0}/{1}", ImagesController.DirectoryPath, user.Image.File.Name)
+					Path = imageRepository.GetRelativeWebPath(user.Image.File.Name)
 				}
 			});
 		}
