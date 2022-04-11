@@ -1,6 +1,7 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
 using Marketplace.Dto;
+using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -124,10 +125,10 @@ namespace Marketplace.Repositories
 			return await GetItems(model);
 		}
 
-		public async Task<int?> AddItem(ApiItemViewModel model)
+		public async Task<int> AddItem(ApiItemViewModel model)
 		{
 			if (userId == null)
-				return null;
+				throw new UnauthorizedUserException();
 
 			Item item = new Item() {
 				Title = model.Title,
@@ -148,38 +149,43 @@ namespace Marketplace.Repositories
 			return item.Id;
 		}
 
-		public async Task<int?> AddItem(ApiItemViewModel model, IFormFileCollection images)
+		public async Task<int> AddItem(ApiItemViewModel model, IFormFileCollection images)
 		{
-			int? id = await AddItem(model);
-			if (id == null)
-				return null;
-			if (!await imageRepository.AddItemImagesAsync(id.Value, images))
+			int id = await AddItem(model);
+			try
 			{
-				await RemoveItem(id.Value);
-				return null;
+				await imageRepository.AddItemImagesAsync(id, images);
+				return id;
 			}
-			return id;
+			catch
+			{
+				try
+				{
+					await RemoveItem(id);
+				}
+				catch { }
+				throw;
+			}
 		}
 
-		public async Task<bool> RemoveItem(int id)
+		public async Task RemoveItem(int id)
 		{
 			if (userId == null)
-				return false;
+				throw new UnauthorizedUserException();
 
 			Item? item = await db.Items
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File)
 				.Where(x => x.Id == id)
 				.FirstOrDefaultAsync();
-			if (item == null || item.UserId != userId)
-				return false;
+			if (item == null)
+				throw new NotFoundException();
+			if (item.UserId != userId)
+				throw new AccessDeniedException();
 
-			if (!await imageRepository.RemoveItemImagesAsync(id))
-				return false;
-
+			await imageRepository.RemoveItemImagesAsync(id);
 			db.Items.Remove(item);
 			await db.SaveChangesAsync();
-			return true;
 		}
 	}
 }

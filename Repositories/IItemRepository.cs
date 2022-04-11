@@ -6,8 +6,8 @@ namespace Marketplace.Repositories
 	{
 		Task<IndexViewModel> GetItems(IndexViewModel model);
 		Task<IndexViewModel> GetMyItems(IndexViewModel model);
-		Task<int?> AddItem(ApiItemViewModel model);
-		Task<int?> AddItem(ApiItemViewModel model, IFormFileCollection images);
-		Task<bool> RemoveItem(int id);
+		Task<int> AddItem(ApiItemViewModel model);
+		Task<int> AddItem(ApiItemViewModel model, IFormFileCollection images);
+		Task RemoveItem(int id);
 	}
 }

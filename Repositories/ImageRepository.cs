@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
+using Marketplace.Exceptions;
 using Marketplace.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,16 +26,20 @@ namespace Marketplace.Repositories
 				userId = int.Parse(identifier);
 		}
 
-		public async Task<bool> AddItemImagesAsync(int itemId, IFormFileCollection images)
+		public async Task AddItemImagesAsync(int itemId, IFormFileCollection images)
 		{
+			if (userId == null)
+				throw new UnauthorizedUserException();
 			if (await db.ItemImages.Where(x => x.ItemId == itemId).CountAsync() + images.Count > MaxItemImages)
-				return false;
+				throw new FileCountOutOfBoundsException();
 
 			foreach (var image in images)
 			{
 				Item? item = await db.Items.Where(x => x.Id == itemId).FirstOrDefaultAsync();
-				if (item == null || item.UserId != userId)
-					return false;
+				if (item == null)
+					throw new NotFoundException();
+				if (item.UserId != userId)
+					throw new AccessDeniedException();
 
 				ItemImage itemImage = new ItemImage() {
 					ItemId = itemId,
@@ -48,13 +53,13 @@ namespace Marketplace.Repositories
 				using (var stream = new FileStream(GetFullPath(itemImage.File.Name), FileMode.Create))
 					await image.CopyToAsync(stream);
 			}
-			return true;
 		}
 
-		public async Task<bool> SetUserImageAsync(IFormFile image)
+		public async Task SetUserImageAsync(IFormFile image)
 		{
 			if (userId == null)
-				return false;
+				throw new UnauthorizedUserException();
+
 			UserImage? userImage = await db.UserImages
 				.Where(x => x.UserId == userId)
 				.Include(x => x.File)
@@ -81,24 +86,24 @@ namespace Marketplace.Repositories
 
 			using (var stream = new FileStream(GetFullPath(userImage.File.Name), FileMode.Create))
 				await image.CopyToAsync(stream);
-			return true;
 		}
 
-		public async Task<bool> RemoveItemImagesAsync(int itemId)
+		public async Task RemoveItemImagesAsync(int itemId)
 		{
 			Item? item = await db.Items
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File)
 				.Where(x => x.Id == itemId)
 				.FirstOrDefaultAsync();
-			if (item == null || item.UserId != userId)
-				return false;
+			if (item == null)
+				throw new NotFoundException();
+			if (item.UserId != userId)
+				throw new AccessDeniedException();
 
 			foreach (ItemImage image in item.Images)
 				File.Delete(GetFullPath(image.File.Name));
 			db.ItemImages.RemoveRange(item.Images);
 			await db.SaveChangesAsync();
-			return true;
 		}
 
 		public string GetRelativeWebPath(string filename)

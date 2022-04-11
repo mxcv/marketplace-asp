@@ -1,4 +1,5 @@
 ﻿using Marketplace.Dto;
+using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
@@ -68,9 +69,19 @@ namespace Marketplace.Controllers
 			if (model.CategoryId.HasValue)
 				model.Category = new CategoryDto() { Id = model.CategoryId.Value };
 
-			if ((model.Images == null
-				? await itemRepository.AddItem(model)
-				: await itemRepository.AddItem(model, model.Images)) == null)
+			try
+			{
+				if (model.Images == null)
+					await itemRepository.AddItem(model);
+				else
+					await itemRepository.AddItem(model, model.Images);
+			}
+			catch (FileCountOutOfBoundsException)
+			{
+				ModelState.AddModelError(string.Empty, "Image count is out of bounds");
+				return View(model);
+			}
+			catch
 			{
 				ModelState.AddModelError(string.Empty, "Could not add this item.");
 				return View(model);

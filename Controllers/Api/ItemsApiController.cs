@@ -56,17 +56,31 @@ namespace Marketplace.Controllers
 
 		[Authorize]
 		[HttpPost]
-		public async Task<IActionResult> Post(ApiItemViewModel itemModel)
+		public async Task<IActionResult> Post(ApiItemViewModel model)
 		{
-			int? itemId = await itemRepository.AddItem(itemModel);
-			return itemId == null ? BadRequest() : Ok(itemId);
+			try
+			{
+				return Ok(await itemRepository.AddItem(model));
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 
 		[Authorize]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{
-			return await itemRepository.RemoveItem(id) ? Ok() : BadRequest();
+			try
+			{
+				await itemRepository.RemoveItem(id);
+				return Ok();
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 	}
 }

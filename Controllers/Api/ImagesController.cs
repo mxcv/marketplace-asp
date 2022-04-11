@@ -19,13 +19,29 @@ namespace Marketplace.Controllers
 		[HttpPost("items/{itemId}")]
 		public async Task<IActionResult> PostItemImages(int itemId, IFormFileCollection images)
 		{
-			return await imageRepository.AddItemImagesAsync(itemId, images) ? Ok() : BadRequest();
+			try
+			{
+				await imageRepository.AddItemImagesAsync(itemId, images);
+				return Ok();
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 
 		[HttpPut("users")]
 		public async Task<IActionResult> PutUserImage(IFormFile image)
 		{
-			return await imageRepository.SetUserImageAsync(image) ? Ok() : BadRequest();
+			try
+			{
+				await imageRepository.SetUserImageAsync(image);
+				return Ok();
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 	}
 }
