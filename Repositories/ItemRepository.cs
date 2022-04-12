@@ -170,22 +170,30 @@ namespace Marketplace.Repositories
 
 		public async Task RemoveItem(int id)
 		{
+			await RemoveItemWithoutSaving(id);
+			await db.SaveChangesAsync();
+		}
+
+		public async Task RemoveItemRange(IEnumerable<int> id)
+		{
+			foreach (int i in id)
+				await RemoveItemWithoutSaving(i);
+			await db.SaveChangesAsync();
+		}
+
+		private async Task RemoveItemWithoutSaving(int id)
+		{
 			if (userId == null)
 				throw new UnauthorizedUserException();
 
-			Item? item = await db.Items
-				.Include(x => x.Images)
-					.ThenInclude(x => x.File)
-				.Where(x => x.Id == id)
-				.FirstOrDefaultAsync();
+			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
 			if (item == null)
 				throw new NotFoundException();
 			if (item.UserId != userId)
 				throw new AccessDeniedException();
 
-			await imageRepository.RemoveItemImagesAsync(id);
+			await imageRepository.RemoveItemFileImagesAsync(id);
 			db.Items.Remove(item);
-			await db.SaveChangesAsync();
 		}
 	}
 }

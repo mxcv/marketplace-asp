@@ -49,9 +49,18 @@ namespace Marketplace.Controllers
 		}
 
 		[Authorize]
+		[HttpGet]
 		public async Task<IActionResult> My()
 		{
 			return View((await itemRepository.GetMyItems(new IndexViewModel())).Items);
+		}
+
+		[Authorize]
+		[HttpPost]
+		public async Task<IActionResult> My(int[] id)
+		{
+			await itemRepository.RemoveItemRange(id);
+			return RedirectToAction("My");
 		}
 
 		[Authorize]

@@ -88,7 +88,7 @@ namespace Marketplace.Repositories
 				await image.CopyToAsync(stream);
 		}
 
-		public async Task RemoveItemImagesAsync(int itemId)
+		public async Task RemoveItemFileImagesAsync(int itemId)
 		{
 			Item? item = await db.Items
 				.Include(x => x.Images)
@@ -102,8 +102,6 @@ namespace Marketplace.Repositories
 
 			foreach (ItemImage image in item.Images)
 				File.Delete(GetFullPath(image.File.Name));
-			db.ItemImages.RemoveRange(item.Images);
-			await db.SaveChangesAsync();
 		}
 
 		public string GetRelativeWebPath(string filename)

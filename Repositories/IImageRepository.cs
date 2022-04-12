@@ -4,7 +4,7 @@
 	{
 		Task AddItemImagesAsync(int itemId, IFormFileCollection images);
 		Task SetUserImageAsync(IFormFile image);
-		Task RemoveItemImagesAsync(int itemId);
+		Task RemoveItemFileImagesAsync(int itemId);
 		string GetRelativeWebPath(string filename);
 	}
 }

@@ -9,5 +9,6 @@ namespace Marketplace.Repositories
 		Task<int> AddItem(ApiItemViewModel model);
 		Task<int> AddItem(ApiItemViewModel model, IFormFileCollection images);
 		Task RemoveItem(int id);
+		Task RemoveItemRange(IEnumerable<int> id);
 	}
 }
