@@ -1,7 +1,8 @@
 ﻿@model Marketplace.ViewModels.IndexViewModel
+@inject IViewLocalizer Localizer
 @{
-	ViewData["Title"] = "Home Page";
-	System.Diagnostics.Debug.Assert(Model != null && Model.Items != null && Model.Filter != null && Model.Page != null);
+	ViewData["Title"] = "Home";
+	System.Diagnostics.Debug.Assert(Model != null && Model.Items != null && Model.Filter != null);
 }
 
 <div class="text-center">
@@ -12,12 +13,12 @@
 <form asp-controller="Items" asp-action="Index" method="get">
 	<div class="d-flex">
 		<div class="form-floating w-100">
-			<input name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
+			<input asp-for="Filter!.Query" name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
 			<label asp-for="Filter!.Query"></label>
 		</div>
-		<button type="submit" class="btn btn-outline-primary ms-1 px-4 text-monospace">Find</button>
+		<button type="submit" class="btn btn-outline-primary ms-1 px-4 text-monospace">@Localizer["Find"]</button>
 	</div>
-	<h2 class="display-4 mt-4">Latest items</h2>
+	<h2 class="display-4 mt-4">@Localizer["LatestItems"]</h2>
 	<div>
 		@foreach (Marketplace.Dto.ItemDto item in Model.Items)
 		{

@@ -118,21 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddItem" xml:space="preserve">
-    <value>Добавить объявление</value>
+    <value>Add item</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Главная</value>
+  <data name="NotSelected" xml:space="preserve">
+    <value>(not selected)</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Вход</value>
+  <data name="Publish" xml:space="preserve">
+    <value>Publish</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Выход</value>
-  </data>
-  <data name="MyItems" xml:space="preserve">
-    <value>Мои объявления</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрация</value>
+  <data name="UpTo" xml:space="preserve">
+    <value>up to</value>
   </data>
 </root>

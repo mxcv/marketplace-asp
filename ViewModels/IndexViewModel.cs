@@ -1,4 +1,5 @@
-﻿using Marketplace.Dto;
+﻿using System.ComponentModel.DataAnnotations;
+using Marketplace.Dto;
 using Marketplace.Models;
 
 namespace Marketplace.ViewModels
@@ -17,8 +18,12 @@ namespace Marketplace.ViewModels
 		}
 
 		public IEnumerable<ItemDto>? Items { get; set; }
+
+		[Display(Name = "SortType")]
 		public SortType? SortType { get; set; }
+
 		public FilterViewModel? Filter { get; set; }
+
 		public PageViewModel? Page { get; set; }
 	}
 }

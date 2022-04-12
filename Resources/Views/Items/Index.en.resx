@@ -117,22 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItem" xml:space="preserve">
-    <value>Добавить объявление</value>
+  <data name="Apply" xml:space="preserve">
+    <value>Apply</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Главная</value>
+  <data name="Cheapest" xml:space="preserve">
+    <value>Cheapest</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Вход</value>
+  <data name="Default" xml:space="preserve">
+    <value>(default)</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Выход</value>
+  <data name="Found" xml:space="preserve">
+    <value>Found</value>
   </data>
-  <data name="MyItems" xml:space="preserve">
-    <value>Мои объявления</value>
+  <data name="Items" xml:space="preserve">
+    <value>Items</value>
   </data>
-  <data name="Register" xml:space="preserve">
-    <value>Регистрация</value>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="MostExpensive" xml:space="preserve">
+    <value>Most expensive</value>
+  </data>
+  <data name="Newest" xml:space="preserve">
+    <value>Newest</value>
+  </data>
+  <data name="NotSelected" xml:space="preserve">
+    <value>(not selected)</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
   </data>
 </root>

@@ -5,16 +5,19 @@ using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Marketplace.Controllers
 {
 	public class ItemsController : Controller
 	{
 		private IItemRepository itemRepository;
+		private IStringLocalizer<ItemsController> localizer;
 
-		public ItemsController(IItemRepository itemRepository)
+		public ItemsController(IItemRepository itemRepository, IStringLocalizer<ItemsController> localizer)
 		{
 			this.itemRepository = itemRepository;
+			this.localizer = localizer;
 		}
 
 		public async Task<IActionResult> Index(
@@ -78,12 +81,12 @@ namespace Marketplace.Controllers
 			}
 			catch (FileCountOutOfBoundsException)
 			{
-				ModelState.AddModelError(string.Empty, "Image count is out of bounds");
+				ModelState.AddModelError(string.Empty, localizer["ImageCountOutOfBounds"]);
 				return View(model);
 			}
 			catch
 			{
-				ModelState.AddModelError(string.Empty, "Could not add this item.");
+				ModelState.AddModelError(string.Empty, localizer["AddItemError"]);
 				return View(model);
 			}
 			return RedirectToAction("My");
