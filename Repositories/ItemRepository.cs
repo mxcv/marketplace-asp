@@ -24,6 +24,23 @@ namespace Marketplace.Repositories
 				userId = int.Parse(identifier);
 		}
 
+		public async Task<ItemDto> GetItem(int id)
+		{
+			Item? item = await db.Items
+				.Include(x => x.Price)
+				.Include(x => x.User)
+					.ThenInclude(x => x.Image)
+						.ThenInclude(x => x!.File)
+				.Include(x => x.Images)
+					.ThenInclude(x => x.File)
+				.Where(x => x.Id == id)
+				.FirstOrDefaultAsync();
+			if (item == null)
+				throw new NotFoundException();
+
+			return GetDtoFromModel(item);
+		}
+
 		public async Task<IndexViewModel> GetItems(IndexViewModel model)
 		{
 			IQueryable<Item> items = db.Items
@@ -83,37 +100,7 @@ namespace Marketplace.Repositories
 				items = items.Skip((model.Page.Index - 1) * model.Page.Size).Take(model.Page.Size);
 			}
 
-			var itemModels = items.Select(x => new ItemDto() {
-				Id = x.Id,
-				Title = x.Title,
-				Description = x.Description,
-				Created = x.Created,
-				Category = x.CategoryId == null ? null : new CategoryDto() {
-					Id = x.CategoryId.Value
-				},
-				Price = x.Price == null ? null : x.Price.Value,
-				Currency = x.Price == null || x.Price.CurrencyId == null ? null
-					: new CurrencyDto() {
-						Id = x.Price.CurrencyId.Value
-					},
-				User = new UserDto() {
-					Id = x.UserId,
-					PhoneNumber = x.User.PhoneNumber,
-					Name = x.User.Name,
-					Created = x.User.Created,
-					City = x.User.CityId == null ? null : new CityDto() {
-						Id = x.User.CityId.Value
-					},
-					Image = x.User.Image == null ? null : new ImageDto() {
-						Path = imageRepository.GetRelativeWebPath(x.User.Image.File.Name)
-					}
-				},
-				Images = x.Images.Select(i => new ImageDto() {
-					Path = imageRepository.GetRelativeWebPath(i.File.Name)
-				})
-			});
-
-			model.Items = await itemModels.ToListAsync();
+			model.Items = (await items.ToListAsync()).Select(x => GetDtoFromModel(x));
 			return model;
 		}
 
@@ -179,6 +166,39 @@ namespace Marketplace.Repositories
 			foreach (int i in id)
 				await RemoveItemWithoutSaving(i);
 			await db.SaveChangesAsync();
+		}
+
+		private ItemDto GetDtoFromModel(Item item)
+		{
+			return new ItemDto() {
+				Id = item.Id,
+				Title = item.Title,
+				Description = item.Description,
+				Created = item.Created,
+				Category = item.CategoryId == null ? null : new CategoryDto() {
+					Id = item.CategoryId.Value
+				},
+				Price = item.Price == null ? null : item.Price.Value,
+				Currency = item.Price == null || item.Price.CurrencyId == null ? null
+					: new CurrencyDto() {
+						Id = item.Price.CurrencyId.Value
+					},
+				User = new UserDto() {
+					Id = item.UserId,
+					PhoneNumber = item.User.PhoneNumber,
+					Name = item.User.Name,
+					Created = item.User.Created,
+					City = item.User.CityId == null ? null : new CityDto() {
+						Id = item.User.CityId.Value
+					},
+					Image = item.User.Image == null ? null : new ImageDto() {
+						Path = imageRepository.GetRelativeWebPath(item.User.Image.File.Name)
+					}
+				},
+				Images = item.Images.Select(i => new ImageDto() {
+					Path = imageRepository.GetRelativeWebPath(i.File.Name)
+				})
+			};
 		}
 
 		private async Task RemoveItemWithoutSaving(int id)

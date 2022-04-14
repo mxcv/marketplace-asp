@@ -6,7 +6,7 @@
 				for (region of country.regions)
 					for (city of region.cities)
 						if (city.id == cityId) {
-							$(this).next().text(city.name);
+							$(this).next().text($(this).hasClass('long') ? `${country.name}, ${region.name}, ${city.name}` : city.name);
 							$(this).remove();
 							return;
 						}
@@ -38,8 +38,12 @@ getCurrencies()
 	})
 	.catch(console.log);
 
-var dateOptions = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+var dateOptionsAccurate = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+var dateOptionsApproximate= { year: 'numeric', month: 'long' };
 $('.time-iso').each(function () {
-	$(this).next().text(new Date($(this).text()).toLocaleString($('html').attr('lang'), dateOptions));
+	$(this).next().text(new Date($(this).text()).toLocaleString(
+		$('html').attr('lang'),
+		$(this).hasClass('accurate') ? dateOptionsAccurate : dateOptionsApproximate)
+	);
 	$(this).remove();
 });

@@ -47,3 +47,30 @@ body {
 .h-400 {
 	height: 400px;
 }
+
+.avatar {
+	width: 100px;
+	height: 100px;
+	background-color: #ededed;
+}
+
+.li-icon {
+	list-style: none;
+}
+
+.li-icon::before {
+	content: '';
+	display: inline-block;
+	height: 21px;
+	width: 21px;
+	margin-right: 8px;
+	background-size: contain;
+}
+
+.li-phone::before {
+	background-image: url("/img/phone.svg");
+}
+
+.li-location::before {
+	background-image: url("/img/location.svg");
+}

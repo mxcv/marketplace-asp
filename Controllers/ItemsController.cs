@@ -48,6 +48,11 @@ namespace Marketplace.Controllers
 			)));
 		}
 
+		public async Task<IActionResult> Item(int id)
+		{
+			return View(await itemRepository.GetItem(id));
+		}
+
 		[Authorize]
 		[HttpGet]
 		public async Task<IActionResult> My()

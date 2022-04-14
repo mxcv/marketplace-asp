@@ -1,9 +1,11 @@
-﻿using Marketplace.ViewModels;
+﻿using Marketplace.Dto;
+using Marketplace.ViewModels;
 
 namespace Marketplace.Repositories
 {
 	public interface IItemRepository
 	{
+		Task<ItemDto> GetItem(int id);
 		Task<IndexViewModel> GetItems(IndexViewModel model);
 		Task<IndexViewModel> GetMyItems(IndexViewModel model);
 		Task<int> AddItem(ApiItemViewModel model);

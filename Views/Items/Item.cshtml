@@ -1,0 +1,68 @@
+﻿@model Marketplace.Dto.ItemDto
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Model.Title;
+}
+
+<div class="row">
+	<div class="col-8">
+		<div class="shadow p-4">
+			<h1 class="display-4">@Model.Title</h1>
+			<div class="d-flex justify-content-between mb-4">
+				<span class="time-iso accurate d-none">@Model.Created.ToString("O")</span>
+				<small></small>
+				@if (Model.Price != null)
+				{
+					<h2>
+						@if (Model.Currency != null)
+						{
+							<span class="currency-id d-none">@Model.Currency.Id</span>
+						}
+						<b>
+							@(Model.Price.Value == 0
+								? Localizer["Free"]
+								: Model.Price.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))
+						</b>
+					</h2>
+				}
+			</div>
+			<div>@Model.Description</div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="shadow p-4">
+			<div class="display-6 text-center mb-4">@Localizer["User"]</div>
+			<div class="d-flex mb-4">
+				@if (Model.User.Image == null)
+				{
+					<img src="~/img/person.svg" class="rounded-circle avatar">
+				}
+				else
+				{
+					<img src="@Model.User.Image" class="rounded-circle avatar">
+				}
+				<div class="flex-grow-1 ms-4">
+					<div><b>@Model.User.Name</b></div>
+					<div>
+						<small>@Localizer["Since"]</small>
+						<small class="time-iso approximate d-none">@Model.User.Created.ToString("O")</small>
+						<small></small>
+					</div>
+				</div>
+			</div>
+			<ul class="m-0 mb-4 p-0">
+				<li class="li-icon li-phone"><span>@Model.User.PhoneNumber</span></li>
+				@if (@Model.User.City != null)
+				{
+					<li class="li-icon li-location"><span class="city-id long d-none">@Model.User.City.Id</span><span></span></li>
+				}
+			</ul>
+			<a class="btn btn-primary w-100">@Localizer["ShowAllItems"]</a>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script src="~/js/external-info-loader.js"></script>
+	<script src="~/js/item-info-filler.js"></script>
+}
