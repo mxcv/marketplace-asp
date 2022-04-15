@@ -7,7 +7,7 @@ namespace Marketplace.Controllers
 {
 	public class HomeController : Controller
 	{
-		private IItemRepository itemRepository;
+		private readonly IItemRepository itemRepository;
 
 		public HomeController(IItemRepository itemRepository)
 		{

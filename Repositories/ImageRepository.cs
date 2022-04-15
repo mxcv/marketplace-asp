@@ -11,9 +11,9 @@ namespace Marketplace.Repositories
 		private static readonly string DirectoryPath = "files";
 		private static readonly int MaxItemImages = 7;
 
-		private MarketplaceDbContext db;
-		private IWebHostEnvironment appEnvironment;
-		private int? userId;
+		private readonly MarketplaceDbContext db;
+		private readonly IWebHostEnvironment appEnvironment;
+		private readonly int? userId;
 
 		public ImageRepository(MarketplaceDbContext db, IWebHostEnvironment appEnvironment, IPrincipal principal)
 		{

@@ -8,9 +8,9 @@ namespace Marketplace.Controllers
 {
 	public class AccountController : Controller
 	{
-		private UserManager<User> userManager;
-		private SignInManager<User> signInManager;
-		private IStringLocalizer<AccountController> localizer;
+		private readonly UserManager<User> userManager;
+		private readonly SignInManager<User> signInManager;
+		private readonly IStringLocalizer<AccountController> localizer;
 
 		public AccountController(UserManager<User> userManager,
 			SignInManager<User> signInManager,

@@ -14,9 +14,9 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class UsersController : ControllerBase
 	{
-		private MarketplaceDbContext db;
-		private IImageRepository imageRepository;
-		private UserManager<User> userManager;
+		private readonly MarketplaceDbContext db;
+		private readonly IImageRepository imageRepository;
+		private readonly UserManager<User> userManager;
 
 		public UsersController(MarketplaceDbContext db, IImageRepository imageRepository, UserManager<User> userManager)
 		{

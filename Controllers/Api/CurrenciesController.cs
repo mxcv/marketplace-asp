@@ -10,7 +10,7 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class CurrenciesController : ControllerBase
 	{
-		private MarketplaceDbContext db;
+		private readonly MarketplaceDbContext db;
 
 		public CurrenciesController(MarketplaceDbContext db)
 		{

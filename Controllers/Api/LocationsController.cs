@@ -10,7 +10,7 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public class LocationsController : ControllerBase
 	{
-		private MarketplaceDbContext db;
+		private readonly MarketplaceDbContext db;
 
 		public LocationsController(MarketplaceDbContext db)
 		{

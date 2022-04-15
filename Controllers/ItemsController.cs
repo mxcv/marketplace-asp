@@ -11,8 +11,8 @@ namespace Marketplace.Controllers
 {
 	public class ItemsController : Controller
 	{
-		private IItemRepository itemRepository;
-		private IStringLocalizer<ItemsController> localizer;
+		private readonly IItemRepository itemRepository;
+		private readonly IStringLocalizer<ItemsController> localizer;
 
 		public ItemsController(IItemRepository itemRepository, IStringLocalizer<ItemsController> localizer)
 		{

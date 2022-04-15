@@ -10,9 +10,9 @@ namespace Marketplace.Repositories
 {
 	public partial class ItemRepository : IItemRepository
 	{
-		private MarketplaceDbContext db;
-		private IImageRepository imageRepository;
-		private int? userId;
+		private readonly MarketplaceDbContext db;
+		private readonly IImageRepository imageRepository;
+		private readonly int? userId;
 
 		public ItemRepository(MarketplaceDbContext db, IImageRepository imageRepository, IPrincipal principal)
 		{

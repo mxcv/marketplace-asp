@@ -12,7 +12,7 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class ItemsApiController : ControllerBase
 	{
-		private IItemRepository itemRepository;
+		private readonly IItemRepository itemRepository;
 
 		public ItemsApiController(IItemRepository itemRepository)
 		{

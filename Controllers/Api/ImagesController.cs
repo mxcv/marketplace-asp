@@ -9,7 +9,7 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public class ImagesController : ControllerBase
 	{
-		private IImageRepository imageRepository;
+		private readonly IImageRepository imageRepository;
 
 		public ImagesController(IImageRepository imageRepository)
 		{

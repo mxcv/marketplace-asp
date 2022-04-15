@@ -15,9 +15,9 @@ namespace Marketplace.Controllers
 	[ApiController]
 	public partial class TokensController : ControllerBase
 	{
-		private MarketplaceDbContext db;
-		private UserManager<User> userManager;
-		private JwtConfiguration jwtConfig;
+		private readonly MarketplaceDbContext db;
+		private readonly UserManager<User> userManager;
+		private readonly JwtConfiguration jwtConfig;
 
 		public TokensController(MarketplaceDbContext db, UserManager<User> userManager, IOptions<JwtConfiguration> jwtOptions)
 		{
