@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Marketplace.Dto.ItemDto>
+@inject IViewLocalizer Localizer
+@{
+	Debug.Assert(Model != null);
+	var user = Model.FirstOrDefault()?.User;
+	if (user != null)
+		ViewData["Title"] = user.Name;
+}
+
+@if (user != null) {
+	<div class="shadow p-4">
+		<div class="display-6 text-center mb-4">@Localizer["User"]</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="d-flex mb-4">
+					@if (user.Image == null)
+					{
+						<div class="rounded-circle avatar avatar-none"></div>
+					}
+					else
+					{
+						<img src="@user.Image" class="rounded-circle avatar">
+					}
+					<div class="flex-grow-1 ms-4">
+						<div><b>@user.Name</b></div>
+						<div>
+							<small>@Localizer["Since"]</small>
+							<small class="time-iso approximate d-none">@user.Created.ToString("O")</small>
+							<small></small>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<ul class="m-0 mb-4 p-0">
+					<li class="li-icon li-phone"><span>@user.PhoneNumber</span></li>
+					@if (@user.City != null)
+					{
+						<li class="li-icon li-location"><span class="city-id long d-none">@user.City.Id</span><span></span></li>
+					}
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="mt-4"><i>@Localizer["Found"]: @Model.Count()</i></div>
+	<div>
+		@foreach (Marketplace.Dto.ItemDto item in Model)
+		{
+			<div class="mt-3">
+				@await Html.PartialAsync("ItemPartial", item)
+			</div>
+		}
+	</div>
+}
+
+@section Scripts {
+	<script src="~/js/external-info-loader.js"></script>
+	<script src="~/js/item-info-filler.js"></script>
+}

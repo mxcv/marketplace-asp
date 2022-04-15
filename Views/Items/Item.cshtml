@@ -79,7 +79,7 @@
 					<li class="li-icon li-location"><span class="city-id long d-none">@Model.User.City.Id</span><span></span></li>
 				}
 			</ul>
-			<a class="btn btn-primary w-100">@Localizer["ShowAllItems"]</a>
+			<a asp-action="User" asp-route-id="@Model.User.Id" class="btn btn-primary w-100">@Localizer["ShowAllItems"]</a>
 		</div>
 	</div>
 </div>

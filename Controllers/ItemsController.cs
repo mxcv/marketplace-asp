@@ -53,6 +53,11 @@ namespace Marketplace.Controllers
 			return View(await itemRepository.GetItem(id));
 		}
 
+		public new async Task<IActionResult> User(int id)
+		{
+			return View((await itemRepository.GetItems(new IndexViewModel(null, new FilterViewModel() { UserId = id }, null))).Items);
+		}
+
 		[Authorize]
 		[HttpGet]
 		public async Task<IActionResult> My()
