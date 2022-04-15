@@ -1,13 +1,14 @@
 ﻿@model Marketplace.Dto.ItemDto
 @inject IViewLocalizer Localizer
 @{
+	Debug.Assert(Model != null);
 	ViewData["Title"] = Model.Title;
 }
 
 <div class="row">
 	<div class="col-lg-8">
 		<div class="shadow mb-4 p-4">
-			@if (Model.Images.FirstOrDefault() == null)
+			@if (Model.Images == null || Model.Images.FirstOrDefault() == null)
 			{
 				<div class="item-image item-image-none w-100"></div>
 			}

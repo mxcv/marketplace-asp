@@ -1,6 +1,7 @@
 ﻿@inject IViewLocalizer Localizer
 @model Marketplace.ViewModels.LoginViewModel
 @{
+	Debug.Assert(Model != null);
 	ViewData["Title"] = @Localizer["Login"];
 }
 

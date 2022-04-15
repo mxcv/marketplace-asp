@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Marketplace.Dto.ItemDto>
 @inject IViewLocalizer Localizer
 @{
+	Debug.Assert(Model != null);
 	ViewData["Title"] = @Localizer["MyItems"];
 }
 

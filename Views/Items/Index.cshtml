@@ -1,8 +1,8 @@
 ﻿@model Marketplace.ViewModels.IndexViewModel
 @inject IViewLocalizer Localizer
 @{
+	Debug.Assert(Model != null && Model.Items != null && Model.Filter != null && Model.Page != null);
 	ViewData["Title"] = Localizer["Items"];
-	System.Diagnostics.Debug.Assert(Model != null && Model.Items != null && Model.Filter != null && Model.Page != null);
 }
 
 <form asp-controller="Items" asp-action="Index" method="get">

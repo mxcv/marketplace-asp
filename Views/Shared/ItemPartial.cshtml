@@ -1,9 +1,12 @@
 ﻿@model Marketplace.Dto.ItemDto
 @inject IViewLocalizer Localizer
+@{
+	Debug.Assert(Model != null);
+}
 
 <div class="d-flex shadow rounded w-100 p-2">
 	<a asp-controller="Items" asp-action="Item" asp-route-id="@Model.Id">
-		@if(Model.Images.FirstOrDefault() == null)
+		@if(Model.Images == null || Model.Images.FirstOrDefault() == null)
 		{
 			<div class="item-image item-image-none"></div>
 		}
