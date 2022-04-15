@@ -28,8 +28,10 @@ body {
 }
 
 .btn-reset {
+	padding: 0;
 	border: 0;
 	background-color: transparent;
+	outline: none;
 }
 
 .w-450 {
@@ -41,7 +43,7 @@ body {
 }
 
 .item-image-none {
-	object-fit: contain;
+	background: center / contain no-repeat url("/img/no-image.svg");
 }
 
 .h-400 {
@@ -52,6 +54,11 @@ body {
 	width: 100px;
 	height: 100px;
 	background-color: #ededed;
+}
+
+.avatar-none {
+	background-image: url("/img/person.svg");
+	background-size: cover;
 }
 
 .li-icon {

@@ -5,7 +5,7 @@
 	<a asp-controller="Items" asp-action="Item" asp-route-id="@Model.Id">
 		@if(Model.Images.FirstOrDefault() == null)
 		{
-			<img class="item-image item-image-none" src="~/img/no-image.svg" alt="No item image" />
+			<div class="item-image item-image-none"></div>
 		}
 		else
 		{

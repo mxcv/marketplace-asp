@@ -5,7 +5,28 @@
 }
 
 <div class="row">
-	<div class="col-8">
+	<div class="col-lg-8">
+		<div class="shadow mb-4 p-4">
+			@if (Model.Images.FirstOrDefault() == null)
+			{
+				<div class="item-image item-image-none w-100"></div>
+			}
+			else
+			{
+				<div id="image-slider" class="position-relative overflow-hidden">
+					<button id="fullscreen-enter" class="btn-reset btn-fullscreen position-absolute top-0 end-0"></button>
+					<button id="to-prev" class="btn-reset btn-turn position-absolute top-50 start-0 ms-2"></button>
+					<button id="to-next" class="btn-reset btn-turn position-absolute top-50 end-0 me-2"></button>
+					<div id="image-panel" class="d-flex overflow-hidden h-100 pb-5">
+						@foreach (var image in Model.Images)
+						{
+							<div><img src="@image.Path"></div>
+						}
+					</div>
+					<div id="indicator-panel" class="d-flex justify-content-center position-absolute bottom-0 w-100 pb-2"></div>
+				</div>
+			}
+		</div>
 		<div class="shadow p-4">
 			<h1 class="display-4">@Model.Title</h1>
 			<div class="d-flex justify-content-between mb-4">
@@ -29,13 +50,13 @@
 			<div>@Model.Description</div>
 		</div>
 	</div>
-	<div class="col-4">
+	<div class="col-lg-4 mt-4 mt-lg-0">
 		<div class="shadow p-4">
 			<div class="display-6 text-center mb-4">@Localizer["User"]</div>
 			<div class="d-flex mb-4">
 				@if (Model.User.Image == null)
 				{
-					<img src="~/img/person.svg" class="rounded-circle avatar">
+					<div class="rounded-circle avatar avatar-none"></div>
 				}
 				else
 				{
@@ -62,7 +83,12 @@
 	</div>
 </div>
 
+@section Styles {
+	<link rel="stylesheet" href="~/css/image-slider.css" asp-append-version="true" />
+}
+
 @section Scripts {
 	<script src="~/js/external-info-loader.js"></script>
 	<script src="~/js/item-info-filler.js"></script>
+	<script src="~/js/image-slider.js"></script>
 }
