@@ -1,4 +1,4 @@
-﻿@model Marketplace.Dto.ItemDto
+﻿@model ItemDto
 @inject IViewLocalizer Localizer
 @{
 	Debug.Assert(Model != null);
@@ -28,7 +28,7 @@
 					<b>
 						@(Model.Price.Value == 0
 							? Localizer["Free"]
-							: Model.Price.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))
+							: Model.Price.Value.ToString(CultureInfo.InvariantCulture))
 					</b>
 				</span>
 			}

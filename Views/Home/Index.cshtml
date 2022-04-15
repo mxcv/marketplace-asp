@@ -1,4 +1,4 @@
-﻿@model Marketplace.ViewModels.IndexViewModel
+﻿@model IndexViewModel
 @inject IViewLocalizer Localizer
 @{
 	Debug.Assert(Model != null && Model.Items != null && Model.Filter != null);
@@ -20,7 +20,7 @@
 	</div>
 	<h2 class="display-4 mt-4">@Localizer["LatestItems"]</h2>
 	<div>
-		@foreach (Marketplace.Dto.ItemDto item in Model.Items)
+		@foreach (ItemDto item in Model.Items)
 		{
 			<div class="mt-3">
 				@await Html.PartialAsync("ItemPartial", item)
