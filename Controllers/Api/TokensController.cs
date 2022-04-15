@@ -103,7 +103,7 @@ namespace Marketplace.Controllers
 			return new JwtSecurityTokenHandler().WriteToken(jwt);
 		}
 
-		private string GenerateRefreshToken()
+		private static string GenerateRefreshToken()
 		{
 			var randomNumber = new byte[32];
 			using (var rng = RandomNumberGenerator.Create())

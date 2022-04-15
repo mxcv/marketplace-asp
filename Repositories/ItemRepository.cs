@@ -79,19 +79,11 @@ namespace Marketplace.Repositories
 						.Where(x => x.User.City != null && x.User.City.Region.CountryId == model.Filter.CountryId);
 			}
 
-			switch (model.SortType)
-			{
-				default:
-				case SortType.CreatedDescending:
-					items = items.OrderByDescending(x => x.Created);
-					break;
-				case SortType.PriceAscending:
-					items = items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value);
-					break;
-				case SortType.PriceDescending:
-					items = items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value);
-					break;
-			}
+			items = model.SortType switch {
+				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
+				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
+				_ => items.OrderByDescending(x => x.Created),
+			};
 
 			if (model.Page != null)
 			{
@@ -178,7 +170,7 @@ namespace Marketplace.Repositories
 				Category = item.CategoryId == null ? null : new CategoryDto() {
 					Id = item.CategoryId.Value
 				},
-				Price = item.Price == null ? null : item.Price.Value,
+				Price = item.Price?.Value,
 				Currency = item.Price == null || item.Price.CurrencyId == null ? null
 					: new CurrencyDto() {
 						Id = item.Price.CurrencyId.Value
