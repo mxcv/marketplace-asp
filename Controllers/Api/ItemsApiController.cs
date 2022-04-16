@@ -51,7 +51,7 @@ namespace Marketplace.Controllers
 			));
 
 			Debug.Assert(model.Page != null);
-			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, model.Page.TotalItems));
+			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, model.Page));
 		}
 
 		[Authorize]
