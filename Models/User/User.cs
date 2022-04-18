@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
 
 namespace Marketplace.Models
 {
@@ -13,5 +14,9 @@ namespace Marketplace.Models
 		public virtual UserImage? Image { get; set; }
 		public virtual RefreshToken? RefreshToken { get; set; }
 		public virtual ICollection<Item> Items { get; set; } = null!;
+		[InverseProperty(nameof(Feedback.Reviewer))]
+		public virtual ICollection<Feedback> LeftFeedback { get; set; } = null!;
+		[InverseProperty(nameof(Feedback.Seller))]
+		public virtual ICollection<Feedback> ReceivedFeedback { get; set; } = null!;
 	}
 }

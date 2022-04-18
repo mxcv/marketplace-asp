@@ -14,6 +14,12 @@ namespace Marketplace.Models
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			builder.Entity<User>()
+				.HasMany(x => x.ReceivedFeedback)
+				.WithOne(x => x.Seller)
+				.HasForeignKey(x => x.SellerId)
+				.OnDelete(DeleteBehavior.ClientCascade);
+
 			var languages = GetSeed<Language>(nameof(Languages));
 			builder.Entity<Language>().HasData(languages);
 			builder.Entity<Currency>().HasData(GetSeed<Currency>(nameof(Currencies)));
@@ -57,6 +63,7 @@ namespace Marketplace.Models
 		public DbSet<MediaFile> MediaFiles => Set<MediaFile>();
 		public DbSet<ItemImage> ItemImages => Set<ItemImage>();
 		public DbSet<UserImage> UserImages => Set<UserImage>();
+		public DbSet<Feedback> Feedback => Set<Feedback>();
 
 		public DbSet<Country> Countries => Set<Country>();
 		public DbSet<CountryName> CountryNames => Set<CountryName>();
