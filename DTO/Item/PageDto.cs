@@ -1,17 +1,16 @@
-﻿using Marketplace.ViewModels;
+﻿using Marketplace.Models;
 
 namespace Marketplace.Dto
 {
-	public class PageDto : PageViewModel
+	public class PageDto
 	{
-		public PageDto(IEnumerable<ItemDto> items, PageViewModel pageModel)
-			: base(pageModel.Index, pageModel.Size)
+		public PageDto(PaginatedList<ItemDto> list)
 		{
-			Items = items;
-			TotalPages = pageModel.TotalPages;
-			TotalItems = pageModel.TotalItems;
+			Items = list;
+			TotalCount = list.TotalCount;
 		}
 
 		public IEnumerable<ItemDto> Items { get; set; }
+		public int TotalCount { get; set; }
 	}
 }

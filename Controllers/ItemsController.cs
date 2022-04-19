@@ -1,4 +1,5 @@
-﻿using Marketplace.Dto;
+﻿using System.Security.Claims;
+using Marketplace.Dto;
 using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.Repositories;
@@ -30,22 +31,20 @@ namespace Marketplace.Controllers
 			int? region,
 			int? city,
 			SortType? sort,
-			int? page)
+			int page)
 		{
-			return View(await itemRepository.GetItems(new IndexViewModel(
-				sort,
-				new FilterViewModel() {
-					Query = query,
-					MinPrice = minPrice,
-					MaxPrice = maxPrice,
-					CurrencyId = currency,
-					CategoryId = category,
-					CountryId = country,
-					RegionId = region,
-					CityId = city,
-				},
-				new PageViewModel(page, null)
-			)));
+			var filter = new FilterViewModel() {
+				Query = query,
+				MinPrice = minPrice,
+				MaxPrice = maxPrice,
+				CurrencyId = currency,
+				CategoryId = category,
+				CountryId = country,
+				RegionId = region,
+				CityId = city,
+			};
+
+			return View(await itemRepository.GetItems(filter, sort, page, 20));
 		}
 
 		public async Task<IActionResult> Item(int id)
@@ -55,14 +54,16 @@ namespace Marketplace.Controllers
 
 		public new async Task<IActionResult> User(int id)
 		{
-			return View((await itemRepository.GetItems(new IndexViewModel(null, new FilterViewModel() { UserId = id }, null))).Items);
+			return View(await GetUserItemsAsync(id));
 		}
 
 		[Authorize]
 		[HttpGet]
 		public async Task<IActionResult> My()
 		{
-			return View((await itemRepository.GetMyItems(new IndexViewModel())).Items);
+			string userId = base.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+				?? throw new NullReferenceException();
+			return View(await GetUserItemsAsync(int.Parse(userId)));
 		}
 
 		[Authorize]
@@ -109,6 +110,11 @@ namespace Marketplace.Controllers
 				return View(model);
 			}
 			return RedirectToAction("My");
+		}
+
+		public async Task<IEnumerable<ItemDto>> GetUserItemsAsync(int userId)
+		{
+			return (await itemRepository.GetItems(new FilterViewModel() { UserId = userId }, null, 0, 0)).Items;
 		}
 	}
 }

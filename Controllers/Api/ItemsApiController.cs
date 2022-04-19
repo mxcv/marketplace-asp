@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-using Marketplace.Dto;
-using Marketplace.Models;
+﻿using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -31,27 +29,34 @@ namespace Marketplace.Controllers
 			int? cityId,
 			int? userId,
 			SortType? sortTypeId,
-			int? pageIndex,
-			int? pageSize)
+			int pageIndex,
+			int pageSize)
 		{
-			var model = await itemRepository.GetItems(new IndexViewModel(
-				sortTypeId,
-				new FilterViewModel() {
-					Query = query,
-					MinPrice = minPrice,
-					MaxPrice = maxPrice,
-					CurrencyId = currencyId,
-					CategoryId = categoryId,
-					CountryId = countryId,
-					RegionId = regionId,
-					CityId = cityId,
-					UserId = userId
-				},
-				new PageViewModel(pageIndex, pageSize)
-			));
+			FilterViewModel filter = new FilterViewModel() {
+				Query = query,
+				MinPrice = minPrice,
+				MaxPrice = maxPrice,
+				CurrencyId = currencyId,
+				CategoryId = categoryId,
+				CountryId = countryId,
+				RegionId = regionId,
+				CityId = cityId,
+				UserId = userId
+			};
 
-			Debug.Assert(model.Page != null);
-			return model.Items == null ? BadRequest() : Ok(new PageDto(model.Items, model.Page));
+			if (pageSize < 0)
+				pageSize = 1;
+			else if (pageSize > 100)
+				pageSize = 100;
+
+			var model = await itemRepository.GetItems(
+				filter,
+				sortTypeId,
+				pageIndex,
+				pageSize
+			);
+
+			return Ok(model.Items);
 		}
 
 		[Authorize]

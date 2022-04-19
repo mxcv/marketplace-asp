@@ -1,15 +1,15 @@
 ﻿@model IndexViewModel
 @inject IViewLocalizer Localizer
 @{
-	Debug.Assert(Model != null && Model.Items != null && Model.Filter != null && Model.Page != null);
+	Debug.Assert(Model != null);
 	ViewData["Title"] = Localizer["Items"];
 }
 
 <form asp-controller="Items" asp-action="Index" method="get">
 	<div>
 		<div class="form-floating mb-2">
-			<input asp-for="Filter!.Query" name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
-			<label asp-for="Filter!.Query"></label>
+			<input asp-for="Filter.Query" name="query" value="@Model.Filter.Query" class="form-control" placeholder=" ">
+			<label asp-for="Filter.Query"></label>
 		</div>
 		<div class="row">
 			<div class="col-lg-6">
@@ -18,13 +18,13 @@
 					<div class="col">
 						<div class="form-floating">
 							<input type="number" name="minPrice" value="@Model.Filter.MinPrice" min="0" class="form-control" placeholder=" ">
-							<label asp-for="Filter!.MinPrice"></label>
+							<label asp-for="Filter.MinPrice"></label>
 						</div>
 					</div>
 					<div class="col">
 						<div class="form-floating">
 							<input type="number" name="maxPrice" value="@Model.Filter.MaxPrice" min="0" class="form-control" placeholder=" ">
-							<label asp-for="Filter!.MaxPrice"></label>
+							<label asp-for="Filter.MaxPrice"></label>
 						</div>
 					</div>
 					<div class="col">
@@ -32,7 +32,7 @@
 						  <select name="currency" id="currency-select" class="form-select">
 							<option value="@Model.Filter.CurrencyId">@Localizer["Default"]</option>
 						  </select>
-						  <label asp-for="Filter!.CurrencyId"></label>
+						  <label asp-for="Filter.CurrencyId"></label>
 						</div>
 					</div>
 				</div>
@@ -45,7 +45,7 @@
 						  <select name="country" id="country-select" class="form-select">
 							<option value="@Model.Filter.CountryId">@Localizer["NotSelected"]</option>
 						  </select>
-						  <label asp-for="Filter!.CountryId"></label>
+						  <label asp-for="Filter.CountryId"></label>
 						</div>
 					</div>
 					<div class="col">
@@ -53,7 +53,7 @@
 						  <select name="region" id="region-select" class="form-select">
 							<option value="@Model.Filter.RegionId">@Localizer["NotSelected"]</option>
 						  </select>
-						  <label asp-for="Filter!.RegionId"></label>
+						  <label asp-for="Filter.RegionId"></label>
 						</div>
 					</div>
 					<div class="col">
@@ -61,7 +61,7 @@
 						  <select name="city" id="city-select" class="form-select">
 							<option value="@Model.Filter.CityId">@Localizer["NotSelected"]</option>
 						  </select>
-						  <label asp-for="Filter!.CityId"></label>
+						  <label asp-for="Filter.CityId"></label>
 						</div>
 					</div>
 				</div>
@@ -73,7 +73,7 @@
 				  <select name="category" id="category-select" class="form-select">
 					<option value="@Model.Filter.CategoryId">@Localizer["NotSelected"]</option>
 				  </select>
-				  <label asp-for="Filter!.CategoryId"></label>
+				  <label asp-for="Filter.CategoryId"></label>
 				</div>
 			</div>
 			<div class="col col-lg-2">
@@ -94,7 +94,7 @@
 		</div>
 	</div>
 
-	<div class="mt-4"><i>@Localizer["Found"]: @Model.Page.TotalItems</i></div>
+	<div class="mt-4"><i>@Localizer["Found"]: @Model.Items.TotalCount</i></div>
 
 	<div>
 		@foreach (ItemDto item in Model.Items)
@@ -105,25 +105,25 @@
 		}
 	</div>
 
-	@if (Model.Page.TotalItems != 0)
+	@if (Model.Items.TotalCount != 0)
 	{
 		<div class="d-flex justify-content-center mt-4">
-			<button type="submit" name="page" value="@(Model.Page.Index - 1)" class="btn btn-outline-primary me-2" @(Model.Page.Index == 1 ? "disabled" : "")><b>&lt;</b></button>
+			<button type="submit" name="page" value="@(Model.Items.PageIndex - 1)" class="btn btn-outline-primary me-2" @(Model.Items.HasPreviousPage ? "" : "disabled")><b>&lt;</b></button>
 			@{
 				int radius = 2;
 				List<int> indeces = new List<int>();
 				indeces.Add(1);
-				if (Model.Page.TotalPages != 1)
+				if (Model.Items.TotalPages != 1)
 				{
-					if (Model.Page.Index - radius > 2)
-						indeces.Add((Model.Page.Index - radius + 1) / -2);
-					for (int i = Model.Page.Index - radius > 1 ? Model.Page.Index - radius : 2;
-						i <= (Model.Page.Index + radius < Model.Page.TotalPages ? Model.Page.Index + radius : Model.Page.TotalPages - 1);
+					if (Model.Items.PageIndex - radius > 2)
+						indeces.Add((Model.Items.PageIndex - radius + 1) / -2);
+					for (int i = Model.Items.PageIndex - radius > 1 ? Model.Items.PageIndex - radius : 2;
+						i <= (Model.Items.PageIndex + radius < Model.Items.TotalPages ? Model.Items.PageIndex + radius : Model.Items.TotalPages - 1);
 						++i)
 						indeces.Add(i);
-					if (indeces[indeces.Count - 1] != Model.Page.TotalPages - 1)
-						indeces.Add((indeces[indeces.Count - 1] + Model.Page.TotalPages) / -2);
-					indeces.Add(Model.Page.TotalPages);
+					if (indeces[indeces.Count - 1] != Model.Items.TotalPages - 1)
+						indeces.Add((indeces[indeces.Count - 1] + Model.Items.TotalPages) / -2);
+					indeces.Add(Model.Items.TotalPages);
 				}
 
 				foreach (int i in indeces)
@@ -133,10 +133,10 @@
 					}
 					else
 					{
-						<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.Page.Index == i ? "disabled" : "")>@i</button>
+						<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.Items.PageIndex == i ? "disabled" : "")>@i</button>
 					}
 			}
-			<button type="submit" name="page" value="@(Model.Page.Index + 1)" class="btn btn-outline-primary ms-2" @(Model.Page.Index == Model.Page.TotalPages ? "disabled" : "")><b>&gt;</b></button>
+			<button type="submit" name="page" value="@(Model.Items.PageIndex + 1)" class="btn btn-outline-primary ms-2" @(Model.Items.HasNextPage ? "" : "disabled")><b>&gt;</b></button>
 		</div>
 	}
 </form>

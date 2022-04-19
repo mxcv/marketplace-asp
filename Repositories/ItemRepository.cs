@@ -41,7 +41,7 @@ namespace Marketplace.Repositories
 			return GetDtoFromModel(item);
 		}
 
-		public async Task<IndexViewModel> GetItems(IndexViewModel model)
+		public async Task<IndexViewModel> GetItems(FilterViewModel filter, SortType? sortType, int pageIndex, int pageSize)
 		{
 			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
@@ -51,57 +51,39 @@ namespace Marketplace.Repositories
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
-			if (model.Filter != null)
-			{
-				if (model.Filter.Query != null)
-					items = items.Where(x => EF.Functions.Like(x.Title, $"%{model.Filter.Query}%"));
-				if (model.Filter.MinPrice != null)
-					items = items.Where(x => x.Price != null && x.Price.Value >= model.Filter.MinPrice.Value);
-				if (model.Filter.MaxPrice != null)
-					items = items.Where(x => x.Price != null && x.Price.Value <= model.Filter.MaxPrice.Value);
-				if (model.Filter.CategoryId != null)
-					items = items.Where(x => x.CategoryId == model.Filter.CategoryId);
-				if (userId != null)
-					items = items.Where(x => x.UserId == userId);
+			if (filter.Query != null)
+				items = items.Where(x => EF.Functions.Like(x.Title, $"%{filter.Query}%"));
+			if (filter.MinPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value >= filter.MinPrice.Value);
+			if (filter.MaxPrice != null)
+				items = items.Where(x => x.Price != null && x.Price.Value <= filter.MaxPrice.Value);
+			if (filter.CategoryId != null)
+				items = items.Where(x => x.CategoryId == filter.CategoryId);
+			if (userId != null)
+				items = items.Where(x => x.UserId == userId);
 
-				if (model.Filter.CityId != null)
-					items = items.Where(x => x.User.CityId == model.Filter.CityId);
-				else if (model.Filter.RegionId != null)
-					items = items
-						.Include(x => x.User)
-							.ThenInclude(x => x.City)
-						.Where(x => x.User.City != null && x.User.City.RegionId == model.Filter.RegionId);
-				else if (model.Filter.CountryId != null)
-					items = items
-						.Include(x => x.User)
-							.ThenInclude(x => x.City)
-								.ThenInclude(x => x!.Region)
-						.Where(x => x.User.City != null && x.User.City.Region.CountryId == model.Filter.CountryId);
-			}
+			if (filter.CityId != null)
+				items = items.Where(x => x.User.CityId == filter.CityId);
+			else if (filter.RegionId != null)
+				items = items
+					.Include(x => x.User)
+						.ThenInclude(x => x.City)
+					.Where(x => x.User.City != null && x.User.City.RegionId == filter.RegionId);
+			else if (filter.CountryId != null)
+				items = items
+					.Include(x => x.User)
+						.ThenInclude(x => x.City)
+							.ThenInclude(x => x!.Region)
+					.Where(x => x.User.City != null && x.User.City.Region.CountryId == filter.CountryId);
 
-			items = model.SortType switch {
+			items = sortType switch {
 				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
 				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
 				_ => items.OrderByDescending(x => x.Created),
 			};
 
-			if (model.Page != null)
-			{
-				model.Page.TotalItems = await items.CountAsync();
-				model.Page.TotalPages = (int)Math.Ceiling(model.Page.TotalItems / (double)model.Page.Size);
-				items = items.Skip((model.Page.Index - 1) * model.Page.Size).Take(model.Page.Size);
-			}
-
-			model.Items = (await items.ToListAsync()).Select(x => GetDtoFromModel(x));
-			return model;
-		}
-
-		public async Task<IndexViewModel> GetMyItems(IndexViewModel model)
-		{
-			if (model.Filter == null)
-				model.Filter = new FilterViewModel();
-			model.Filter.UserId = userId;
-			return await GetItems(model);
+			var list = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)), pageIndex, pageSize);
+			return new IndexViewModel(list, filter, sortType);
 		}
 
 		public async Task<int> AddItem(ApiItemViewModel model)
@@ -160,7 +142,22 @@ namespace Marketplace.Repositories
 			await db.SaveChangesAsync();
 		}
 
-		private ItemDto GetDtoFromModel(Item item)
+		private async Task RemoveItemWithoutSaving(int id)
+		{
+			if (userId == null)
+				throw new UnauthorizedUserException();
+
+			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
+			if (item == null)
+				throw new NotFoundException();
+			if (item.UserId != userId)
+				throw new AccessDeniedException();
+
+			await imageRepository.RemoveItemFileImagesAsync(id);
+			db.Items.Remove(item);
+		}
+
+		private static ItemDto GetDtoFromModel(Item item)
 		{
 			return new ItemDto() {
 				Id = item.Id,
@@ -184,28 +181,13 @@ namespace Marketplace.Repositories
 						Id = item.User.CityId.Value
 					},
 					Image = item.User.Image == null ? null : new ImageDto() {
-						Path = imageRepository.GetRelativeWebPath(item.User.Image.File.Name)
+						Path = ImageRepository.GetRelativeWebPath(item.User.Image.File.Name)
 					}
 				},
 				Images = item.Images.Select(i => new ImageDto() {
-					Path = imageRepository.GetRelativeWebPath(i.File.Name)
+					Path = ImageRepository.GetRelativeWebPath(i.File.Name)
 				})
 			};
-		}
-
-		private async Task RemoveItemWithoutSaving(int id)
-		{
-			if (userId == null)
-				throw new UnauthorizedUserException();
-
-			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
-			if (item == null)
-				throw new NotFoundException();
-			if (item.UserId != userId)
-				throw new AccessDeniedException();
-
-			await imageRepository.RemoveItemFileImagesAsync(id);
-			db.Items.Remove(item);
 		}
 	}
 }

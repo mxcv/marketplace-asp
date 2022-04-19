@@ -6,24 +6,18 @@ namespace Marketplace.ViewModels
 {
 	public class IndexViewModel
 	{
-		public IndexViewModel()
+		public IndexViewModel(PaginatedList<ItemDto> items, FilterViewModel filter, SortType? sortType)
 		{
-		}
-
-		public IndexViewModel(SortType? sortType, FilterViewModel? filter, PageViewModel? page)
-		{
-			SortType = sortType;
+			Items = items;
 			Filter = filter;
-			Page = page;
+			SortType = sortType;
 		}
 
-		public IEnumerable<ItemDto>? Items { get; set; }
+		public PaginatedList<ItemDto> Items { get; set; }
+
+		public FilterViewModel Filter { get; set; }
 
 		[Display(Name = "SortType")]
 		public SortType? SortType { get; set; }
-
-		public FilterViewModel? Filter { get; set; }
-
-		public PageViewModel? Page { get; set; }
 	}
 }

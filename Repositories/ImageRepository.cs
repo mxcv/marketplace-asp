@@ -104,7 +104,7 @@ namespace Marketplace.Repositories
 				File.Delete(GetFullPath(image.File.Name));
 		}
 
-		public string GetRelativeWebPath(string filename)
+		public static string GetRelativeWebPath(string filename)
 		{
 			return string.Format("/{0}/{1}", DirectoryPath, filename);
 		}

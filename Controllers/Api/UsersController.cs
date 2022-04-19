@@ -15,13 +15,11 @@ namespace Marketplace.Controllers
 	public partial class UsersController : ControllerBase
 	{
 		private readonly MarketplaceDbContext db;
-		private readonly IImageRepository imageRepository;
 		private readonly UserManager<User> userManager;
 
-		public UsersController(MarketplaceDbContext db, IImageRepository imageRepository, UserManager<User> userManager)
+		public UsersController(MarketplaceDbContext db, UserManager<User> userManager)
 		{
 			this.db = db;
-			this.imageRepository = imageRepository;
 			this.userManager = userManager;
 		}
 
@@ -66,7 +64,7 @@ namespace Marketplace.Controllers
 					}
 				},
 				Image = user.Image == null ? null : new ImageDto() {
-					Path = imageRepository.GetRelativeWebPath(user.Image.File.Name)
+					Path = ImageRepository.GetRelativeWebPath(user.Image.File.Name)
 				}
 			});
 		}
