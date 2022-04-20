@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using System.Security.Principal;
+using Marketplace.Dto;
 using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.ViewModels;
@@ -19,6 +20,35 @@ namespace Marketplace.Repositories
 			string? identifier = ((ClaimsPrincipal)principal).FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			if (identifier != null)
 				userId = int.Parse(identifier);
+		}
+
+		public async Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int userId, int pageIndex, int pageSize)
+		{
+			var feedback = db.Feedback
+				.Include(x => x.Reviewer)
+					.ThenInclude(x => x.Image)
+						.ThenInclude(x => x!.File)
+				.Where(x => x.SellerId == userId)
+				.Select(x => new FeedbackDto() {
+					Id = x.Id,
+					Rate = x.Rate,
+					Text = x.Text,
+					Created = x.Created,
+					Reviewer = new UserDto() {
+						Id = x.Reviewer.Id,
+						PhoneNumber = x.Reviewer.PhoneNumber,
+						Name = x.Reviewer.Name,
+						Created = x.Reviewer.Created,
+						City = x.Reviewer.CityId == null ? null : new CityDto() {
+							Id = x.Reviewer.CityId.Value
+						},
+						Image = x.Reviewer.Image == null ? null : new ImageDto() {
+							Path = ImageRepository.GetRelativeWebPath(x.Reviewer.Image.File.Name)
+						}
+					}
+				});
+
+			return await PaginatedList<FeedbackDto>.CreateAsync(feedback, pageIndex, pageSize);
 		}
 
 		public async Task<int> AddFeedbackAsync(ApiFeedbackViewModel model)

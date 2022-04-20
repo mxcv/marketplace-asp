@@ -1,4 +1,5 @@
-﻿using Marketplace.Repositories;
+﻿using Marketplace.Dto;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,24 @@ namespace Marketplace.Controllers.Api
 		public FeedbackController(IFeedbackRepository feedbackRepository)
 		{
 			this.feedbackRepository = feedbackRepository;
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Get(int userId, int pageIndex, int pageSize)
+		{
+			try
+			{
+				if (pageSize < 0)
+					pageSize = 1;
+				else if (pageSize > 100)
+					pageSize = 100;
+
+				return Ok(new PageDto<FeedbackDto>(await feedbackRepository.GetFeedbackAsync(userId, pageIndex, pageSize)));
+			}
+			catch
+			{
+				return BadRequest();
+			}
 		}
 
 		[Authorize]

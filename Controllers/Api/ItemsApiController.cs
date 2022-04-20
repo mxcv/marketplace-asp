@@ -1,4 +1,5 @@
-﻿using Marketplace.Models;
+﻿using Marketplace.Dto;
+using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -56,7 +57,7 @@ namespace Marketplace.Controllers
 				pageSize
 			);
 
-			return Ok(model.Items);
+			return Ok(new PageDto<ItemDto>(model.Items));
 		}
 
 		[Authorize]
