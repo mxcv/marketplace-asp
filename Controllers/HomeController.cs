@@ -16,7 +16,7 @@ namespace Marketplace.Controllers
 
 		public async Task<IActionResult> Index()
 		{
-			return View(await itemRepository.GetItems(new FilterViewModel(), null, 0, 20));
+			return View(await itemRepository.GetItemsAsync(new FilterViewModel(), null, 0, 20));
 		}
 
 		public IActionResult Privacy()

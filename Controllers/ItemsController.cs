@@ -44,12 +44,12 @@ namespace Marketplace.Controllers
 				CityId = city,
 			};
 
-			return View(await itemRepository.GetItems(filter, sort, page, 20));
+			return View(await itemRepository.GetItemsAsync(filter, sort, page, 20));
 		}
 
 		public async Task<IActionResult> Item(int id)
 		{
-			return View(await itemRepository.GetItem(id));
+			return View(await itemRepository.GetItemAsync(id));
 		}
 
 		public new async Task<IActionResult> User(int id)
@@ -70,7 +70,7 @@ namespace Marketplace.Controllers
 		[HttpPost]
 		public async Task<IActionResult> My(int[] id)
 		{
-			await itemRepository.RemoveItemRange(id);
+			await itemRepository.RemoveItemRangeAsync(id);
 			return RedirectToAction("My");
 		}
 
@@ -95,9 +95,9 @@ namespace Marketplace.Controllers
 			try
 			{
 				if (model.Images == null)
-					await itemRepository.AddItem(model);
+					await itemRepository.AddItemAsync(model);
 				else
-					await itemRepository.AddItem(model, model.Images);
+					await itemRepository.AddItemAsync(model, model.Images);
 			}
 			catch (FileCountOutOfBoundsException)
 			{
@@ -114,7 +114,7 @@ namespace Marketplace.Controllers
 
 		public async Task<IEnumerable<ItemDto>> GetUserItemsAsync(int userId)
 		{
-			return (await itemRepository.GetItems(new FilterViewModel() { UserId = userId }, null, 0, 0)).Items;
+			return (await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = userId }, null, 0, 0)).Items;
 		}
 	}
 }

@@ -24,7 +24,7 @@ namespace Marketplace.Repositories
 				userId = int.Parse(identifier);
 		}
 
-		public async Task<ItemDto> GetItem(int id)
+		public async Task<ItemDto> GetItemAsync(int id)
 		{
 			Item? item = await db.Items
 				.Include(x => x.Price)
@@ -41,7 +41,7 @@ namespace Marketplace.Repositories
 			return GetDtoFromModel(item);
 		}
 
-		public async Task<IndexViewModel> GetItems(FilterViewModel filter, SortType? sortType, int pageIndex, int pageSize)
+		public async Task<IndexViewModel> GetItemsAsync(FilterViewModel filter, SortType? sortType, int pageIndex, int pageSize)
 		{
 			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
@@ -86,7 +86,7 @@ namespace Marketplace.Repositories
 			return new IndexViewModel(list, filter, sortType);
 		}
 
-		public async Task<int> AddItem(ApiItemViewModel model)
+		public async Task<int> AddItemAsync(ApiItemViewModel model)
 		{
 			if (userId == null)
 				throw new UnauthorizedUserException();
@@ -110,9 +110,9 @@ namespace Marketplace.Repositories
 			return item.Id;
 		}
 
-		public async Task<int> AddItem(ApiItemViewModel model, IFormFileCollection images)
+		public async Task<int> AddItemAsync(ApiItemViewModel model, IFormFileCollection images)
 		{
-			int id = await AddItem(model);
+			int id = await AddItemAsync(model);
 			try
 			{
 				await imageRepository.AddItemImagesAsync(id, images);
@@ -122,20 +122,20 @@ namespace Marketplace.Repositories
 			{
 				try
 				{
-					await RemoveItem(id);
+					await RemoveItemAsync(id);
 				}
 				catch { }
 				throw;
 			}
 		}
 
-		public async Task RemoveItem(int id)
+		public async Task RemoveItemAsync(int id)
 		{
 			await RemoveItemWithoutSaving(id);
 			await db.SaveChangesAsync();
 		}
 
-		public async Task RemoveItemRange(IEnumerable<int> id)
+		public async Task RemoveItemRangeAsync(IEnumerable<int> id)
 		{
 			foreach (int i in id)
 				await RemoveItemWithoutSaving(i);

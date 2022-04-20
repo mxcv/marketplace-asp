@@ -50,7 +50,7 @@ namespace Marketplace.Controllers
 			else if (pageSize > 100)
 				pageSize = 100;
 
-			var model = await itemRepository.GetItems(
+			var model = await itemRepository.GetItemsAsync(
 				filter,
 				sortTypeId,
 				pageIndex,
@@ -66,7 +66,7 @@ namespace Marketplace.Controllers
 		{
 			try
 			{
-				return Ok(await itemRepository.AddItem(model));
+				return Ok(await itemRepository.AddItemAsync(model));
 			}
 			catch
 			{
@@ -80,7 +80,7 @@ namespace Marketplace.Controllers
 		{
 			try
 			{
-				await itemRepository.RemoveItem(id);
+				await itemRepository.RemoveItemAsync(id);
 				return Ok();
 			}
 			catch
