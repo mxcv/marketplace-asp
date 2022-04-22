@@ -38,6 +38,10 @@ body {
 	width: 450px;
 }
 
+.h-400 {
+	height: 400px;
+}
+
 .item-image {
 	object-fit: cover;
 }
@@ -46,8 +50,8 @@ body {
 	background: center / contain no-repeat url("/img/no-image.svg");
 }
 
-.h-400 {
-	height: 400px;
+.white-space-pre-wrap {
+	white-space: pre-wrap;
 }
 
 .avatar {
