@@ -120,13 +120,4 @@
   <data name="Found" xml:space="preserve">
     <value>Найдено</value>
   </data>
-  <data name="ShowAllItems" xml:space="preserve">
-    <value>Посмортеть все объявления</value>
-  </data>
-  <data name="Since" xml:space="preserve">
-    <value>с</value>
-  </data>
-  <data name="User" xml:space="preserve">
-    <value>Пользователь</value>
-  </data>
 </root>
