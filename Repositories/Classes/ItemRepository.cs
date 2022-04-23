@@ -31,9 +31,12 @@ namespace Marketplace.Repositories
 				.Include(x => x.User)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
+				.Include(x => x.User)
+					.ThenInclude(x => x.ReceivedFeedback)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File)
 				.Where(x => x.Id == id)
+				.AsSplitQuery()
 				.FirstOrDefaultAsync();
 			if (item == null)
 				throw new NotFoundException();
@@ -177,6 +180,10 @@ namespace Marketplace.Repositories
 					PhoneNumber = item.User.PhoneNumber,
 					Name = item.User.Name,
 					Created = item.User.Created,
+					FeedbackStatistics = item.User.ReceivedFeedback == null ? null : new FeedbackStatisticsDto(
+						item.User.ReceivedFeedback.Count,
+						item.User.ReceivedFeedback.Average(x => x.Rate)
+					),
 					City = item.User.CityId == null ? null : new CityDto() {
 						Id = item.User.CityId.Value
 					},

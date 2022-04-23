@@ -9,6 +9,7 @@
 		public string? Name { get; set; }
 		public DateTimeOffset Created { get; set; }
 
+		public FeedbackStatisticsDto? FeedbackStatistics { get; set; }
 		public CityDto? City { get; set; }
 		public ImageDto? Image { get; set; }
 	}
