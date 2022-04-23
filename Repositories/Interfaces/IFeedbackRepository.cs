@@ -6,7 +6,7 @@ namespace Marketplace.Repositories
 {
 	public interface IFeedbackRepository
 	{
-		Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int userId, int pageIndex, int pageSize);
+		Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int sellerId, int pageIndex, int pageSize);
 		Task<int> AddFeedbackAsync(ApiFeedbackViewModel model);
 		Task RemoveFeedbackAsync(int id);
 	}

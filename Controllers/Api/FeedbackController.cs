@@ -18,7 +18,7 @@ namespace Marketplace.Controllers.Api
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Get(int userId, int pageIndex, int pageSize)
+		public async Task<IActionResult> Get(int sellerId, int pageIndex, int pageSize)
 		{
 			try
 			{
@@ -27,7 +27,7 @@ namespace Marketplace.Controllers.Api
 				else if (pageSize > 100)
 					pageSize = 100;
 
-				return Ok(new PageDto<FeedbackDto>(await feedbackRepository.GetFeedbackAsync(userId, pageIndex, pageSize)));
+				return Ok(new PageDto<FeedbackDto>(await feedbackRepository.GetFeedbackAsync(sellerId, pageIndex, pageSize)));
 			}
 			catch
 			{

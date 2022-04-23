@@ -22,13 +22,13 @@ namespace Marketplace.Repositories
 				userId = int.Parse(identifier);
 		}
 
-		public async Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int userId, int pageIndex, int pageSize)
+		public async Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int sellerId, int pageIndex, int pageSize)
 		{
 			var feedback = db.Feedback
 				.Include(x => x.Reviewer)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
-				.Where(x => x.SellerId == userId)
+				.Where(x => x.SellerId == sellerId)
 				.Select(x => new FeedbackDto() {
 					Id = x.Id,
 					Rate = x.Rate,
