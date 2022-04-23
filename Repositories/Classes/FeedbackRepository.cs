@@ -26,6 +26,8 @@ namespace Marketplace.Repositories
 		{
 			var feedback = db.Feedback
 				.Include(x => x.Reviewer)
+					.ThenInclude(x => x.ReceivedFeedback)
+				.Include(x => x.Reviewer)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
 				.Where(x => x.SellerId == sellerId)
@@ -39,6 +41,10 @@ namespace Marketplace.Repositories
 						PhoneNumber = x.Reviewer.PhoneNumber,
 						Name = x.Reviewer.Name,
 						Created = x.Reviewer.Created,
+						FeedbackStatistics = new FeedbackStatisticsDto(
+							x.Reviewer.ReceivedFeedback.Count,
+							x.Reviewer.ReceivedFeedback.Average(x => x.Rate)
+						),
 						City = x.Reviewer.CityId == null ? null : new CityDto() {
 							Id = x.Reviewer.CityId.Value
 						},
