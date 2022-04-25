@@ -34,7 +34,7 @@
 			}
 		</div>
 		<small>
-			@if ((Model.User.City != null))
+			@if ((Model.User != null && Model.User.City != null))
 			{
 				<span class="city-id short d-none">@Model.User.City.Id</span>
 				<span></span>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ItemDto>
+﻿@model UserItemsViewModel
 @inject IViewLocalizer Localizer
 @{
 	Debug.Assert(Model != null);
@@ -11,7 +11,7 @@
 		<button type="button" id="cancel" class="btn btn-primary me-2 d-none">@Localizer["Cancel"]</button>
 		<button type="submit" id="remove" class="btn btn-danger d-none" disabled>@Localizer["Remove"]</button>
 	</div>
-	@foreach(ItemDto item in Model)
+	@foreach(ItemDto item in Model.Items)
 	{
 		<div class="d-flex mt-3">
 			@await Html.PartialAsync("ItemPartial", item)

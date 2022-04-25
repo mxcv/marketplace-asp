@@ -48,9 +48,6 @@ namespace Marketplace.Repositories
 		{
 			IQueryable<Item> items = db.Items
 				.Include(x => x.Price)
-				.Include(x => x.User)
-					.ThenInclude(x => x.Image)
-						.ThenInclude(x => x!.File)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
@@ -62,22 +59,30 @@ namespace Marketplace.Repositories
 				items = items.Where(x => x.Price != null && x.Price.Value <= filter.MaxPrice.Value);
 			if (filter.CategoryId != null)
 				items = items.Where(x => x.CategoryId == filter.CategoryId);
-			if (userId != null)
-				items = items.Where(x => x.UserId == userId);
 
-			if (filter.CityId != null)
-				items = items.Where(x => x.User.CityId == filter.CityId);
-			else if (filter.RegionId != null)
+			if (filter.UserId == null)
+			{
 				items = items
 					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-					.Where(x => x.User.City != null && x.User.City.RegionId == filter.RegionId);
-			else if (filter.CountryId != null)
-				items = items
-					.Include(x => x.User)
-						.ThenInclude(x => x.City)
-							.ThenInclude(x => x!.Region)
-					.Where(x => x.User.City != null && x.User.City.Region.CountryId == filter.CountryId);
+						.ThenInclude(x => x.Image)
+							.ThenInclude(x => x!.File);
+
+				if (filter.CityId != null)
+					items = items.Where(x => x.User.CityId == filter.CityId);
+				else if (filter.RegionId != null)
+					items = items
+						.Include(x => x.User)
+							.ThenInclude(x => x.City)
+						.Where(x => x.User.City != null && x.User.City.RegionId == filter.RegionId);
+				else if (filter.CountryId != null)
+					items = items
+						.Include(x => x.User)
+							.ThenInclude(x => x.City)
+								.ThenInclude(x => x!.Region)
+						.Where(x => x.User.City != null && x.User.City.Region.CountryId == filter.CountryId);
+			}
+			else
+				items = items.Where(x => x.UserId == filter.UserId);
 
 			items = sortType switch {
 				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
@@ -175,7 +180,7 @@ namespace Marketplace.Repositories
 					: new CurrencyDto() {
 						Id = item.Price.CurrencyId.Value
 					},
-				User = new UserDto() {
+				User = item.User == null ? null : new UserDto() {
 					Id = item.UserId,
 					PhoneNumber = item.User.PhoneNumber,
 					Name = item.User.Name,

@@ -11,7 +11,7 @@
 
 		public CurrencyDto? Currency { get; set; }
 		public CategoryDto? Category { get; set; }
-		public UserDto User { get; set; } = null!;
+		public UserDto? User { get; set; } = null!;
 		public IEnumerable<ImageDto>? Images { get; set; }
 	}
 }

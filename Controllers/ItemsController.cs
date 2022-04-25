@@ -13,11 +13,13 @@ namespace Marketplace.Controllers
 	public class ItemsController : Controller
 	{
 		private readonly IItemRepository itemRepository;
+		private readonly IUserRepository userRepository;
 		private readonly IStringLocalizer<ItemsController> localizer;
 
-		public ItemsController(IItemRepository itemRepository, IStringLocalizer<ItemsController> localizer)
+		public ItemsController(IItemRepository itemRepository, IUserRepository userRepository, IStringLocalizer<ItemsController> localizer)
 		{
 			this.itemRepository = itemRepository;
+			this.userRepository = userRepository;
 			this.localizer = localizer;
 		}
 
@@ -54,16 +56,21 @@ namespace Marketplace.Controllers
 
 		public new async Task<IActionResult> User(int id)
 		{
-			return View(await GetUserItemsAsync(id));
+			return View(new UserItemsViewModel(
+				await userRepository.GetUser(id),
+				(await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = id }, null, 0, 0)).Items
+			));
 		}
 
 		[Authorize]
 		[HttpGet]
 		public async Task<IActionResult> My()
 		{
-			string userId = base.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
-				?? throw new NullReferenceException();
-			return View(await GetUserItemsAsync(int.Parse(userId)));
+			int id = int.Parse(base.User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? throw new NullReferenceException());
+			return View(new UserItemsViewModel(
+				await userRepository.GetUser(id),
+				(await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = id }, null, 0, 0)).Items
+			));
 		}
 
 		[Authorize]
@@ -110,11 +117,6 @@ namespace Marketplace.Controllers
 				return View(model);
 			}
 			return RedirectToAction("My");
-		}
-
-		public async Task<IEnumerable<ItemDto>> GetUserItemsAsync(int userId)
-		{
-			return (await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = userId }, null, 0, 0)).Items;
 		}
 	}
 }

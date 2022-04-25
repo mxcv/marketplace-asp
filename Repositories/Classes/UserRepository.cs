@@ -17,7 +17,6 @@ namespace Marketplace.Repositories
 		public async Task<UserDto> GetUser(int id)
 		{
 			User? user = await db.Users
-				.Include(x => x.ReceivedFeedback)
 				.Include(x => x.Image)
 					.ThenInclude(x => x!.File)
 				.Where(x => x.Id == id)
@@ -25,15 +24,15 @@ namespace Marketplace.Repositories
 			if (user == null)
 				throw new NotFoundException();
 
+			int feedbackCount = await db.Feedback.Where(x => x.SellerId == id).CountAsync();
+			double feedbackAverage = feedbackCount == 0 ? 0 : await db.Feedback.Where(x => x.SellerId == id).AverageAsync(x => x.Rate);
+
 			return new UserDto() {
 				Id = user.Id,
 				PhoneNumber = user.PhoneNumber,
 				Name = user.Name,
 				Created = user.Created,
-				FeedbackStatistics = new FeedbackStatisticsDto(
-					user.ReceivedFeedback.Count,
-					user.ReceivedFeedback.Average(x => x.Rate)
-				),
+				FeedbackStatistics = new FeedbackStatisticsDto(feedbackCount, feedbackAverage),
 				City = user.CityId == null ? null : new CityDto() {
 					Id = user.CityId.Value
 				},
