@@ -19,9 +19,10 @@ builder.Services.AddDbContext<MarketplaceDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("ReleaseConnection"))
 );
 
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IFeedbackRepository, FeedbackRepository>();
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IPrincipal>(provider =>

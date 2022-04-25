@@ -24,13 +24,12 @@ namespace Marketplace.Repositories
 
 		public async Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int sellerId, int pageIndex, int pageSize)
 		{
-			var feedback = db.Feedback
-				.Include(x => x.Reviewer)
-					.ThenInclude(x => x.ReceivedFeedback)
+			IQueryable<FeedbackDto> feedback = db.Feedback
 				.Include(x => x.Reviewer)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
 				.Where(x => x.SellerId == sellerId)
+				.OrderByDescending(x => x.Created)
 				.Select(x => new FeedbackDto() {
 					Id = x.Id,
 					Rate = x.Rate,
@@ -41,10 +40,6 @@ namespace Marketplace.Repositories
 						PhoneNumber = x.Reviewer.PhoneNumber,
 						Name = x.Reviewer.Name,
 						Created = x.Reviewer.Created,
-						FeedbackStatistics = new FeedbackStatisticsDto(
-							x.Reviewer.ReceivedFeedback.Count,
-							x.Reviewer.ReceivedFeedback.Average(x => x.Rate)
-						),
 						City = x.Reviewer.CityId == null ? null : new CityDto() {
 							Id = x.Reviewer.CityId.Value
 						},

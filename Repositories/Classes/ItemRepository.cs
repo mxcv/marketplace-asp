@@ -51,8 +51,6 @@ namespace Marketplace.Repositories
 				.Include(x => x.User)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
-				.Include(x => x.User)
-					.ThenInclude(x => x.ReceivedFeedback)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File);
 
@@ -82,12 +80,12 @@ namespace Marketplace.Repositories
 					.Where(x => x.User.City != null && x.User.City.Region.CountryId == filter.CountryId);
 
 			items = sortType switch {
-				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value).ThenBy(x => x.Id),
-				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value).ThenBy(x => x.Id),
-				_ => items.OrderByDescending(x => x.Created).ThenBy(x => x.Id),
+				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
+				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
+				_ => items.OrderByDescending(x => x.Created),
 			};
 
-			var list = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)).AsSplitQuery(), pageIndex, pageSize);
+			var list = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)), pageIndex, pageSize);
 			return new IndexViewModel(list, filter, sortType);
 		}
 
@@ -182,7 +180,7 @@ namespace Marketplace.Repositories
 					PhoneNumber = item.User.PhoneNumber,
 					Name = item.User.Name,
 					Created = item.User.Created,
-					FeedbackStatistics = new FeedbackStatisticsDto(
+					FeedbackStatistics = item.User.ReceivedFeedback == null ? null : new FeedbackStatisticsDto(
 						item.User.ReceivedFeedback.Count,
 						item.User.ReceivedFeedback.Average(x => x.Rate)
 					),

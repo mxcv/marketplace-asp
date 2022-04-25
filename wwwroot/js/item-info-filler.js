@@ -1,4 +1,8 @@
-﻿getCountries()
+﻿var dateOptionsMonth = { year: 'numeric', month: 'long' };
+var dateOptionsDay = { year: 'numeric', month: 'numeric', day: 'numeric' };
+var dateOptionsTime = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+
+getCountries()
 	.then(function (countries) {
 		$('.city-id').each(function () {
 			let cityId = +$(this).text();
@@ -38,12 +42,15 @@ getCurrencies()
 	})
 	.catch(console.log);
 
-var dateOptionsAccurate = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-var dateOptionsApproximate= { year: 'numeric', month: 'long' };
 $('.time-iso').each(function () {
-	$(this).next().text(new Date($(this).text()).toLocaleString(
-		$('html').attr('lang'),
-		$(this).hasClass('accurate') ? dateOptionsAccurate : dateOptionsApproximate)
-	);
+	let dateOptions;
+	if ($(this).hasClass('month'))
+		dateOptions = dateOptionsMonth;
+	else if ($(this).hasClass('day'))
+		dateOptions = dateOptionsDay;
+	else
+		dateOptions = dateOptionsTime;
+
+	$(this).next().text(new Date($(this).text()).toLocaleString($('html').attr('lang'), dateOptions));
 	$(this).remove();
 });

@@ -21,13 +21,14 @@
 					<div><b>@Model.User.Name</b></div>
 					<div>
 						<small>@Localizer["Since"]</small>
-						<small class="time-iso approximate d-none">@Model.User.Created.ToString("O")</small>
+						<small class="time-iso month d-none">@Model.User.Created.ToString("O")</small>
 						<small></small>
 					</div>
 					@if (Model.User.FeedbackStatistics != null)
 					{
 						<div class="mt-1">
-							<a asp-controller="Items" asp-action="Index">@Localizer["FeedbackCount", @Model.User.FeedbackStatistics.Count]</a>
+							<a asp-controller="Feedback" asp-action="User" asp-route-id="@Model.User.Id">@Localizer["FeedbackCount", @Model.User.FeedbackStatistics.Count]</a>
+							<div>@Model.User.FeedbackStatistics.Average</div>
 						</div>
 					}
 				</div>

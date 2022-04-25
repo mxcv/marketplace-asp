@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers.Api
 {
-	[Route("api/[controller]")]
+	[Route("api/feedback")]
 	[ApiController]
-	public class FeedbackController : ControllerBase
+	public class FeedbackApiController : ControllerBase
 	{
 		private readonly IFeedbackRepository feedbackRepository;
 
-		public FeedbackController(IFeedbackRepository feedbackRepository)
+		public FeedbackApiController(IFeedbackRepository feedbackRepository)
 		{
 			this.feedbackRepository = feedbackRepository;
 		}

@@ -60,10 +60,16 @@ body {
 	background-color: #ededed;
 }
 
+.avatar-sm {
+	width: 30px;
+	height: 30px;
+}
+
 .avatar-none {
 	background-image: url("/img/person.svg");
 	background-size: cover;
 }
+
 
 .li-icon {
 	list-style: none;
