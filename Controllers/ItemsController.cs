@@ -51,15 +51,29 @@ namespace Marketplace.Controllers
 
 		public async Task<IActionResult> Item(int id)
 		{
-			return View(await itemRepository.GetItemAsync(id));
+			try
+			{
+				return View(await itemRepository.GetItemAsync(id));
+			}
+			catch
+			{
+				return NotFound();
+			}
 		}
 
 		public new async Task<IActionResult> User(int id)
 		{
-			return View(new UserItemsViewModel(
-				await userRepository.GetUser(id),
-				(await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = id }, null, 0, 0)).Items
-			));
+			try
+			{
+				return View(new UserItemsViewModel(
+					await userRepository.GetUser(id),
+					(await itemRepository.GetItemsAsync(new FilterViewModel() { UserId = id }, null, 0, 0)).Items
+				));
+			}
+			catch
+			{
+				return NotFound();
+			}
 		}
 
 		[Authorize]

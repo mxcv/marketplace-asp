@@ -17,10 +17,17 @@ namespace Marketplace.Controllers
 
 		public new async Task<IActionResult> User(int id, int page)
 		{
-			return View(new UserFeedbackViewModel(
-				await userRepository.GetUser(id),
-				await feedbackRepository.GetFeedbackAsync(id, page, 20)
-			));
+			try
+			{
+				return View(new UserFeedbackViewModel(
+					await userRepository.GetUser(id),
+					await feedbackRepository.GetFeedbackAsync(id, page, 20)
+				));
+			}
+			catch
+			{
+				return NotFound();
+			}
 		}
 	}
 }
