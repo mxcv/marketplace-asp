@@ -34,12 +34,16 @@ body {
 	outline: none;
 }
 
+.w-400 {
+	max-width: 400px;
+}
+
 .w-450 {
-	width: 450px;
+	max-width: 450px;
 }
 
 .h-400 {
-	height: 400px;
+	max-height: 400px;
 }
 
 .item-image {

@@ -35,17 +35,15 @@
 			</div>
 		</div>
 		<div class="@(Model.IsLarge ? "col-md-6" : null)">
-			<ul class="m-0 mb-4 p-0">
+			<ul class="m-0 p-0">
 				<li class="li-icon li-phone"><span>@Model.User.PhoneNumber</span></li>
 				@if (@Model.User.City != null)
 				{
 					<li class="li-icon li-location"><span class="city-id long d-none">@Model.User.City.Id</span><span></span></li>
 				}
 			</ul>
-			@if (!Model.IsLarge)
-			{
-				<a asp-action="User" asp-route-id="@Model.User.Id" class="btn btn-primary w-100">@Localizer["ShowAllItems"]</a>
-			}
+			<a asp-controller="Items" asp-action="User" asp-route-id="@Model.User.Id" class="btn btn-primary w-100 mt-4 d-md-none">@Localizer["ShowAllItems"]</a>
+			<a asp-controller="Items" asp-action="User" asp-route-id="@Model.User.Id" class="btn btn-primary w-400 mt-3 d-none d-md-block">@Localizer["ShowAllItems"]</a>
 		</div>
 	</div>
 </section>
