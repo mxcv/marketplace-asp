@@ -4,7 +4,7 @@
 	Debug.Assert(Model != null);
 }
 
-<div class="d-flex shadow rounded w-100 p-2">
+<div class="d-flex bg-light shadow-sm rounded w-100 p-2">
 	<a asp-controller="Items" asp-action="Item" asp-route-id="@Model.Id">
 		@if(Model.Images == null || Model.Images.FirstOrDefault() == null)
 		{

@@ -51,11 +51,15 @@ body {
 }
 
 .item-image-none {
-	background: center / contain no-repeat url("/img/no-image.svg");
+	background: center / contain no-repeat url("/img/image-none.svg");
 }
 
 .white-space-pre-wrap {
 	white-space: pre-wrap;
+}
+
+.white-space-no-wrap {
+	white-space: nowrap;
 }
 
 .avatar {
@@ -74,6 +78,16 @@ body {
 	background-size: cover;
 }
 
+.star {
+	width: 18px;
+	height: 18px;
+	background-image: url("/img/star.svg");
+	background-repeat: no-repeat;
+}
+
+.star-none {
+	background-image: url("/img/star-none.svg");
+}
 
 .li-icon {
 	list-style: none;

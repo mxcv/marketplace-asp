@@ -11,11 +11,11 @@
 			<div class="d-flex mb-4">
 				@if (Model.User.Image == null)
 				{
-					<div class="rounded-circle avatar avatar-none"></div>
+					<div class="rounded-circle border avatar avatar-none"></div>
 				}
 				else
 				{
-					<img src="@Model.User.Image" class="rounded-circle avatar">
+					<img src="@Model.User.Image" class="rounded-circle border avatar">
 				}
 				<div class="flex-grow-1 ms-4">
 					<div><b>@Model.User.Name</b></div>
@@ -28,7 +28,29 @@
 					{
 						<div class="mt-1">
 							<a asp-controller="Feedback" asp-action="User" asp-route-id="@Model.User.Id">@Localizer["FeedbackCount", @Model.User.FeedbackStatistics.Count]</a>
-							<div>@Model.User.FeedbackStatistics.Average</div>
+							<div class="d-flex mt-1">
+								<div class="rounded bg-warning px-2 py-1 me-2"><b>@Model.User.FeedbackStatistics.Average.ToString("F1")</b></div>
+								<div class="position-relative mt-1">
+									<div class="d-flex position-absolute">
+										<div class="star star-none"></div>
+										<div class="star star-none"></div>
+										<div class="star star-none"></div>
+										<div class="star star-none"></div>
+										<div class="star star-none"></div>
+									</div>
+									<div class="w-auto position-absolute">
+										<div class="overflow-hidden" style="width: @((Model.User.FeedbackStatistics.Average * 20).ToString(CultureInfo.InvariantCulture))%">
+											<div class="d-table white-space-no-wrap">
+												<div class="star d-inline-block"></div>
+												<div class="star d-inline-block"></div>
+												<div class="star d-inline-block"></div>
+												<div class="star d-inline-block"></div>
+												<div class="star d-inline-block"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					}
 				</div>
@@ -36,7 +58,7 @@
 		</div>
 		<div class="@(Model.IsLarge ? "col-md-6" : null)">
 			<ul class="m-0 p-0">
-				<li class="li-icon li-phone"><span>@Model.User.PhoneNumber</span></li>
+				<li class="li-icon li-phone"><a href="tel:@Model.User.PhoneNumber" class="link-secondary">@Model.User.PhoneNumber</a></li>
 				@if (@Model.User.City != null)
 				{
 					<li class="li-icon li-location"><span class="city-id long d-none">@Model.User.City.Id</span><span></span></li>

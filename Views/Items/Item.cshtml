@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-lg-8">
-		<div class="shadow mb-4 p-4">
+		<section class="shadow mb-4 p-4">
 			@if (Model.Images == null || Model.Images.FirstOrDefault() == null)
 			{
 				<div class="item-image item-image-none w-100"></div>
@@ -27,8 +27,8 @@
 					<div id="indicator-panel" class="d-flex justify-content-center position-absolute bottom-0 w-100 pb-2"></div>
 				</div>
 			}
-		</div>
-		<div class="shadow p-4">
+		</section>
+		<section class="shadow p-4">
 			<h1 class="display-4">@Model.Title</h1>
 			<div class="d-flex justify-content-between mb-4">
 				<span class="time-iso time d-none">@Model.Created.ToString("O")</span>
@@ -49,7 +49,7 @@
 				}
 			</div>
 			<div class="white-space-pre-wrap">@Model.Description</div>
-		</div>
+		</section>
 	</div>
 	<div class="col-lg-4 mt-4 mt-lg-0">
 		@await Html.PartialAsync("UserPartial", new UserViewModel(Model.User, false))

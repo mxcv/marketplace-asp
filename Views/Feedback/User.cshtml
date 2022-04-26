@@ -20,8 +20,18 @@
 			}
 			<div class="flex-grow-1 ms-2">
 				<div>@feedback.Reviewer.Name</div>
-				<small class="time-iso day d-none">@feedback.Created.ToString("O")</small>
-				<small></small>
+				<div class="d-flex">
+					@for (int i = 0; i < feedback.Rate; ++i)
+					{
+						<div class="star"></div>
+					}
+					@for (int i = feedback.Rate; i < 5; ++i)
+					{
+						<div class="star star-none"></div>
+					}
+					<small class="time-iso day d-none">@feedback.Created.ToString("O")</small>
+					<small class="ms-3"></small>
+				</div>
 				<div class="rounded shadow-sm p-3 bg-light">@feedback.Text</div>
 			</div>
 		</div>
