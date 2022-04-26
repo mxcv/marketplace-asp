@@ -1,0 +1,39 @@
+﻿@model PageViewModel
+@{
+	Debug.Assert(Model != null);
+}
+
+@if (Model.TotalCount != 0)
+{
+	<div class="d-flex justify-content-center mt-4">
+		<button type="submit" name="page" value="@(Model.PageIndex - 1)" class="btn btn-outline-primary me-2" @(Model.HasPreviousPage ? "" : "disabled")><b>&lt;</b></button>
+		@{
+			int radius = 2;
+			List<int> indeces = new List<int>();
+			indeces.Add(1);
+			if (Model.TotalPages != 1)
+			{
+				if (Model.PageIndex - radius > 2)
+					indeces.Add((Model.PageIndex - radius + 1) / -2);
+				for (int i = Model.PageIndex - radius > 1 ? Model.PageIndex - radius : 2;
+					i <= (Model.PageIndex + radius < Model.TotalPages ? Model.PageIndex + radius : Model.TotalPages - 1);
+					++i)
+					indeces.Add(i);
+				if (indeces[indeces.Count - 1] != Model.TotalPages - 1)
+					indeces.Add((indeces[indeces.Count - 1] + Model.TotalPages) / -2);
+				indeces.Add(Model.TotalPages);
+			}
+
+			foreach (int i in indeces)
+				if (i < 0)
+				{
+					<button type="submit" name="page" value="@(-i)" class="btn btn-link">...</button>
+				}
+				else
+				{
+					<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.PageIndex == i ? "disabled" : "")>@i</button>
+				}
+		}
+		<button type="submit" name="page" value="@(Model.PageIndex + 1)" class="btn btn-outline-primary ms-2" @(Model.HasNextPage ? "" : "disabled")><b>&gt;</b></button>
+	</div>
+}

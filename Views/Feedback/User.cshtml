@@ -29,40 +29,7 @@
 </div>
 
 <form method="get">
-	@if (Model.Feedback.TotalCount != 0)
-	{
-		<div class="d-flex justify-content-center mt-4">
-			<button type="submit" name="page" value="@(Model.Feedback.PageIndex - 1)" class="btn btn-outline-primary me-2" @(Model.Feedback.HasPreviousPage ? "" : "disabled")><b>&lt;</b></button>
-			@{
-				int radius = 2;
-				List<int> indeces = new List<int>();
-				indeces.Add(1);
-				if (Model.Feedback.TotalPages != 1)
-				{
-					if (Model.Feedback.PageIndex - radius > 2)
-						indeces.Add((Model.Feedback.PageIndex - radius + 1) / -2);
-					for (int i = Model.Feedback.PageIndex - radius > 1 ? Model.Feedback.PageIndex - radius : 2;
-						i <= (Model.Feedback.PageIndex + radius < Model.Feedback.TotalPages ? Model.Feedback.PageIndex + radius : Model.Feedback.TotalPages - 1);
-						++i)
-						indeces.Add(i);
-					if (indeces[indeces.Count - 1] != Model.Feedback.TotalPages - 1)
-						indeces.Add((indeces[indeces.Count - 1] + Model.Feedback.TotalPages) / -2);
-					indeces.Add(Model.Feedback.TotalPages);
-				}
-
-				foreach (int i in indeces)
-					if (i < 0)
-					{
-						<button type="submit" name="page" value="@(-i)" class="btn btn-link">...</button>
-					}
-					else
-					{
-						<button type="submit" name="page" value="@i" class="btn btn-link font-weight-bold" @(Model.Feedback.PageIndex == i ? "disabled" : "")>@i</button>
-					}
-			}
-			<button type="submit" name="page" value="@(Model.Feedback.PageIndex + 1)" class="btn btn-outline-primary ms-2" @(Model.Feedback.HasNextPage ? "" : "disabled")><b>&gt;</b></button>
-		</div>
-	}
+	@await Html.PartialAsync("PagePartial", new PageViewModel(Model.Feedback.PageIndex, Model.Feedback.TotalPages, Model.Feedback.TotalCount))
 </form>
 
 @section Scripts {
