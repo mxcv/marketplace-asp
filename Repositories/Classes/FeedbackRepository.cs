@@ -24,32 +24,29 @@ namespace Marketplace.Repositories
 
 		public async Task<PaginatedList<FeedbackDto>> GetFeedbackAsync(int sellerId, int pageIndex, int pageSize)
 		{
-			IQueryable<FeedbackDto> feedback = db.Feedback
+			var feedback = db.Feedback
 				.Include(x => x.Reviewer)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
-				.Where(x => x.SellerId == sellerId)
+				.Where(x => x.ReviewerId != userId && x.SellerId == sellerId)
 				.OrderByDescending(x => x.Created)
-				.Select(x => new FeedbackDto() {
-					Id = x.Id,
-					Rate = x.Rate,
-					Text = x.Text,
-					Created = x.Created,
-					Reviewer = new UserDto() {
-						Id = x.Reviewer.Id,
-						PhoneNumber = x.Reviewer.PhoneNumber,
-						Name = x.Reviewer.Name,
-						Created = x.Reviewer.Created,
-						City = x.Reviewer.CityId == null ? null : new CityDto() {
-							Id = x.Reviewer.CityId.Value
-						},
-						Image = x.Reviewer.Image == null ? null : new ImageDto() {
-							Path = ImageRepository.GetRelativeWebPath(x.Reviewer.Image.File.Name)
-						}
-					}
-				});
+				.Select(x => GetDtoFromModel(x));
 
 			return await PaginatedList<FeedbackDto>.CreateAsync(feedback, pageIndex, pageSize);
+		}
+
+		public async Task<FeedbackDto?> GetLeftFeedbackAsync(int sellerId)
+		{
+			if (userId == null)
+				throw new UnauthorizedUserException();
+
+			return await db.Feedback
+				.Include(x => x.Reviewer)
+					.ThenInclude(x => x.Image)
+						.ThenInclude(x => x!.File)
+				.Where(x => x.ReviewerId == userId && x.SellerId == sellerId)
+				.Select(x => GetDtoFromModel(x))
+				.FirstOrDefaultAsync();
 		}
 
 		public async Task<int> AddFeedbackAsync(ApiFeedbackViewModel model)
@@ -72,19 +69,39 @@ namespace Marketplace.Repositories
 			return feedback.Id;
 		}
 
-		public async Task RemoveFeedbackAsync(int id)
+		public async Task RemoveFeedbackAsync(int sellerId)
 		{
 			if (userId == null)
 				throw new UnauthorizedUserException();
 
-			Feedback? feedback = await db.Feedback.Where(x => x.Id == id).FirstOrDefaultAsync();
-			if (feedback == null)
-				throw new NotFoundException();
-			if (feedback.ReviewerId != userId)
-				throw new AccessDeniedException();
+			Feedback? feedback = await db.Feedback.Where(x => x.ReviewerId == userId && x.SellerId == sellerId).FirstOrDefaultAsync();
+			if (feedback != null)
+			{
+				db.Feedback.Remove(feedback);
+				await db.SaveChangesAsync();
+			}
+		}
 
-			db.Feedback.Remove(feedback);
-			await db.SaveChangesAsync();
+		private static FeedbackDto GetDtoFromModel(Feedback feedback)
+		{
+			return new FeedbackDto() {
+				Id = feedback.Id,
+				Rate = feedback.Rate,
+				Text = feedback.Text,
+				Created = feedback.Created,
+				Reviewer = new UserDto() {
+					Id = feedback.Reviewer.Id,
+					PhoneNumber = feedback.Reviewer.PhoneNumber,
+					Name = feedback.Reviewer.Name,
+					Created = feedback.Reviewer.Created,
+					City = feedback.Reviewer.CityId == null ? null : new CityDto() {
+						Id = feedback.Reviewer.CityId.Value
+					},
+					Image = feedback.Reviewer.Image == null ? null : new ImageDto() {
+						Path = ImageRepository.GetRelativeWebPath(feedback.Reviewer.Image.File.Name)
+					}
+				}
+			};
 		}
 	}
 }
