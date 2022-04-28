@@ -1,5 +1,8 @@
-﻿using Marketplace.Repositories;
+﻿using System.Security.Claims;
+using Marketplace.Dto;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
@@ -19,15 +22,58 @@ namespace Marketplace.Controllers
 		{
 			try
 			{
-				return View(new UserFeedbackViewModel(
-					await userRepository.GetUser(id),
-					await feedbackRepository.GetFeedbackAsync(id, page, 20)
-				));
+				return View(await GetAsync(new UserFeedbackViewModel(), id, page));
 			}
 			catch
 			{
 				return NotFound();
 			}
+		}
+
+		[Authorize]
+		[HttpPost]
+		public new async Task<IActionResult> User(UserFeedbackViewModel model)
+		{
+			try
+			{
+				if (!ModelState.IsValid)
+					return View(await GetAsync(model, model.FeedbackViewModel.Seller.Id, 1));
+				await feedbackRepository.AddFeedbackAsync(model.FeedbackViewModel);
+				return RedirectToAction("User", new { id = model.FeedbackViewModel.Seller.Id });
+			}
+			catch
+			{
+				return BadRequest();
+			}
+		}
+
+		[Authorize]
+		public async Task<IActionResult> Remove(int id)
+		{
+			try
+			{
+				await feedbackRepository.RemoveFeedbackAsync(id);
+				return RedirectToAction("User", new { id = id });
+			}
+			catch
+			{
+				return NotFound();
+			}
+		}
+
+		public async Task<UserFeedbackViewModel> GetAsync(UserFeedbackViewModel model, int sellerId, int page)
+		{
+			string? userId = base.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			model.FeedbackViewModel = new FeedbackViewModel() {
+				Seller = new UserDto() {
+					Id = sellerId
+				}
+			};
+			model.Seller = await userRepository.GetUser(sellerId);
+			model.Feedback = await feedbackRepository.GetFeedbackAsync(sellerId, page, 20);
+			model.LeftFeedback = await feedbackRepository.GetLeftFeedbackAsync(sellerId);
+			model.CanLeaveFeedback = userId != null && userId != sellerId.ToString();
+			return model;
 		}
 	}
 }

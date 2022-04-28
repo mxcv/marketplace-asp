@@ -8,7 +8,11 @@ namespace Marketplace.Models
 		public int TotalPages { get; private set; }
 		public int TotalCount { get; private set; }
 
-		private PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
+		public PaginatedList()
+		{
+		}
+
+		public PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
 		{
 			PageIndex = pageIndex;
 			TotalPages = (int)Math.Ceiling(count / (double)pageSize);
@@ -20,6 +24,8 @@ namespace Marketplace.Models
 		public static async Task<PaginatedList<T>> CreateAsync(IQueryable<T> source, int pageIndex, int pageSize)
 		{
 			int count = await source.CountAsync();
+			if (count == 0)
+				return new PaginatedList<T>();
 			if (pageIndex < 1)
 				pageIndex = 1;
 			if (pageSize < 1)

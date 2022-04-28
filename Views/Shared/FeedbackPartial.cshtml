@@ -1,0 +1,34 @@
+﻿@model FeedbackDto
+@{
+	Debug.Assert(Model != null);
+}
+
+<div class="d-flex">
+	@if (Model.Reviewer.Image == null)
+	{
+		<div class="flex-shrink-0 rounded-circle avatar avatar-sm avatar-none"></div>
+	}
+	else
+	{
+		<img src="@Model.Reviewer.Image" class="flex-shrink-0 rounded-circle avatar avatar-sm">
+	}
+	<div class="flex-grow-1 ms-2">
+		<div>@Model.Reviewer.Name</div>
+		<div class="d-flex">
+			@for (int i = 0; i < Model.Rate; ++i)
+			{
+				<div class="star"></div>
+			}
+			@for (int i = Model.Rate; i < 5; ++i)
+			{
+				<div class="star star-none"></div>
+			}
+			<small class="time-iso day d-none">@Model.Created.ToString("O")</small>
+			<small class="ms-3"></small>
+		</div>
+		@if (!string.IsNullOrWhiteSpace(Model.Text))
+		{
+			<div class="rounded text-break shadow-sm p-3 bg-light">@Model.Text</div>
+		}
+	</div>
+</div>

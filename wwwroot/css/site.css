@@ -85,8 +85,19 @@ body {
 	background-repeat: no-repeat;
 }
 
-.star-none {
+.star-none, input.star:not(:checked) {
 	background-image: url("/img/star-none.svg");
+}
+
+input.star:checked ~ .star, input.star:hover, input.star:hover ~ .star {
+	background-image: url("/img/star.svg");
+}
+input.star:active {
+	filter: brightness(0) saturate(100%) invert(67%) sepia(54%) saturate(1851%) hue-rotate(358deg) brightness(99%) contrast(108%);
+}
+
+.appearance-none {
+	appearance: none;
 }
 
 .li-icon {

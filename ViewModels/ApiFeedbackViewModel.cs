@@ -8,7 +8,7 @@ namespace Marketplace.ViewModels
 		[Range(1, 5)]
 		public int Rate { get; set; }
 
-		[StringLength(500)]
+		[StringLength(1000)]
 		public string? Text { get; set; }
 
 		public UserDto Seller { get; set; } = null!;

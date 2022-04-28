@@ -38,7 +38,7 @@ namespace Marketplace.Repositories
 		public async Task<FeedbackDto?> GetLeftFeedbackAsync(int sellerId)
 		{
 			if (userId == null)
-				throw new UnauthorizedUserException();
+				return null;
 
 			return await db.Feedback
 				.Include(x => x.Reviewer)
