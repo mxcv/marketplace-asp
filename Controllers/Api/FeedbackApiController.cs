@@ -17,7 +17,7 @@ namespace Marketplace.Controllers.Api
 			this.feedbackRepository = feedbackRepository;
 		}
 
-		[HttpGet]
+		[HttpGet("{sellerId}")]
 		public async Task<IActionResult> Get(int sellerId, int pageIndex, int pageSize)
 		{
 			try
@@ -28,6 +28,20 @@ namespace Marketplace.Controllers.Api
 					pageSize = 100;
 
 				return Ok(new PageDto<FeedbackDto>(await feedbackRepository.GetFeedbackAsync(sellerId, pageIndex, pageSize)));
+			}
+			catch
+			{
+				return BadRequest();
+			}
+		}
+
+		[Authorize]
+		[HttpGet("left/{sellerId}")]
+		public async Task<IActionResult> Get(int sellerId)
+		{
+			try
+			{
+				return Ok(await feedbackRepository.GetLeftFeedbackAsync(sellerId));
 			}
 			catch
 			{
@@ -50,12 +64,12 @@ namespace Marketplace.Controllers.Api
 		}
 
 		[Authorize]
-		[HttpDelete("{id}")]
-		public async Task<IActionResult> Delete(int id)
+		[HttpDelete("{sellerId}")]
+		public async Task<IActionResult> Delete(int sellerId)
 		{
 			try
 			{
-				await feedbackRepository.RemoveFeedbackAsync(id);
+				await feedbackRepository.RemoveFeedbackAsync(sellerId);
 				return Ok();
 			}
 			catch

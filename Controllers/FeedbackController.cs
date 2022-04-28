@@ -22,7 +22,7 @@ namespace Marketplace.Controllers
 		{
 			try
 			{
-				return View(await GetAsync(new UserFeedbackViewModel(), id, page));
+				return View(await FillModelAsync(new UserFeedbackViewModel(), id, page));
 			}
 			catch
 			{
@@ -37,7 +37,7 @@ namespace Marketplace.Controllers
 			try
 			{
 				if (!ModelState.IsValid)
-					return View(await GetAsync(model, model.FeedbackViewModel.Seller.Id, 1));
+					return View(await FillModelAsync(model, model.FeedbackViewModel.Seller.Id, 1));
 				await feedbackRepository.AddFeedbackAsync(model.FeedbackViewModel);
 				return RedirectToAction("User", new { id = model.FeedbackViewModel.Seller.Id });
 			}
@@ -61,7 +61,7 @@ namespace Marketplace.Controllers
 			}
 		}
 
-		public async Task<UserFeedbackViewModel> GetAsync(UserFeedbackViewModel model, int sellerId, int page)
+		public async Task<UserFeedbackViewModel> FillModelAsync(UserFeedbackViewModel model, int sellerId, int page)
 		{
 			string? userId = base.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			model.FeedbackViewModel = new FeedbackViewModel() {
