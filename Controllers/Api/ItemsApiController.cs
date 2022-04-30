@@ -45,10 +45,13 @@ namespace Marketplace.Controllers
 				UserId = userId
 			};
 
-			if (pageSize < 0)
-				pageSize = 1;
-			else if (pageSize > 100)
-				pageSize = 100;
+			if (userId == null)
+			{
+				if (pageSize < 1)
+					pageSize = 1;
+				else if (pageSize > 100)
+					pageSize = 100;
+			}
 
 			var model = await itemRepository.GetItemsAsync(
 				filter,

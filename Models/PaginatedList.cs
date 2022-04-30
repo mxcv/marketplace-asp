@@ -5,6 +5,7 @@ namespace Marketplace.Models
 	public class PaginatedList<T> : List<T>
 	{
 		public int PageIndex { get; private set; }
+		public int PageSize { get; private set; }
 		public int TotalPages { get; private set; }
 		public int TotalCount { get; private set; }
 
@@ -15,6 +16,7 @@ namespace Marketplace.Models
 		public PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
 		{
 			PageIndex = pageIndex;
+			PageSize = pageSize;
 			TotalPages = (int)Math.Ceiling(count / (double)pageSize);
 			TotalCount = count;
 

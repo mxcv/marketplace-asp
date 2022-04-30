@@ -22,7 +22,7 @@ namespace Marketplace.Controllers.Api
 		{
 			try
 			{
-				if (pageSize < 0)
+				if (pageSize < 1)
 					pageSize = 1;
 				else if (pageSize > 100)
 					pageSize = 100;
