@@ -54,7 +54,7 @@ namespace Marketplace.Repositories
 			if (userId == null)
 				throw new UnauthorizedUserException();
 			if (userId == model.Seller.Id || db.Feedback.Where(x => x.SellerId == model.Seller.Id && x.ReviewerId == userId).Any())
-				throw new FeedbackException();
+				throw new ModelException();
 
 			Feedback feedback = new Feedback() {
 				Rate = model.Rate,

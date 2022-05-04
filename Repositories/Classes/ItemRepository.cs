@@ -31,17 +31,21 @@ namespace Marketplace.Repositories
 				.Include(x => x.User)
 					.ThenInclude(x => x.Image)
 						.ThenInclude(x => x!.File)
-				.Include(x => x.User)
-					.ThenInclude(x => x.ReceivedFeedback)
 				.Include(x => x.Images)
 					.ThenInclude(x => x.File)
 				.Where(x => x.Id == id)
-				.AsSplitQuery()
 				.FirstOrDefaultAsync();
 			if (item == null)
 				throw new NotFoundException();
 
-			return GetDtoFromModel(item);
+			var model = GetDtoFromModel(item);
+			if (model.User != null)
+			{
+				int feedbackCount = await db.Feedback.Where(x => x.SellerId == model.User.Id).CountAsync();
+				double feedbackAverage = feedbackCount == 0 ? 0 : await db.Feedback.Where(x => x.SellerId == model.User.Id).AverageAsync(x => x.Rate);
+				model.User.FeedbackStatistics = new FeedbackStatisticsDto(feedbackCount, feedbackAverage);
+			}
+			return model;
 		}
 
 		public async Task<IndexViewModel> GetItemsAsync(FilterViewModel filter, SortType? sortType, int pageIndex, int pageSize)
@@ -185,10 +189,6 @@ namespace Marketplace.Repositories
 					PhoneNumber = item.User.PhoneNumber,
 					Name = item.User.Name,
 					Created = item.User.Created,
-					FeedbackStatistics = item.User.ReceivedFeedback == null ? null : new FeedbackStatisticsDto(
-						item.User.ReceivedFeedback.Count,
-						item.User.ReceivedFeedback.Average(x => x.Rate)
-					),
 					City = item.User.CityId == null ? null : new CityDto() {
 						Id = item.User.CityId.Value
 					},
