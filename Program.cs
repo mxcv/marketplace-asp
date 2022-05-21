@@ -30,6 +30,8 @@ builder.Services.AddTransient<IPrincipal>(provider =>
 );
 
 builder.Services.Configure<JwtConfiguration>(jwtConfigSection);
+builder.Services.Configure<ExchangeRateConfiguration>(builder.Configuration.GetSection("ExchangeRateConfiguration"));
+builder.Services.AddHostedService<ExchangeRateHostedService>();
 builder.Services.AddOptions();
 
 builder.Services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme)

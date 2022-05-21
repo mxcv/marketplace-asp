@@ -55,6 +55,8 @@ namespace Marketplace.Models
 
 		public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 		public DbSet<Currency> Currencies => Set<Currency>();
+		public DbSet<Exchange> Exchanges => Set<Exchange>();
+		public DbSet<ExchangeInfoRequest> ExchangeInfoRequests => Set<ExchangeInfoRequest>();
 		public DbSet<Price> Prices => Set<Price>();
 		public DbSet<Item> Items => Set<Item>();
 		public DbSet<Language> Languages => Set<Language>();
