@@ -95,6 +95,20 @@ namespace Marketplace.Repositories
 			};
 
 			var list = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)), pageIndex, pageSize);
+			if (filter.CurrencyId != null)
+			{
+				var exchanges = await db.Exchanges.Include(x => x.Currency).ToListAsync();
+				if (exchanges.Where(x => x.CurrencyId == filter.CurrencyId).Any())
+					foreach (var item in list)
+						if (item.Price != null && item.Currency != null)
+						{
+
+							item.Price = item.Price
+								/ exchanges.Where(x => x.CurrencyId == item.Currency.Id).First().Rate
+								* exchanges.Where(x => x.CurrencyId == filter.CurrencyId).First().Rate;
+							item.Currency.Id = filter.CurrencyId.Value;
+						}
+			}
 			return new IndexViewModel(list, filter, sortType);
 		}
 
