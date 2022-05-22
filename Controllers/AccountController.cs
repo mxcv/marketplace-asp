@@ -1,4 +1,5 @@
 ﻿using Marketplace.Models;
+using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,14 +11,17 @@ namespace Marketplace.Controllers
 	{
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
+		private readonly IImageRepository imageRepository;
 		private readonly IStringLocalizer<AccountController> localizer;
 
 		public AccountController(UserManager<User> userManager,
 			SignInManager<User> signInManager,
+			IImageRepository imageRepository,
 			IStringLocalizer<AccountController> localizer)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
+			this.imageRepository = imageRepository;
 			this.localizer = localizer;
 		}
 
@@ -71,7 +75,11 @@ namespace Marketplace.Controllers
 				};
 				var result = await userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
+				{
+					if (model.Image != null)
+						await imageRepository.SetUserImageAsync(model.Image, user.Id);
 					return RedirectToAction("Index", "Home");
+				}
 				else
 					foreach (var error in result.Errors)
 						ModelState.AddModelError(string.Empty, error.Description);

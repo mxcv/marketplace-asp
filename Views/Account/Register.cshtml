@@ -4,7 +4,7 @@
 	ViewData["Title"] = @Localizer["Register"];
 }
 
-<form method="post" asp-controller="Account" asp-action="Register" class="form-group mx-auto w-450">
+<form method="post" asp-controller="Account" asp-action="Register" enctype="multipart/form-data" class="form-group mx-auto w-450">
 	<h2 class="mb-2">@Localizer["Register"]</h2>
 	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="mb-2">
@@ -54,6 +54,11 @@
 			</td>
 		</tr>
 	</table>
+	<div class="mb-2">
+		<label asp-for="Image"></label>
+		<span asp-validation-for="Image" class="text-danger float-end"></span>
+		<input asp-for="Image" type="file" class="form-control" />
+	</div>
 	<div class="mb-2">
 		<label asp-for="Password"></label>
 		<span asp-validation-for="Password" class="text-danger float-end"></span>

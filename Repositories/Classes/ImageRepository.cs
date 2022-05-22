@@ -59,6 +59,13 @@ namespace Marketplace.Repositories
 		{
 			if (userId == null)
 				throw new UnauthorizedUserException();
+			await SetUserImageAsync(image, userId.Value);
+		}
+
+		public async Task SetUserImageAsync(IFormFile image, int userId)
+		{
+			if (!await db.Users.Where(x => x.Id == userId).AnyAsync())
+				throw new ModelException();
 
 			UserImage? userImage = await db.UserImages
 				.Where(x => x.UserId == userId)
@@ -69,7 +76,7 @@ namespace Marketplace.Repositories
 			if (userImage == null)
 			{
 				userImage = new UserImage() {
-					UserId = userId.Value,
+					UserId = userId,
 					File = new MediaFile() {
 						Extension = extension
 					}

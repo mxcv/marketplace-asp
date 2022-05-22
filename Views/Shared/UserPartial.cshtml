@@ -1,5 +1,6 @@
 ﻿@model UserViewModel
 @inject IViewLocalizer Localizer
+@inject IWebHostEnvironment Environment
 @{
 	Debug.Assert(Model != null);
 }
@@ -15,7 +16,7 @@
 				}
 				else
 				{
-					<img src="@Model.User.Image" class="rounded-circle border avatar">
+					<img src="@Model.User.Image.Path" class="rounded-circle border object-fit-cover avatar">
 				}
 				<div class="flex-grow-1 ms-4">
 					<div><b>@Model.User.Name</b></div>
