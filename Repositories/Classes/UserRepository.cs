@@ -13,12 +13,14 @@ namespace Marketplace.Repositories
 	{
 		private readonly MarketplaceDbContext db;
 		private readonly UserManager<User> userManager;
+		private readonly IImageRepository imageRepository;
 		private readonly int? userId;
 
-		public UserRepository(MarketplaceDbContext db, UserManager<User> userManager, IPrincipal principal)
+		public UserRepository(MarketplaceDbContext db, UserManager<User> userManager, IImageRepository imageRepository, IPrincipal principal)
 		{
 			this.db = db;
 			this.userManager = userManager;
+			this.imageRepository = imageRepository;
 
 			string? identifier = ((ClaimsPrincipal)principal).FindFirst(ClaimTypes.NameIdentifier)?.Value;
 			if (identifier != null)
@@ -71,10 +73,23 @@ namespace Marketplace.Repositories
 				Created = DateTime.UtcNow,
 				CityId = model.City?.Id
 			};
-			if (!(await userManager.CreateAsync(user, model.Password)).Succeeded)
-				throw new ModelException();
+			var result = await userManager.CreateAsync(user, model.Password);
+			if (!result.Succeeded)
+				throw new ModelException(string.Join(Environment.NewLine, result.Errors.Select(x => x.Description)));
 
 			return user.Id;
+		}
+
+		public async Task<int> AddUser(ApiRegisterViewModel model, IFormFile image)
+		{
+			int id = await AddUser(model);
+			try
+			{
+				await imageRepository.SetUserImageAsync(image, id);
+			}
+			catch { }
+
+			return id;
 		}
 	}
 }

@@ -8,5 +8,6 @@ namespace Marketplace.Repositories
 		Task<UserDto> GetUser(int id);
 		Task<UserDto> GetCurrentUser();
 		Task<int> AddUser(ApiRegisterViewModel model);
+		Task<int> AddUser(ApiRegisterViewModel model, IFormFile image);
 	}
 }

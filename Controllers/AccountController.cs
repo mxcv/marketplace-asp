@@ -1,4 +1,5 @@
-﻿using Marketplace.Models;
+﻿using Marketplace.Exceptions;
+using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
 using Microsoft.AspNetCore.Identity;
@@ -9,19 +10,14 @@ namespace Marketplace.Controllers
 {
 	public class AccountController : Controller
 	{
-		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
-		private readonly IImageRepository imageRepository;
+		private readonly IUserRepository userRepository;
 		private readonly IStringLocalizer<AccountController> localizer;
 
-		public AccountController(UserManager<User> userManager,
-			SignInManager<User> signInManager,
-			IImageRepository imageRepository,
-			IStringLocalizer<AccountController> localizer)
+		public AccountController(SignInManager<User> signInManager, IUserRepository userRepository, IStringLocalizer<AccountController> localizer)
 		{
-			this.userManager = userManager;
 			this.signInManager = signInManager;
-			this.imageRepository = imageRepository;
+			this.userRepository = userRepository;
 			this.localizer = localizer;
 		}
 
@@ -65,24 +61,20 @@ namespace Marketplace.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				User user = new User() {
-					UserName = model.Email,
-					Email = model.Email,
-					PhoneNumber = model.PhoneNumber,
-					Name = model.Name,
-					Created = DateTime.UtcNow,
-					CityId = model.CityId
-				};
-				var result = await userManager.CreateAsync(user, model.Password);
-				if (result.Succeeded)
+				try
 				{
-					if (model.Image != null)
-						await imageRepository.SetUserImageAsync(model.Image, user.Id);
+					if (model.Image == null)
+						await userRepository.AddUser(model);
+					else
+						await userRepository.AddUser(model, model.Image);
+
 					return RedirectToAction("Index", "Home");
 				}
-				else
-					foreach (var error in result.Errors)
-						ModelState.AddModelError(string.Empty, error.Description);
+				catch (ModelException e)
+				{
+					foreach (var error in e.Message.Split(Environment.NewLine))
+						ModelState.AddModelError(string.Empty, error);
+				}
 			}
 			return View(model);
 		}
