@@ -13,7 +13,7 @@ namespace Marketplace.Models
 		{
 		}
 
-		public PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
+		private PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
 		{
 			PageIndex = pageIndex;
 			PageSize = pageSize;
@@ -34,6 +34,20 @@ namespace Marketplace.Models
 				pageSize = count;
 
 			var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+			return new PaginatedList<T>(items, pageIndex, pageSize, count);
+		}
+
+		public static PaginatedList<T> Create(List<T> source, int pageIndex, int pageSize)
+		{
+			int count = source.Count;
+			if (count == 0)
+				return new PaginatedList<T>();
+			if (pageIndex < 1)
+				pageIndex = 1;
+			if (pageSize < 1)
+				pageSize = count;
+
+			var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 			return new PaginatedList<T>(items, pageIndex, pageSize, count);
 		}
 	}

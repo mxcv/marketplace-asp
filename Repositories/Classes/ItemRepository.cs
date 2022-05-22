@@ -57,9 +57,9 @@ namespace Marketplace.Repositories
 
 			if (filter.Query != null)
 				items = items.Where(x => EF.Functions.Like(x.Title, $"%{filter.Query}%"));
-			if (filter.MinPrice != null)
+			if (filter.MinPrice != null && filter.CurrencyId == null)
 				items = items.Where(x => x.Price != null && x.Price.Value >= filter.MinPrice.Value);
-			if (filter.MaxPrice != null)
+			if (filter.MaxPrice != null && filter.CurrencyId == null)
 				items = items.Where(x => x.Price != null && x.Price.Value <= filter.MaxPrice.Value);
 			if (filter.CategoryId != null)
 				items = items.Where(x => x.CategoryId == filter.CategoryId);
@@ -94,22 +94,45 @@ namespace Marketplace.Repositories
 				_ => items.OrderByDescending(x => x.Created),
 			};
 
-			var list = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)), pageIndex, pageSize);
+			var itemsQuery = items.Select(x => GetDtoFromModel(x));
+			PaginatedList<ItemDto> paginatedList;
+
 			if (filter.CurrencyId != null)
 			{
-				var exchanges = await db.Exchanges.Include(x => x.Currency).ToListAsync();
-				if (exchanges.Where(x => x.CurrencyId == filter.CurrencyId).Any())
-					foreach (var item in list)
-						if (item.Price != null && item.Currency != null)
-						{
-
-							item.Price = item.Price
-								/ exchanges.Where(x => x.CurrencyId == item.Currency.Id).First().Rate
-								* exchanges.Where(x => x.CurrencyId == filter.CurrencyId).First().Rate;
-							item.Currency.Id = filter.CurrencyId.Value;
-						}
+				if (filter.MinPrice == null && filter.MaxPrice == null)
+				{
+					paginatedList = await PaginatedList<ItemDto>.CreateAsync(itemsQuery, pageIndex, pageSize);
+					await ConvertCurrenciesAsync(paginatedList, filter.CurrencyId.Value);
+				}
+				else
+				{
+					var list = await itemsQuery.ToListAsync();
+					await ConvertCurrenciesAsync(list, filter.CurrencyId.Value);
+					list = list.Where(x => x.Price != null
+						&& (filter.MinPrice == null || x.Price >= filter.MinPrice)
+						&& (filter.MaxPrice == null || x.Price <= filter.MaxPrice)
+					).ToList();
+					paginatedList = PaginatedList<ItemDto>.Create(list, pageIndex, pageSize);
+				}
 			}
-			return new IndexViewModel(list, filter, sortType);
+			else
+				paginatedList = await PaginatedList<ItemDto>.CreateAsync(itemsQuery, pageIndex, pageSize);
+
+			return new IndexViewModel(paginatedList, filter, sortType);
+		}
+
+		private async Task ConvertCurrenciesAsync(IEnumerable<ItemDto> items, int currencyId)
+		{
+			var exchanges = await db.Exchanges.Include(x => x.Currency).ToListAsync();
+			if (exchanges.Where(x => x.CurrencyId == currencyId).Any())
+				foreach (var item in items)
+					if (item.Price != null && item.Currency != null)
+					{
+						item.Price = item.Price
+							/ exchanges.Where(x => x.CurrencyId == item.Currency.Id).First().Rate
+							* exchanges.Where(x => x.CurrencyId == currencyId).First().Rate;
+						item.Currency.Id = currencyId;
+					}
 		}
 
 		public async Task<int> AddItemAsync(ApiItemViewModel model)
