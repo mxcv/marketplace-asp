@@ -48,7 +48,7 @@ namespace Marketplace.Controllers
 		{
 			try
 			{
-				return Ok(await userRepository.AddUser(model));
+				return Ok(await userRepository.AddSeller(model));
 			}
 			catch
 			{

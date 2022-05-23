@@ -76,7 +76,7 @@ namespace Marketplace.Controllers
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpGet]
 		public async Task<IActionResult> My()
 		{
@@ -87,7 +87,7 @@ namespace Marketplace.Controllers
 			));
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		public async Task<IActionResult> My(int[] id)
 		{
@@ -95,14 +95,14 @@ namespace Marketplace.Controllers
 			return RedirectToAction("My");
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpGet]
 		public IActionResult Add()
 		{
 			return View(new ItemViewModel());
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		public async Task<IActionResult> Add(ItemViewModel model)
 		{

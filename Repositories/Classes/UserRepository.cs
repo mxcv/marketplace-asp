@@ -63,7 +63,7 @@ namespace Marketplace.Repositories
 			return await GetUser(userId.Value);
 		}
 
-		public async Task<int> AddUser(ApiRegisterViewModel model)
+		public async Task<int> AddSeller(ApiRegisterViewModel model)
 		{
 			User user = new User() {
 				UserName = model.Email,
@@ -77,12 +77,13 @@ namespace Marketplace.Repositories
 			if (!result.Succeeded)
 				throw new ModelException(string.Join(Environment.NewLine, result.Errors.Select(x => x.Description)));
 
+			await userManager.AddToRoleAsync(user, "Seller");
 			return user.Id;
 		}
 
-		public async Task<int> AddUser(ApiRegisterViewModel model, IFormFile image)
+		public async Task<int> AddSeller(ApiRegisterViewModel model, IFormFile image)
 		{
-			int id = await AddUser(model);
+			int id = await AddSeller(model);
 			try
 			{
 				await imageRepository.SetUserImageAsync(image, id);

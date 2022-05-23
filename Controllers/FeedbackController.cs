@@ -30,7 +30,7 @@ namespace Marketplace.Controllers
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		public new async Task<IActionResult> User(UserFeedbackViewModel model)
 		{
@@ -47,7 +47,7 @@ namespace Marketplace.Controllers
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		public async Task<IActionResult> Remove(int id)
 		{
 			try

@@ -63,7 +63,7 @@ namespace Marketplace.Controllers
 			return Ok(new PageDto<ItemDto>(model.Items));
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		public async Task<IActionResult> Post(ApiItemViewModel model)
 		{
@@ -77,7 +77,7 @@ namespace Marketplace.Controllers
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> Delete(int id)
 		{

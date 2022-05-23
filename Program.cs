@@ -107,6 +107,15 @@ if (!app.Environment.IsDevelopment())
 	app.UseHsts();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+	var services = scope.ServiceProvider;
+	await InitializeRolesAsync(
+		services.GetRequiredService<UserManager<User>>(),
+		services.GetRequiredService<RoleManager<IdentityRole<int>>>()
+	);
+}
+
 var supportedCultures = new[] {
 	new CultureInfo("en"),
 	new CultureInfo("ru")
@@ -131,3 +140,23 @@ app.MapControllerRoute(
 );
 
 app.Run();
+
+async Task InitializeRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole<int>> roleManager)
+{
+	var adminSection = builder.Configuration.GetSection("Administrator");
+	string adminEmail = adminSection["Email"];
+	string adminPassword = adminSection["Password"];
+	string[] roles = { "Administrator", "Moderator", "Seller" };
+
+	foreach (string role in roles)
+		if (await roleManager.FindByNameAsync(role) == null)
+			await roleManager.CreateAsync(new IdentityRole<int>(role));
+
+	if (await userManager.FindByNameAsync(adminEmail) == null)
+	{
+		User admin = new User { Email = adminEmail, UserName = adminEmail };
+		IdentityResult result = await userManager.CreateAsync(admin, adminPassword);
+		if (result.Succeeded)
+			await userManager.AddToRoleAsync(admin, roles[0]);
+	}
+}

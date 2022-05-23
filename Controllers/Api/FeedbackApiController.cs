@@ -35,7 +35,7 @@ namespace Marketplace.Controllers.Api
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpGet("left/{sellerId}")]
 		public async Task<IActionResult> Get(int sellerId)
 		{
@@ -49,7 +49,7 @@ namespace Marketplace.Controllers.Api
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpPost]
 		public async Task<IActionResult> Post(ApiFeedbackViewModel model)
 		{
@@ -63,7 +63,7 @@ namespace Marketplace.Controllers.Api
 			}
 		}
 
-		[Authorize]
+		[Authorize(Roles = "Seller")]
 		[HttpDelete("{sellerId}")]
 		public async Task<IActionResult> Delete(int sellerId)
 		{

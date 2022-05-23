@@ -64,9 +64,9 @@ namespace Marketplace.Controllers
 				try
 				{
 					if (model.Image == null)
-						await userRepository.AddUser(model);
+						await userRepository.AddSeller(model);
 					else
-						await userRepository.AddUser(model, model.Image);
+						await userRepository.AddSeller(model, model.Image);
 
 					return RedirectToAction("Index", "Home");
 				}
