@@ -20,6 +20,13 @@ namespace Marketplace.Models
 				.HasForeignKey(x => x.SellerId)
 				.OnDelete(DeleteBehavior.ClientCascade);
 
+			SeedDb(builder);
+
+			base.OnModelCreating(builder);
+		}
+
+		private void SeedDb(ModelBuilder builder)
+		{
 			var languages = GetSeed<Language>(nameof(Languages));
 			builder.Entity<Language>().HasData(languages);
 			builder.Entity<Currency>().HasData(GetSeed<Currency>(nameof(Currencies)));
@@ -35,8 +42,6 @@ namespace Marketplace.Models
 				builder.Entity<RegionName>().HasData(GetSeed<RegionName>(nameof(RegionNames), language.Code));
 				builder.Entity<CityName>().HasData(GetSeed<CityName>(nameof(CityNames), language.Code));
 			}
-
-			base.OnModelCreating(builder);
 		}
 
 		private IList<T> GetSeed<T>(string file)
