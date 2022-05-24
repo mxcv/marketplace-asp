@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
-	[Authorize(Roles = "Seller")]
+	[Authorize]
 	[Route("api/[controller]")]
 	[ApiController]
 	public class ImagesController : ControllerBase
