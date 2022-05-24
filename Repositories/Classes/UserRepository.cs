@@ -65,23 +65,12 @@ namespace Marketplace.Repositories
 
 		public async Task<IEnumerable<UserDto>> GetModerators()
 		{
-			int roleId = await db.Roles
-				.Where(x => x.Name == "Moderator")
-				.Select(x => x.Id)
-				.FirstAsync();
-
-			var userIds = await db.UserRoles
-				.Where(x => x.RoleId == roleId)
-				.Select(x => x.UserId)
-				.ToListAsync();
-
-			return await db.Users.Where(x => userIds.Contains(x.Id))
+			return (await userManager.GetUsersInRoleAsync("Moderator"))
 				.Select(x => new UserDto() {
 					Id = x.Id,
 					Email = x.Email,
 					Created = x.Created
-				})
-				.ToListAsync();
+				});
 		}
 
 		public async Task<int> AddModerator(ModeratorRegisterViewModel model)
