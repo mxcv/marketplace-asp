@@ -102,7 +102,7 @@ namespace Marketplace.Repositories
 			User user = new User() {
 				UserName = model.Email,
 				Email = model.Email,
-				PhoneNumber = model.PhoneNumber,
+				PhoneNumber = model.PhoneNumber == null ? null : new string(model.PhoneNumber.Where(x => char.IsDigit(x)).ToArray()),
 				Name = model.Name,
 				Created = DateTime.UtcNow,
 				CityId = model.City?.Id
