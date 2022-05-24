@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddItemError" xml:space="preserve">
-    <value>Не удалось разместить это объявление.</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="ImageCountOutOfBounds" xml:space="preserve">
-    <value>Количество картинок превысило лимит.</value>
+  <data name="Found" xml:space="preserve">
+    <value>Found: {0}/{1}</value>
   </data>
-  <data name="ItemCountOutOfBounds" xml:space="preserve">
-    <value>Количество объявлений превысило лимит.</value>
+  <data name="MyItems" xml:space="preserve">
+    <value>My items</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
   </data>
 </root>

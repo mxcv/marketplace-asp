@@ -123,4 +123,7 @@
   <data name="ImageCountOutOfBounds" xml:space="preserve">
     <value>Image count is out of bounds.</value>
   </data>
+  <data name="ItemCountOutOfBounds" xml:space="preserve">
+    <value>Item count is out of bounds.</value>
+  </data>
 </root>

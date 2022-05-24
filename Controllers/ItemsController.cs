@@ -125,6 +125,11 @@ namespace Marketplace.Controllers
 				ModelState.AddModelError(string.Empty, localizer["ImageCountOutOfBounds"]);
 				return View(model);
 			}
+			catch (ItemCountOutOfBoundsException)
+			{
+				ModelState.AddModelError(string.Empty, localizer["ItemCountOutOfBounds"]);
+				return View(model);
+			}
 			catch
 			{
 				ModelState.AddModelError(string.Empty, localizer["AddItemError"]);

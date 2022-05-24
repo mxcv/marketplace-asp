@@ -1,4 +1,5 @@
-﻿@model UserItemsViewModel
+﻿@using Marketplace.Repositories
+@model UserItemsViewModel
 @inject IViewLocalizer Localizer
 @{
 	Debug.Assert(Model != null);
@@ -6,10 +7,13 @@
 }
 
 <form method="post">
-	<div class="d-flex justify-content-end">
-		<button type="button" id="select" class="btn btn-primary">@Localizer["Select"]</button>
-		<button type="button" id="cancel" class="btn btn-primary me-2 d-none">@Localizer["Cancel"]</button>
-		<button type="submit" id="remove" class="btn btn-danger d-none" disabled>@Localizer["Remove"]</button>
+	<div class="d-flex justify-content-between">
+		<div class="mt-4"><i>@Localizer["Found", Model.Items.TotalCount, ItemRepository.MaxItems]</i></div>
+		<div>
+			<button type="button" id="select" class="btn btn-primary">@Localizer["Select"]</button>
+			<button type="button" id="cancel" class="btn btn-primary me-2 d-none">@Localizer["Cancel"]</button>
+			<button type="submit" id="remove" class="btn btn-danger d-none" disabled>@Localizer["Remove"]</button>
+		</div>
 	</div>
 	@foreach(ItemDto item in Model.Items)
 	{

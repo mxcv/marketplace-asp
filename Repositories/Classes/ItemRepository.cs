@@ -11,6 +11,8 @@ namespace Marketplace.Repositories
 {
 	public partial class ItemRepository : IItemRepository
 	{
+		public static readonly int MaxItems = 20;
+
 		private readonly MarketplaceDbContext db;
 		private readonly UserManager<User> userManager;
 		private readonly IImageRepository imageRepository;
@@ -142,6 +144,9 @@ namespace Marketplace.Repositories
 		{
 			if (userId == null)
 				throw new UnauthorizedUserException();
+
+			if (await db.Items.Where(x => x.UserId == userId).CountAsync() >= MaxItems)
+				throw new ItemCountOutOfBoundsException();
 
 			Item item = new Item() {
 				Title = model.Title,
