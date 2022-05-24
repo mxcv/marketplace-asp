@@ -1,5 +1,4 @@
 ﻿@inject IViewLocalizer Localizer
-@inject SignInManager<User> SignInManager
 
 <!DOCTYPE html>
 <html lang="@System.Globalization.CultureInfo.CurrentUICulture.ToString()">
@@ -29,14 +28,27 @@
 						<li class="nav-item">
 							<a class="nav-link text-dark" asp-controller="Home" asp-action="Privacy">Privacy</a>
 						</li>
-						@if (SignInManager.IsSignedIn(User))
+						@if (User.Identity?.IsAuthenticated ?? false)
 						{
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Items" asp-action="My">@Localizer["MyItems"]</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-controller="Items" asp-action="Add">@Localizer["AddItem"]</a>
-							</li>
+							@if (User.IsInRole("Administrator"))
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="Admin" asp-action="Moderators">@Localizer["Moderators"]</a>
+								</li>
+							}
+							else if (User.IsInRole("Moderator"))
+							{
+
+							}
+							else if (User.IsInRole("Seller"))
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="Items" asp-action="My">@Localizer["MyItems"]</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-controller="Items" asp-action="Add">@Localizer["AddItem"]</a>
+								</li>
+							}
 							<li class="nav-item">
 								<form asp-controller="Account" asp-action="Logout" method="post" class="h-100">
 									<button type="submit" class="btn-reset nav-link text-dark h-100">@Localizer["Logout"]</button>

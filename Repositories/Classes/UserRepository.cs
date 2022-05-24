@@ -63,6 +63,51 @@ namespace Marketplace.Repositories
 			return await GetUser(userId.Value);
 		}
 
+		public async Task<IEnumerable<UserDto>> GetModerators()
+		{
+			int roleId = await db.Roles
+				.Where(x => x.Name == "Moderator")
+				.Select(x => x.Id)
+				.FirstAsync();
+
+			var userIds = await db.UserRoles
+				.Where(x => x.RoleId == roleId)
+				.Select(x => x.UserId)
+				.ToListAsync();
+
+			return await db.Users.Where(x => userIds.Contains(x.Id))
+				.Select(x => new UserDto() {
+					Id = x.Id,
+					Email = x.Email,
+					Created = x.Created
+				})
+				.ToListAsync();
+		}
+
+		public async Task<int> AddModerator(ModeratorRegisterViewModel model)
+		{
+			User user = new User() {
+				UserName = model.Email,
+				Email = model.Email,
+				Created = DateTime.UtcNow
+			};
+			var result = await userManager.CreateAsync(user, model.Password);
+			if (!result.Succeeded)
+				throw new ModelException(string.Join(Environment.NewLine, result.Errors.Select(x => x.Description)));
+
+			await userManager.AddToRoleAsync(user, "Moderator");
+			return user.Id;
+		}
+
+		public async Task RemoveModerator(int id)
+		{
+			User? user = await db.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
+			if (user == null || !await userManager.IsInRoleAsync(user, "Moderator"))
+				throw new NotFoundException();
+			db.Users.Remove(user);
+			await db.SaveChangesAsync();
+		}
+
 		public async Task<int> AddSeller(ApiRegisterViewModel model)
 		{
 			User user = new User() {

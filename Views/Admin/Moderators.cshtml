@@ -1,0 +1,47 @@
+﻿@model ModeratorsViewModel
+@inject IViewLocalizer Localizer
+@{
+	Debug.Assert(Model != null && Model.Moderators != null);
+	ViewData["Title"] = Localizer["Moderators"];
+}
+
+<form method="post" class="w-450 mb-3 clearfix">
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="mb-2">
+		<label asp-for="Register.Email"></label>
+		<span asp-validation-for="Register.Email" class="text-danger float-end"></span>
+		<input asp-for="Register.Email" class="form-control" autocomplete="off" />
+	</div>
+	<div class="mb-2">
+		<label asp-for="Register.Password"></label>
+		<span asp-validation-for="Register.Password" class="text-danger float-end"></span>
+		<input asp-for="Register.Password" class="form-control" />
+	</div>
+	<input type="submit" class="btn btn-primary px-4" value="@Localizer["Add"]" />
+</form>
+
+<h1 class="display-4">@Localizer["Moderators"]</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th>@Localizer["Email"]</th>
+			<th>@Localizer["Added"]</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var moderator in Model.Moderators)
+		{
+			<tr>
+				<td>@moderator.Email</td>
+				<td><span class="time-iso day">@moderator.Created.ToString("O")</span><span></span></td>
+				<td><a asp-action="Remove" asp-route-id="@moderator.Id">@Localizer["Remove"]</a></td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+@section Scripts {
+	<script src="~/js/external-info-loader.js"></script>
+	<script src="~/js/item-info-filler.js"></script>
+}
