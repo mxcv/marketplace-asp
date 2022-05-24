@@ -120,4 +120,7 @@
   <data name="Free" xml:space="preserve">
     <value>Бесплатно</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
 </root>

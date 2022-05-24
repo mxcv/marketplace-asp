@@ -1,7 +1,7 @@
 ﻿@model ItemDto
 @inject IViewLocalizer Localizer
 @{
-	Debug.Assert(Model != null);
+	Debug.Assert(Model != null && Model.User != null);
 	ViewData["Title"] = Model.Title;
 }
 
@@ -53,6 +53,10 @@
 	</div>
 	<div class="col-lg-4 mt-4 mt-lg-0">
 		@await Html.PartialAsync("UserPartial", new UserViewModel(Model.User, false))
+		@if (User.IsInRole("Moderator"))
+		{
+			<a asp-action="Remove" asp-route-id="@Model.Id" class="btn btn-danger w-100 mt-4">@Localizer["Remove"]</a>
+		}
 	</div>
 </div>
 

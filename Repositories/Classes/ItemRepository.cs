@@ -4,6 +4,7 @@ using Marketplace.Dto;
 using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Repositories
@@ -11,12 +12,14 @@ namespace Marketplace.Repositories
 	public partial class ItemRepository : IItemRepository
 	{
 		private readonly MarketplaceDbContext db;
+		private readonly UserManager<User> userManager;
 		private readonly IImageRepository imageRepository;
 		private readonly int? userId;
 
-		public ItemRepository(MarketplaceDbContext db, IImageRepository imageRepository, IPrincipal principal)
+		public ItemRepository(MarketplaceDbContext db, UserManager<User> userManager, IImageRepository imageRepository, IPrincipal principal)
 		{
 			this.db = db;
+			this.userManager = userManager;
 			this.imageRepository = imageRepository;
 
 			string? identifier = ((ClaimsPrincipal)principal).FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -199,7 +202,7 @@ namespace Marketplace.Repositories
 			Item? item = await db.Items.Where(x => x.Id == id).FirstOrDefaultAsync();
 			if (item == null)
 				throw new NotFoundException();
-			if (item.UserId != userId)
+			if (item.UserId != userId && !await userManager.IsInRoleAsync(await userManager.FindByIdAsync(userId.ToString()), "Moderator"))
 				throw new AccessDeniedException();
 
 			await imageRepository.RemoveItemFileImagesAsync(id);

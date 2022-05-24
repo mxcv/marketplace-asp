@@ -132,5 +132,13 @@ namespace Marketplace.Controllers
 			}
 			return RedirectToAction("My");
 		}
+
+		[Authorize(Roles = "Moderator")]
+		[HttpGet]
+		public async Task<IActionResult> Remove(int id)
+		{
+			await itemRepository.RemoveItemAsync(id);
+			return RedirectToAction("Index", "Home");
+		}
 	}
 }

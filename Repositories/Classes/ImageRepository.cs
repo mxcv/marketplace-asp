@@ -2,6 +2,7 @@
 using System.Security.Principal;
 using Marketplace.Exceptions;
 using Marketplace.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Repositories
@@ -12,12 +13,14 @@ namespace Marketplace.Repositories
 		private static readonly int MaxItemImages = 7;
 
 		private readonly MarketplaceDbContext db;
+		private readonly UserManager<User> userManager;
 		private readonly IWebHostEnvironment appEnvironment;
 		private readonly int? userId;
 
-		public ImageRepository(MarketplaceDbContext db, IWebHostEnvironment appEnvironment, IPrincipal principal)
+		public ImageRepository(MarketplaceDbContext db, UserManager<User> userManager, IWebHostEnvironment appEnvironment, IPrincipal principal)
 		{
 			this.db = db;
+			this.userManager = userManager;
 			this.appEnvironment = appEnvironment;
 			Directory.CreateDirectory(Path.Combine(appEnvironment.WebRootPath, DirectoryPath));
 
@@ -104,7 +107,7 @@ namespace Marketplace.Repositories
 				.FirstOrDefaultAsync();
 			if (item == null)
 				throw new NotFoundException();
-			if (item.UserId != userId)
+			if (item.UserId != userId && !await userManager.IsInRoleAsync(await userManager.FindByIdAsync(userId.ToString()), "Moderator"))
 				throw new AccessDeniedException();
 
 			foreach (ItemImage image in item.Images)

@@ -120,4 +120,7 @@
   <data name="Free" xml:space="preserve">
     <value>Free</value>
   </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
 </root>
