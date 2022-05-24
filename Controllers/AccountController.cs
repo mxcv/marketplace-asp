@@ -1,4 +1,5 @@
-﻿using Marketplace.Exceptions;
+﻿using Marketplace.Dto;
+using Marketplace.Exceptions;
 using Marketplace.Models;
 using Marketplace.Repositories;
 using Marketplace.ViewModels;
@@ -63,6 +64,9 @@ namespace Marketplace.Controllers
 			{
 				try
 				{
+					if (model.CityId != null)
+						model.City = new CityDto() { Id = model.CityId.Value };
+
 					if (model.Image == null)
 						await userRepository.AddSeller(model);
 					else
