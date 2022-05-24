@@ -75,7 +75,7 @@ namespace Marketplace.Controllers
 		private async Task<ClaimsIdentity?> GetIdentity(string userName, string password)
 		{
 			User user = await userManager.FindByNameAsync(userName);
-			if (user == null)
+			if (user == null || !await userManager.IsInRoleAsync(user, "Seller"))
 				return null;
 
 			if (userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, password) == PasswordVerificationResult.Failed)
@@ -83,7 +83,7 @@ namespace Marketplace.Controllers
 
 			var claims = new[] {
 				new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserName),
-				new Claim(ClaimsIdentity.DefaultRoleClaimType, string.Join(" ", await userManager.GetRolesAsync(user))),
+				new Claim(ClaimsIdentity.DefaultRoleClaimType, string.Join(",", await userManager.GetRolesAsync(user))),
 				new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 			};
 			return new ClaimsIdentity(claims, "token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
