@@ -30,6 +30,7 @@ body {
 .btn-reset {
 	padding: 0;
 	border: 0;
+	font-weight: normal;
 	background-color: transparent;
 	outline: none;
 }
