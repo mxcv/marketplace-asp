@@ -19,7 +19,7 @@ async function getValues(variable, path) {
 	if (!window[variable]) {
 		let valuesJSON = localStorage.getItem(variable);
 		if (!valuesJSON) {
-			let response = await fetch('api/' + path);
+			let response = await fetch(`${basePath}/api/${path}`);
 			if (!response.ok)
 				throw new Error(response.status);
 			valuesJSON = await response.text();
