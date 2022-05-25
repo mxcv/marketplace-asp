@@ -21,7 +21,7 @@
 					<div id="image-panel" class="d-flex overflow-hidden h-100 pb-5">
 						@foreach (var image in Model.Images)
 						{
-							<div><img src="@image.Path"></div>
+							<div><img src="@Url.Content("~" + image.Path)"></div>
 						}
 					</div>
 					<div id="indicator-panel" class="d-flex justify-content-center position-absolute bottom-0 w-100 pb-2"></div>

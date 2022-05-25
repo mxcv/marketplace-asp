@@ -12,7 +12,7 @@
 		}
 		else
 		{
-			<img class="item-image rounded" src="@Url.Content(Model.Images.First().Path)" alt="Item image" />
+			<img class="item-image rounded" src="@Url.Content("~" + Model.Images.First().Path)" alt="Item image" />
 		}
 	</a>
 	<div class="d-flex flex-column justify-content-between w-100 ms-3">

@@ -10,7 +10,7 @@
 	}
 	else
 	{
-		<img src="@Model.Reviewer.Image.Path" class="flex-shrink-0 rounded-circle avatar avatar-sm">
+		<img src="@Url.Content("~" + Model.Reviewer.Image.Path)" class="flex-shrink-0 rounded-circle avatar avatar-sm">
 	}
 	<div class="flex-grow-1 ms-2">
 		<div>@Model.Reviewer.Name</div>
