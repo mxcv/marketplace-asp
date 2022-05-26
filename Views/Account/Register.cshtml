@@ -57,7 +57,7 @@
 	<div class="mb-2">
 		<label asp-for="Image"></label>
 		<span asp-validation-for="Image" class="text-danger float-end"></span>
-		<input asp-for="Image" type="file" class="form-control" />
+		<input asp-for="Image" type="file" class="form-control" />remove-item
 	</div>
 	<div class="mb-2">
 		<label asp-for="Password"></label>
@@ -75,6 +75,6 @@
 </form>
 
 @section Scripts {
-	<script src="~/js/external-info-loader.js"></script>
-	<script src="~/js/select-filler.js"></script>
+	<script src="~/js/load-external-info.js"></script>
+	<script src="~/js/fill-selectors.js"></script>remove-item
 }
