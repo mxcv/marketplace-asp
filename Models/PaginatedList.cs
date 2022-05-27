@@ -13,7 +13,7 @@ namespace Marketplace.Models
 		{
 		}
 
-		public PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
+		private PaginatedList(List<T> items, int pageIndex, int pageSize, int count)
 		{
 			PageIndex = pageIndex;
 			PageSize = pageSize;

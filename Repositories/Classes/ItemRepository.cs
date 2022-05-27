@@ -93,6 +93,12 @@ namespace Marketplace.Repositories
 			else
 				items = items.Where(x => x.UserId == filter.UserId);
 
+			items = sortType switch {
+				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
+				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
+				_ => items.OrderByDescending(x => x.Created),
+			};
+
 			var itemsQuery = items.Select(x => GetDtoFromModel(x));
 			PaginatedList<ItemDto> paginatedList;
 
@@ -116,13 +122,6 @@ namespace Marketplace.Repositories
 			}
 			else
 				paginatedList = await PaginatedList<ItemDto>.CreateAsync(itemsQuery, pageIndex, pageSize);
-
-			IEnumerable<ItemDto> enumerable = sortType switch {
-				SortType.PriceAscending => paginatedList.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
-				SortType.PriceDescending => paginatedList.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
-				_ => paginatedList.OrderByDescending(x => x.Created),
-			};
-			paginatedList = new PaginatedList<ItemDto>(enumerable.ToList(), paginatedList.PageIndex, paginatedList.PageSize, paginatedList.TotalCount);
 
 			return new IndexViewModel(paginatedList, filter, sortType);
 		}
