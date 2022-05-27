@@ -2,12 +2,11 @@
 @inject IViewLocalizer Localizer
 @{
 	Debug.Assert(Model != null && Model.Items != null && Model.Filter != null);
-	ViewData["Title"] = "Home";
+	ViewData["Title"] = Localizer["Home"];
 }
 
-<div class="text-center">
-	<h1 class="display-4">Welcome</h1>
-	<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mb-5">
+	<h1 class="display-2">Marketplace</h1>
 </div>
 
 <form asp-controller="Items" asp-action="Index" method="get">

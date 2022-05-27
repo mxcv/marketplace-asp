@@ -135,6 +135,9 @@
   <data name="MyItems" xml:space="preserve">
     <value>Мои объявления</value>
   </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Конфидециальность</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>

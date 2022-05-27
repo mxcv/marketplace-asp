@@ -135,6 +135,9 @@
   <data name="MyItems" xml:space="preserve">
     <value>My items</value>
   </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
   <data name="Register" xml:space="preserve">
     <value>Sign up</value>
   </data>
