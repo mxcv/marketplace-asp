@@ -93,35 +93,36 @@ namespace Marketplace.Repositories
 			else
 				items = items.Where(x => x.UserId == filter.UserId);
 
-			items = sortType switch {
-				SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
-				SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
-				_ => items.OrderByDescending(x => x.Created),
-			};
-
-			var itemsQuery = items.Select(x => GetDtoFromModel(x));
+			
 			PaginatedList<ItemDto> paginatedList;
-
-			if (filter.CurrencyId != null)
+			if (filter.CurrencyId == null)
 			{
-				if (filter.MinPrice == null && filter.MaxPrice == null)
+				items = sortType switch {
+					SortType.PriceAscending => items.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value),
+					SortType.PriceDescending => items.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value),
+					_ => items.OrderByDescending(x => x.Created),
+				};
+				paginatedList = await PaginatedList<ItemDto>.CreateAsync(items.Select(x => GetDtoFromModel(x)), pageIndex, pageSize);
+			}
+			else
+			{
+				var list = await items.Select(x => GetDtoFromModel(x)).ToListAsync();
+				await ConvertCurrenciesAsync(list, filter.CurrencyId.Value);
+				if (filter.MinPrice != null || filter.MaxPrice != null)
 				{
-					paginatedList = await PaginatedList<ItemDto>.CreateAsync(itemsQuery, pageIndex, pageSize);
-					await ConvertCurrenciesAsync(paginatedList, filter.CurrencyId.Value);
-				}
-				else
-				{
-					var list = await itemsQuery.ToListAsync();
-					await ConvertCurrenciesAsync(list, filter.CurrencyId.Value);
 					list = list.Where(x => x.Price != null
 						&& (filter.MinPrice == null || x.Price >= filter.MinPrice)
 						&& (filter.MaxPrice == null || x.Price <= filter.MaxPrice)
 					).ToList();
-					paginatedList = PaginatedList<ItemDto>.Create(list, pageIndex, pageSize);
 				}
+				list = sortType switch {
+					SortType.PriceAscending => list.OrderBy(x => x.Price == null ? decimal.MaxValue : x.Price.Value).ToList(),
+					SortType.PriceDescending => list.OrderByDescending(x => x.Price == null ? decimal.MinValue : x.Price.Value).ToList(),
+					_ => list.OrderByDescending(x => x.Created).ToList(),
+				};
+				paginatedList = PaginatedList<ItemDto>.Create(list, pageIndex, pageSize);
+				
 			}
-			else
-				paginatedList = await PaginatedList<ItemDto>.CreateAsync(itemsQuery, pageIndex, pageSize);
 
 			return new IndexViewModel(paginatedList, filter, sortType);
 		}
