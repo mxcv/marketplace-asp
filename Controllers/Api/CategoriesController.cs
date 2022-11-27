@@ -1,39 +1,23 @@
-﻿using System.Globalization;
-using Marketplace.Dto;
-using Marketplace.Models;
+﻿using Marketplace.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class CategoriesController : ControllerBase
 	{
-		private readonly MarketplaceDbContext db;
+        private readonly ICategoryRepository categoryRepository;
 
-		public CategoriesController(MarketplaceDbContext db)
+        public CategoriesController(ICategoryRepository categoryRepository)
 		{
-			this.db = db;
-		}
+            this.categoryRepository = categoryRepository;
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			int languageId = (await db.Languages
-				.Where(x => x.Code == CultureInfo.CurrentUICulture.ToString())
-				.FirstOrDefaultAsync())
-				?.Id ?? 1;
-
-			return Ok(await db.CategoryTitles
-				.Where(x => x.LanguageId == languageId)
-				.OrderBy(x => x.Value)
-				.Select(x => new CategoryDto() {
-					Id = x.CategoryId,
-					Title = x.Value
-				})
-				.ToListAsync()
-			);
+			return Ok(await categoryRepository.GetCategoriesAsync());
 		}
 	}
 }
