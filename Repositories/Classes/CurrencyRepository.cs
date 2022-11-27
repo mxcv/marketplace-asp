@@ -1,10 +1,9 @@
 ﻿using Marketplace.Dto;
 using Marketplace.Models;
-using Marketplace.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 
-namespace Marketplace.Repositories.Classes
+namespace Marketplace.Repositories
 {
     public class CurrencyRepository : ICurrencyRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Marketplace.Dto;
 
-namespace Marketplace.Repositories.Interfaces
+namespace Marketplace.Repositories
 {
     public interface ICurrencyRepository
     {

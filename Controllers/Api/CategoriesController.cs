@@ -1,4 +1,4 @@
-﻿using Marketplace.Repositories.Interfaces;
+﻿using Marketplace.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
